@@ -1,0 +1,58 @@
+import { ClaudeVoiceSession, createClaudeClient } from './adapters/claude'
+import { DemoVoiceSession } from './adapters/demo'
+import { GeminiVoiceSession } from './adapters/gemini'
+import { OpenAIVoiceSession } from './adapters/openai'
+import { ProviderError, type ProviderId, type VoiceSession, type VoiceSessionConfig } from './types'
+
+export interface ProviderInfo {
+  id: ProviderId
+  name: string
+  keyUrl: string
+  /** Browser speech instead of the provider's own voice. */
+  basicVoice: boolean
+}
+
+export const PROVIDERS: ProviderInfo[] = [
+  { id: 'openai', name: 'OpenAI', keyUrl: 'https://platform.openai.com/api-keys', basicVoice: false },
+  { id: 'gemini', name: 'Google Gemini', keyUrl: 'https://aistudio.google.com/apikey', basicVoice: false },
+  { id: 'claude', name: 'Anthropic Claude', keyUrl: 'https://platform.claude.com/settings/keys', basicVoice: true },
+  ...(import.meta.env.DEV
+    ? [{ id: 'demo' as const, name: 'Demo (dev only)', keyUrl: '', basicVoice: false }]
+    : []),
+]
+
+export function createVoiceSession(provider: ProviderId, config: VoiceSessionConfig): VoiceSession {
+  switch (provider) {
+    case 'openai':
+      return new OpenAIVoiceSession(config)
+    case 'gemini':
+      return new GeminiVoiceSession(config)
+    case 'claude':
+      return new ClaudeVoiceSession(config)
+    case 'demo':
+      return new DemoVoiceSession(config)
+  }
+}
+
+/** Checks the key with a free model listing, so a typo shows up before the interview starts. */
+export async function verifyKey(provider: ProviderId, apiKey: string): Promise<void> {
+  switch (provider) {
+    case 'openai':
+      return checkResponse(await fetch('https://api.openai.com/v1/models', { headers: { Authorization: `Bearer ${apiKey}` } }))
+    case 'gemini':
+      return checkResponse(
+        await fetch('https://generativelanguage.googleapis.com/v1beta/models?pageSize=1', {
+          headers: { 'x-goog-api-key': apiKey },
+        }),
+      )
+    case 'claude':
+      await createClaudeClient(apiKey).models.list({ limit: 1 })
+      return
+    case 'demo':
+      return
+  }
+}
+
+async function checkResponse(response: Response): Promise<void> {
+  if (!response.ok) throw new ProviderError(`HTTP ${response.status}`)
+}

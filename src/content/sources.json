@@ -1,0 +1,21 @@
+{
+  "gg1": { "label": "Grundgesetz, Art. 1", "url": "https://www.gesetze-im-internet.de/gg/art_1.html" },
+  "gg2": { "label": "Grundgesetz, Art. 2", "url": "https://www.gesetze-im-internet.de/gg/art_2.html" },
+  "gg3": { "label": "Grundgesetz, Art. 3", "url": "https://www.gesetze-im-internet.de/gg/art_3.html" },
+  "gg4": { "label": "Grundgesetz, Art. 4", "url": "https://www.gesetze-im-internet.de/gg/art_4.html" },
+  "gg19": { "label": "Grundgesetz, Art. 19", "url": "https://www.gesetze-im-internet.de/gg/art_19.html" },
+  "gg20": { "label": "Grundgesetz, Art. 20", "url": "https://www.gesetze-im-internet.de/gg/art_20.html" },
+  "gg21": { "label": "Grundgesetz, Art. 21", "url": "https://www.gesetze-im-internet.de/gg/art_21.html" },
+  "gg26": { "label": "Grundgesetz, Art. 26", "url": "https://www.gesetze-im-internet.de/gg/art_26.html" },
+  "gg38": { "label": "Grundgesetz, Art. 38", "url": "https://www.gesetze-im-internet.de/gg/art_38.html" },
+  "gg67": { "label": "Grundgesetz, Art. 67", "url": "https://www.gesetze-im-internet.de/gg/art_67.html" },
+  "gg97": { "label": "Grundgesetz, Art. 97", "url": "https://www.gesetze-im-internet.de/gg/art_97.html" },
+  "stag10": { "label": "Staatsangehörigkeitsgesetz, § 10", "url": "https://www.gesetze-im-internet.de/stag/__10.html" },
+  "stag11": { "label": "Staatsangehörigkeitsgesetz, § 11", "url": "https://www.gesetze-im-internet.de/stag/__11.html" },
+  "stag35": { "label": "Staatsangehörigkeitsgesetz, § 35", "url": "https://www.gesetze-im-internet.de/stag/__35.html" },
+  "stgb130": { "label": "Strafgesetzbuch, § 130", "url": "https://www.gesetze-im-internet.de/stgb/__130.html" },
+  "nrw": { "label": "Recht NRW (Landesverfassung)", "url": "https://recht.nrw.de/" },
+  "nrwErlass": { "label": "NRW: Ausführungserlass zum Staatsangehörigkeitsrecht (2022)", "url": "https://recht.nrw.de/lrmb/verwaltungsvorschrift/ausfuehrungserlass-zum-staatsangehoerigkeitsrecht/" },
+  "bfv": { "label": "Bundesamt für Verfassungsschutz", "url": "https://www.verfassungsschutz.de/" },
+  "bpb": { "label": "Bundeszentrale für politische Bildung", "url": "https://www.bpb.de/" }
+}

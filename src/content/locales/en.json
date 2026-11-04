@@ -1,0 +1,302 @@
+{
+  "name": "English",
+  "promptLanguage": "English",
+  "ui": {
+    "appName": "Einbürgerung Coach",
+    "tagline": "Prepare for the German citizenship conversation",
+    "intro": "Study a question, then take a short spoken interview in German and get a review. Understanding the idea matters most: this is not a language exam.",
+    "disclaimerTitle": "Please note",
+    "disclaimer": "This is study material, not an official question list and not legal advice. The questions are based on examples published online and on material from different German states. The content and format of the conversation depend on the authority. Check the current requirements with your own authority in NRW.",
+    "questionsTitle": "Questions",
+    "blocks": {
+      "democracy": "Democratic order",
+      "rights": "Rights and human dignity",
+      "history": "History and Israel",
+      "extremism": "Extremism",
+      "summary": "Summary",
+      "extra": "Additional: not in the original set of examples"
+    },
+    "connect": {
+      "title": "Connect an AI",
+      "description": "You need your own API key. A regular subscription (Claude, ChatGPT, Gemini) does not work here, and the provider charges for what you use.",
+      "provider": "Provider",
+      "apiKey": "API key",
+      "getKey": "Create a key",
+      "submit": "Connect",
+      "checking": "Checking the key…",
+      "connectedAs": "Connected",
+      "disconnect": "Disconnect",
+      "invalidKey": "Could not connect. Please check the key.",
+      "basicVoice": "Basic voice: the browser recognizes and speaks the text. It works best in Chrome and Edge.",
+      "nativeVoice": "The provider's native voice.",
+      "safety": "The key stays only in this tab's memory and is sent only to the provider you chose. It disappears when you close or reload the tab. Set a spending limit with the provider, and preferably create a separate key for this site."
+    },
+    "question": {
+      "back": "All questions",
+      "previous": "Previous",
+      "next": "Next",
+      "progress": "Question {current} of {total}",
+      "showTranslation": "Show translation",
+      "hideTranslation": "Hide translation",
+      "variants": "Other ways to ask",
+      "keyIdeas": "Key ideas",
+      "shortAnswer": "Short answer (A2)",
+      "fullAnswer": "Full answer (B1)",
+      "mistakes": "Common mistakes",
+      "glossary": "Vocabulary",
+      "sources": "Sources",
+      "placeholders": "Replace the words in [brackets] with your own details."
+    },
+    "interview": {
+      "title": "Interview",
+      "description": "The agent asks this question and a few follow-ups, then you get a review. A session lasts up to 10 minutes and starts fresh on every page.",
+      "start": "Start the interview",
+      "connectFirst": "Connect a provider first:",
+      "connecting": "Connecting…",
+      "speaking": "The examiner is speaking…",
+      "thinking": "The examiner is thinking…",
+      "yourTurn": "Your turn",
+      "recording": "Recording",
+      "startAnswer": "Start answer",
+      "finishAnswer": "Finish answer",
+      "typed": "Or type your answer",
+      "send": "Send",
+      "noMic": "The microphone or speech recognition is unavailable, so please type your answers.",
+      "finish": "Finish and get the review",
+      "timeWarning": "One minute left.",
+      "reviewing": "Preparing the review…",
+      "noAnswers": "You have not answered any question yet, so there is nothing to review.",
+      "failed": "Something went wrong:",
+      "again": "Start again"
+    },
+    "review": {
+      "title": "Review",
+      "readiness": { "ready": "Ready", "almost": "Almost ready", "repeat": "Needs more practice" },
+      "correct": "What went well",
+      "toFix": "What to fix",
+      "languageNotes": "Language, where it affected the meaning",
+      "improvedAnswer": "Improved answer",
+      "transcript": "Transcript",
+      "examiner": "Examiner",
+      "applicant": "You"
+    }
+  },
+  "questions": {
+    "fdgo": {
+      "question": "What do you understand by the free democratic basic order?",
+      "variants": ["What does fdGO mean to you?", "Which principles belong to our constitutional order?", "What did you confirm with your signature on the commitment?"],
+      "keyIdeas": ["Its basis: human dignity, democracy and the rule of law.", "The people elect parliament in free elections, with parties and an opposition.", "Courts are independent and the state itself is bound by law.", "Dictatorship and arbitrary rule are excluded."],
+      "shortAnswer": "These are the basic rules of our state. The people elect the parliament. Everyone must obey the laws. Every person has dignity and basic rights.",
+      "fullAnswer": "The free democratic basic order is the foundation of our state. It includes human dignity, democracy and the rule of law. The people elect parliament in free elections, and there are several parties and an opposition. The courts are independent, and the state must obey the law too. This excludes dictatorship and arbitrary state power.",
+      "mistakes": ["Saying only \"democracy\" without explaining what it means in practice.", "Repeating a memorized sentence you cannot explain with an example."],
+      "glossary": [{ "term": "die Grundordnung", "meaning": "basic order" }, { "term": "die Willkür", "meaning": "arbitrariness, arbitrary rule" }]
+    },
+    "volkssouveraenitaet": {
+      "question": "What does popular sovereignty mean?",
+      "variants": ["From whom does state authority come in Germany?", "How can citizens influence politics?", "Why are free elections so important?"],
+      "keyIdeas": ["All state authority comes from the people.", "Elections are general, free, equal and secret.", "Elected members of parliament make the laws.", "Direct votes are rare at federal level but exist in NRW and its towns."],
+      "shortAnswer": "Power in the state comes from the people. Citizens elect the parliament. Elections are free and secret.",
+      "fullAnswer": "Popular sovereignty means that all state authority comes from the people. Citizens elect the Bundestag and the state parliaments in general, free, equal and secret elections. The elected members then make the laws. Direct votes are very rare at federal level, but North Rhine-Westphalia has popular initiatives, for example, and towns have citizens' referendums.",
+      "mistakes": ["Claiming that citizens often decide federal matters by referendum.", "Saying that power belongs to the government."],
+      "glossary": [{ "term": "die Staatsgewalt", "meaning": "state authority" }, { "term": "der Bürgerentscheid", "meaning": "local citizens' referendum" }]
+    },
+    "rechtsstaat": {
+      "question": "What is meant by the rule of law?",
+      "variants": ["What does it mean that Germany is a state under the rule of law?", "Is anyone in Germany above the law?", "What can you do if an authority makes a wrong decision?"],
+      "keyIdeas": ["Nobody is above the law, including the state.", "Parliament is bound by the constitution; government and courts by law and justice.", "An authority's decision can be challenged in an independent court."],
+      "shortAnswer": "Nobody is above the law. The state must obey the laws too. If an authority decides wrongly, I can go to court.",
+      "fullAnswer": "Under the rule of law, the law applies to everyone, including politicians, authorities and the police. Parliament is bound by the constitution, and government and courts are bound by law and justice. If an authority violates my rights, I can sue in an independent court. In this way the law protects people from arbitrary state power.",
+      "mistakes": ["Talking only about citizens obeying laws and forgetting the state.", "Not mentioning the option of going to court."],
+      "glossary": [{ "term": "klagen", "meaning": "to sue" }, { "term": "die Behörde", "meaning": "public authority" }]
+    },
+    "opposition": {
+      "question": "Why is a parliamentary opposition important?",
+      "variants": ["What is the opposition's job?", "Why does Germany have several parties?", "What would happen if there were only one party?"],
+      "keyIdeas": ["The opposition is the parties in parliament that are not in government.", "It scrutinizes the government and offers alternatives.", "After an election it can come to power itself."],
+      "shortAnswer": "The opposition is the parties that do not govern. It checks and criticizes the government. At the next election it can become the government.",
+      "fullAnswer": "The opposition consists of the parties in parliament that are not in government. It asks questions, criticizes mistakes and makes other proposals. This matters because it keeps power under control. Voters also have a real choice, because the opposition can take over government after an election. A one-party system would make this impossible.",
+      "mistakes": ["Treating the opposition as an enemy of the state.", "Saying only \"it criticizes\" without explaining why democracy needs that."],
+      "glossary": [{ "term": "die Opposition", "meaning": "opposition" }, { "term": "die Macht", "meaning": "power" }]
+    },
+    "regierung": {
+      "question": "What does it mean that the government is accountable and replaceable?",
+      "variants": ["Who oversees the federal government?", "How can a government be replaced in Germany?", "What happens if the Bundestag majority no longer trusts the chancellor?"],
+      "keyIdeas": ["The government answers to the Bundestag.", "Power is temporary: voters can choose differently.", "A constructive vote of no confidence can replace the chancellor."],
+      "shortAnswer": "The government must explain its work to parliament. The Bundestag oversees it. The government can change through elections.",
+      "fullAnswer": "The federal government must answer to the Bundestag, and parliament decides on the budget. It holds power only for a time, because citizens can decide differently at the next election. The Bundestag can also remove the chancellor earlier if a majority elects a new chancellor at the same time. This is called a constructive vote of no confidence.",
+      "mistakes": ["Saying the chancellor can simply be dismissed without electing a successor.", "Confusing the Bundestag with the federal government."],
+      "glossary": [{ "term": "ablösbar", "meaning": "replaceable" }, { "term": "das konstruktive Misstrauensvotum", "meaning": "vote of no confidence that also elects a new chancellor" }]
+    },
+    "gerichte": {
+      "question": "What does the independence of the courts mean?",
+      "variants": ["May the government tell a judge how to decide?", "Why must courts be independent?", "Can a court decide against the state?"],
+      "keyIdeas": ["Judges are independent and subject only to the law.", "Government and parliament give no instructions on cases.", "Courts can rule against the state and check its power."],
+      "shortAnswer": "Judges decide only according to the law. The government cannot give them orders. A court can also decide against the state.",
+      "fullAnswer": "Judges are independent and subject only to the law. Neither the government nor parliament may tell them how to decide a case. This is why courts can rule against the state and check its power. The Federal Constitutional Court can even strike down laws that violate the Basic Law.",
+      "mistakes": ["Saying that courts report to a minister.", "Not explaining why independence matters: to check power and protect people."],
+      "glossary": [{ "term": "unabhängig", "meaning": "independent" }, { "term": "das Bundesverfassungsgericht", "meaning": "Federal Constitutional Court" }]
+    },
+    "willkuer": {
+      "question": "What does it mean that rule by violence and arbitrariness is excluded?",
+      "variants": ["Why is dictatorship not allowed in Germany?", "When may the state use force?", "What is arbitrary state power?"],
+      "keyIdeas": ["Nobody may rule alone and as they please.", "State decisions need a legal basis and can be reviewed by courts.", "Force is essentially for the state, within the law and proportionately."],
+      "shortAnswer": "The state cannot do what it likes. It must obey the laws. The police may use force only when the law allows it and it is necessary.",
+      "fullAnswer": "It means that nobody may rule alone and as they please. Every state decision needs a legal basis and can be reviewed by the courts. In principle only the state may use force, for example the police, and only when the law allows it and it is proportionate. A private person may defend themselves only in self-defense.",
+      "mistakes": ["Saying the police may use force whenever they think it necessary.", "Saying force is banned for everyone with no exceptions: self-defense is allowed."],
+      "glossary": [{ "term": "verhältnismäßig", "meaning": "proportionate" }, { "term": "die Notwehr", "meaning": "self-defense" }]
+    },
+    "menschenrechte": {
+      "question": "What are the human rights in the Basic Law?",
+      "variants": ["Which basic rights do you know?", "Please name two or three basic rights.", "May the state restrict basic rights?"],
+      "keyIdeas": ["Basic rights are mainly in Articles 1 to 19.", "Human dignity is inviolable.", "Some rights belong to everyone, some only to German citizens.", "The NRW constitution incorporates these basic rights."],
+      "shortAnswer": "Every person has dignity. There is the right to life, equality before the law and freedom of opinion. Religion is free too.",
+      "fullAnswer": "Basic rights are mainly in Articles 1 to 19 of the Basic Law. Human dignity is inviolable. Also important are the right to life, equality before the law, freedom of opinion and freedom of religion. Many rights apply to all people, some only to Germans, such as freedom of assembly. The state may restrict other basic rights only by law and within narrow limits. The constitution of North Rhine-Westphalia incorporates these basic rights.",
+      "mistakes": ["Saying no basic right can ever be restricted: human dignity is the one with no restriction.", "Naming only social benefits and forgetting the basic freedoms."],
+      "glossary": [{ "term": "unantastbar", "meaning": "inviolable" }, { "term": "das Grundrecht", "meaning": "basic right" }]
+    },
+    "menschenwuerde": {
+      "question": "Why are antisemitic or racist acts incompatible with human dignity?",
+      "variants": ["What does the sentence \"Human dignity is inviolable\" mean?", "What do you do if someone insults people because of their origin?", "What do antisemitism and racism have to do with our constitution?"],
+      "keyIdeas": ["Every person has equal worth.", "Antisemitism and racism treat people as worth less because of their group.", "The nationality law expressly calls such acts a violation of the basic order."],
+      "shortAnswer": "Every person has the same worth. Antisemitism and racism say that some people are worth less. That goes against human dignity.",
+      "fullAnswer": "Human dignity belongs to every person, whatever their origin, religion or skin color. Antisemitism and racism, by contrast, treat people as worth less just because they belong to a group. This is why the nationality law expressly says that such acts violate the free democratic basic order. If I experience this, I object, or I get help if it is dangerous.",
+      "mistakes": ["Speaking in general terms without linking it to human dignity.", "Justifying hostility towards Jews with events in other countries."],
+      "glossary": [{ "term": "menschenverachtend", "meaning": "inhumane, showing contempt for people" }, { "term": "widersprechen", "meaning": "to object" }]
+    },
+    "verantwortung": {
+      "question": "What does the commitment to Germany's special historical responsibility mean?",
+      "variants": ["Why does Germany have a special responsibility?", "Why must new citizens take on this responsibility too?", "What does the ban on wars of aggression mean?"],
+      "keyIdeas": ["The basis is the crimes of National Socialism.", "Above all it means protecting Jewish life.", "It also covers peaceful coexistence and the ban on wars of aggression.", "It is responsibility for the future, not personal guilt of new citizens."],
+      "shortAnswer": "Germany committed terrible crimes under National Socialism. That is why Germany protects Jewish life today. Germany wants peace and may not wage a war of aggression.",
+      "fullAnswer": "Because of the crimes of National Socialism, Germany has a special responsibility. Above all this means protecting Jewish life. It also includes peaceful coexistence between peoples and the ban on waging a war of aggression. Defense remains allowed. Even if my family and I had nothing to do with those events, as a German citizen I take on this responsibility for the future.",
+      "mistakes": ["Saying Germany may never use military force at all: the ban is on wars of aggression.", "Answering \"this has nothing to do with me\"."],
+      "glossary": [{ "term": "der Angriffskrieg", "meaning": "war of aggression" }, { "term": "die Verantwortung", "meaning": "responsibility" }]
+    },
+    "israel": {
+      "question": "What is meant by Israel's right to exist, and why is it especially important for Germany?",
+      "variants": ["What is your position on Israel's right to exist?", "Why does Germany have a special relationship with Israel?", "May one criticize the policies of the Israeli government?"],
+      "keyIdeas": ["Israel has the right to exist and live in security.", "Its importance stems from the Holocaust and historical responsibility.", "Criticizing a government's policy is allowed; denying the right to exist is not acceptable.", "Jews must not be blamed for Israeli policy."],
+      "shortAnswer": "Israel has the right to exist as a safe state. Because of the Holocaust, this is especially important for Germany. You can criticize the government, but you must not reject Israel's existence.",
+      "fullAnswer": "The right to exist means that the state of Israel may exist and live in security. This is especially important for Germany because the National Socialists murdered six million Jews. This history is the reason for the special responsibility. You can criticize the policies of an Israeli government, as with any other state. But anyone who denies Israel's right to exist or blames Jews for those policies crosses a clear line.",
+      "mistakes": ["Mixing up criticism of the Israeli government with hostility towards Jews.", "Using someone else's words without understanding them: if you have doubts, work through them beforehand."],
+      "glossary": [{ "term": "das Existenzrecht", "meaning": "right to exist" }, { "term": "die Sicherheit", "meaning": "security" }]
+    },
+    "extremismus-erklaerung": {
+      "question": "What do you declare about extremism in the loyalty declaration?",
+      "variants": ["What do you confirm with your signature?", "What happens if the declaration is false?", "What do you do if you supported such a group in the past?"],
+      "keyIdeas": ["I do not pursue or support such aims, now or in the past.", "Past involvement must be disclosed, with credible proof that I have turned away.", "A false declaration can lead to the naturalization being revoked."],
+      "shortAnswer": "I declare that I do not pursue or support extremist aims. This applies to today and the past. If the declaration is false, I can lose my naturalization.",
+      "fullAnswer": "I declare that I do not pursue or support efforts against the free democratic basic order or the security of the state, and that I have not done so in the past. If I supported something earlier, I must say so openly and credibly show that I have turned away from it. A false declaration is dangerous, because a naturalization can later be revoked on that basis.",
+      "mistakes": ["Treating the declaration as a formality.", "Hiding the past instead of getting legal advice or counseling."],
+      "glossary": [{ "term": "die Loyalitätserklärung", "meaning": "loyalty declaration" }, { "term": "glaubhaft machen", "meaning": "to show credibly" }]
+    },
+    "extremismus-gruende": {
+      "question": "Which extremist efforts prevent you from being naturalized?",
+      "variants": ["Which aims does the loyalty declaration address?", "When does the authority refuse naturalization because of extremism?", "Give an example of anti-constitutional efforts."],
+      "keyIdeas": ["Against the basic order, the existence or security of the federation or a state.", "Unlawful pressure on constitutional bodies.", "Violence from Germany that endangers its foreign interests.", "Antisemitic, racist and inhumane acts."],
+      "shortAnswer": "You will not be naturalized if you want to abolish democracy. The same applies if you use or support violence for political aims.",
+      "fullAnswer": "These are efforts against the free democratic basic order, or against the existence or security of the federation or a state. This also includes putting unlawful pressure on constitutional bodies such as the Bundestag. It further covers violence that, from Germany, endangers its foreign interests. Antisemitic, racist or inhumane acts also violate the basic order.",
+      "mistakes": ["Thinking that any criticism of the government leads to refusal.", "Saying that only formal membership of an organization matters."],
+      "glossary": [{ "term": "die Bestrebung", "meaning": "effort, activity with an aim" }, { "term": "das Verfassungsorgan", "meaning": "constitutional body" }]
+    },
+    "extremismus-erkennen": {
+      "question": "How do you recognize extremist efforts?",
+      "variants": ["What is extremism to you?", "Which forms of extremism do you know?", "Is all criticism of the government extremist?"],
+      "keyIdeas": ["Rejecting human dignity, democracy and the rule of law.", "Justifying violence and inciting hatred against groups.", "Forms: right-wing and left-wing extremism, Islamism, foreign-related extremism.", "Normal criticism and peaceful protest are part of democracy."],
+      "shortAnswer": "Extremists want to abolish democracy. They often want violence or hate certain people. But criticizing the government is not extremism.",
+      "fullAnswer": "Extremists reject core values such as human dignity, democracy and the rule of law. They often justify violence or incite hatred against people because of origin, religion or opinion. Distinctions include right-wing extremism, left-wing extremism, Islamism and foreign-related extremism. Normal criticism of the government, peaceful demonstrations and different political opinions are allowed and are part of democracy.",
+      "mistakes": ["Calling any opposition extremist.", "Associating extremism with a whole religion or nationality."],
+      "glossary": [{ "term": "hetzen", "meaning": "to incite hatred" }, { "term": "auslandsbezogener Extremismus", "meaning": "extremism linked to foreign countries and conflicts" }]
+    },
+    "extremismus-unterstuetzung": {
+      "question": "Which actions count as supporting extremist efforts?",
+      "variants": ["Do you have to be a member to support a group?", "Is a donation to an extremist group also support?", "What do you do if you are unsure whether a group is extremist?"],
+      "keyIdeas": ["Any help to a group can count, even without membership.", "Examples: money, online promotion, organizing events.", "It depends on the individual case, so get advice if in doubt."],
+      "shortAnswer": "Support means helping such a group. That can be money, promotion or organizing. You do not have to be a member.",
+      "fullAnswer": "Support can be any action that helps an extremist group, even without membership. Examples are donations, online promotion, organizing events or collecting money. It does depend on the individual case, however. If I am unsure, I look for information, for example from the domestic intelligence service, and speak openly with the authority or a counseling center before I sign.",
+      "mistakes": ["Thinking it does not count as support without formal membership.", "Signing the declaration without clearing up your doubts."],
+      "glossary": [{ "term": "unterstützen", "meaning": "to support" }, { "term": "die Spende", "meaning": "donation" }]
+    },
+    "zusammenfassung": {
+      "question": "Can you briefly summarize what you commit to?",
+      "variants": ["What do the commitment and the loyalty declaration say?", "What did you understand before you signed?", "Please explain the commitment in your own words."],
+      "keyIdeas": ["Commitment to the free democratic basic order.", "A declaration that I support no efforts against it.", "Rejection of antisemitic, racist and inhumane acts.", "Historical responsibility, peace and the ban on wars of aggression."],
+      "shortAnswer": "I accept democracy and the Basic Law. I do not support extremism. I reject antisemitism and racism and share Germany's historical responsibility.",
+      "fullAnswer": "I commit to the free democratic basic order, meaning human dignity, democracy and the rule of law. I declare that I do not pursue or support efforts against it. I reject antisemitic, racist and other inhumane acts. I also commit to Germany's special historical responsibility, above all the protection of Jewish life, and to peaceful coexistence between peoples and the ban on wars of aggression.",
+      "mistakes": ["Calling it an oath: it is a commitment and a declaration.", "Memorizing the text and being unable to explain a single point."],
+      "glossary": [{ "term": "das Bekenntnis", "meaning": "commitment, declaration of allegiance" }, { "term": "ablehnen", "meaning": "to reject" }]
+    },
+    "nationalsozialismus": {
+      "question": "What was National Socialism?",
+      "variants": ["What happened in Germany between 1933 and 1945?", "Why is this period called a regime of injustice?", "What did the Basic Law learn from this time?"],
+      "keyIdeas": ["Hitler's dictatorship from 1933 to 1945.", "Abolition of democracy and freedoms, persecution of dissenters.", "Racist and antisemitic ideology; war begun in 1939.", "The Basic Law was a response to this."],
+      "shortAnswer": "From 1933 to 1945, Germany was a dictatorship under Hitler. There was no freedom. Many people were persecuted and murdered. Germany started the Second World War.",
+      "fullAnswer": "National Socialism was the dictatorship under Adolf Hitler from 1933 to 1945. The Nazis abolished democracy, free parties and press freedom and persecuted dissenters. Their ideology was racist and antisemitic. In 1939 Germany started the Second World War and committed grave crimes. The Basic Law was written partly as a response, which is why human dignity comes right at its start.",
+      "mistakes": ["Downplaying the crimes or comparing them to excuse them.", "Talking only about the war and omitting the dictatorship and persecution."],
+      "glossary": [{ "term": "die Diktatur", "meaning": "dictatorship" }, { "term": "verfolgen", "meaning": "to persecute" }]
+    },
+    "holocaust": {
+      "question": "What was the Holocaust?",
+      "variants": ["What does the term Shoah mean?", "Who was persecuted and murdered under National Socialism?", "Why does remembering it still matter today?"],
+      "keyIdeas": ["The systematic murder of about six million European Jews.", "There were other groups of victims too.", "Remembrance guards against repetition and calls for opposing antisemitism."],
+      "shortAnswer": "The Holocaust was the murder of about six million Jews in Europe. The National Socialists planned and carried it out. We must remember it so that it never happens again.",
+      "fullAnswer": "The Holocaust, Shoah in Hebrew, was the systematic murder of about six million European Jews by the National Socialists. Sinti and Roma, people with disabilities, political opponents, homosexual people and other groups were also persecuted and murdered. Remembrance matters because it shows where hatred and the loss of democracy can lead. So we must oppose antisemitism today too.",
+      "mistakes": ["Giving wrong figures or casting doubt on the scale.", "Saying \"that was long ago and no longer matters\"."],
+      "glossary": [{ "term": "ermorden", "meaning": "to murder" }, { "term": "die Erinnerung", "meaning": "remembrance" }]
+    },
+    "leugnung": {
+      "question": "What does it mean to deny the Holocaust, and how does the state respond?",
+      "variants": ["Is Holocaust denial allowed in Germany?", "Does freedom of opinion cover Holocaust denial?", "What do you say if someone claims the Holocaust was invented?"],
+      "keyIdeas": ["Denial contradicts all historical evidence.", "It hurts the victims and their families.", "Section 130 of the Criminal Code: punishable under certain conditions.", "Freedom of opinion has limits."],
+      "shortAnswer": "It means saying the Holocaust did not happen. That is false, and it is punishable in Germany. I object when someone says it.",
+      "fullAnswer": "Anyone who denies the Holocaust claims, against all historical evidence, that these crimes did not happen, or plays them down. This hurts the victims and their families. In Germany it is punishable under certain conditions by section 130 of the Criminal Code, for example publicly or at a meeting if it can disturb the public peace. Freedom of opinion is important, but it has limits.",
+      "mistakes": ["Claiming that every statement is protected by freedom of opinion.", "Debating \"alternative versions\" of history."],
+      "glossary": [{ "term": "leugnen", "meaning": "to deny" }, { "term": "strafbar", "meaning": "punishable by law" }]
+    },
+    "gleichberechtigung": {
+      "question": "What does equal rights for women and men mean?",
+      "variants": ["What rights does a woman have in Germany?", "May a man forbid his wife from working?", "Who decides in Germany whom a person marries?"],
+      "keyIdeas": ["Men and women have equal rights.", "A woman decides for herself how to work and live.", "Marriage must be voluntary; force and violence are punishable.", "Polygamy is not allowed."],
+      "shortAnswer": "Women and men have the same rights. A woman decides for herself how she works and lives. Everyone decides for themselves whom to marry.",
+      "fullAnswer": "The Basic Law says that men and women have equal rights. A woman decides for herself about work, money, education and partnership, and no man may forbid her this. Marriage must be voluntary, and forced marriage and domestic violence are punishable. Polygamy is not allowed in Germany. The state should also help reduce existing disadvantages.",
+      "mistakes": ["Saying \"equal, but the husband makes the decisions\".", "Treating domestic violence as a private family matter."],
+      "glossary": [{ "term": "gleichberechtigt", "meaning": "having equal rights" }, { "term": "die Zwangsheirat", "meaning": "forced marriage" }]
+    },
+    "religion": {
+      "question": "What is freedom of religion, and what applies if religious rules and laws conflict?",
+      "variants": ["May you change your religion or have none in Germany?", "Which comes first: religious rules or the law?", "How do you treat people of other religions?"],
+      "keyIdeas": ["You may believe, change your faith or not believe.", "The state is neutral and discrimination is forbidden.", "Religious rules do not stand above the law."],
+      "shortAnswer": "Everyone may freely choose their religion. You may also have no religion. If there is a conflict, German law applies.",
+      "fullAnswer": "Freedom of religion means I may freely practice my faith, change it or have no faith at all. The state is neutral, and nobody may be disadvantaged because of religion. But religious rules do not stand above the law. If they violate laws or the rights of others, the laws apply. I treat people of other religions with respect.",
+      "mistakes": ["Placing religious rules above the law.", "Saying other religions are tolerable only if they stay out of sight."],
+      "glossary": [{ "term": "die Religionsfreiheit", "meaning": "freedom of religion" }, { "term": "benachteiligen", "meaning": "to disadvantage" }]
+    },
+    "selbstbestimmung": {
+      "question": "What is your view of people in Germany deciding for themselves about partnership and sexual orientation?",
+      "variants": ["What do you think about same-sex marriage?", "What would you say if your neighbor is married to a man?", "What does the free development of personality mean?"],
+      "keyIdeas": ["Everyone shapes their life freely without violating others' rights.", "Since 2017, same-sex couples can marry too.", "You can respect people's rights even if you live differently.", "Insults and violence are unacceptable."],
+      "shortAnswer": "Everyone decides for themselves whom they love. Men can marry men and women can marry women. I respect this, even if I live differently.",
+      "fullAnswer": "In Germany, everyone has the right to shape their life freely as long as they do not violate the rights of others. This includes choosing a partner. Since 2017, same-sex couples can marry too. I do not have to choose every way of life for myself, but I respect these rights. I reject insults and violence against these people.",
+      "mistakes": ["Thinking personal disagreement gives a right to demean others.", "Pretending to hold views you do not hold: it is better to honestly separate personal opinion from respect for others' rights."],
+      "glossary": [{ "term": "die Partnerschaft", "meaning": "partnership" }, { "term": "respektieren", "meaning": "to respect" }]
+    },
+    "motivation": {
+      "question": "Why do you want to become a German citizen?",
+      "variants": ["Why are you applying now?", "What does German citizenship mean to you?", "What will change for you with naturalization?"],
+      "keyIdeas": ["Give your real reason and concrete facts.", "Show your connection to Germany.", "Taking part in society matters more than a convenient passport."],
+      "shortAnswer": "I have lived in Germany for [number] years. My home is here. I want to vote and have a say.",
+      "fullAnswer": "I have lived in [city] for [number] years and work as a [job]. My family and my life are here, so Germany is my home. I do not only want to live here but also to have a say, for example in elections. I especially value [for example: freedom and the rule of law], because [personal reason].",
+      "mistakes": ["Mentioning only the convenient passport or visa-free travel.", "Learning someone else's story: the agent and the officer can ask for details."],
+      "glossary": [{ "term": "mitbestimmen", "meaning": "to have a say" }, { "term": "die Einbürgerung", "meaning": "naturalization" }]
+    },
+    "integration": {
+      "question": "How do you live in Germany, and how did you settle in?",
+      "variants": ["Tell me about your work and family.", "How did you learn German?", "What contacts do you have in your town?"],
+      "keyIdeas": ["Work and earning your own living.", "How you learned German.", "Contacts with colleagues, neighbors, clubs."],
+      "shortAnswer": "I work as a [job] and live with [family] in [city]. I learned German in a course and at work. I have contact with colleagues and neighbors.",
+      "fullAnswer": "I came to Germany in [year] and live in [city]. I work as a [job] and earn my own living. I learned German [in a course, at work]. I have contact with [colleagues, neighbors, a club]. At first [example] was difficult, but today I feel at home here.",
+      "mistakes": ["Answering in one word with no examples.", "Inventing facts that do not match your documents."],
+      "glossary": [{ "term": "der Lebensunterhalt", "meaning": "livelihood" }, { "term": "der Verein", "meaning": "club, association" }]
+    }
+  }
+}
