@@ -41,8 +41,8 @@ describe('App', () => {
   it('keeps all translations and the vocabulary behind one toggle', async () => {
     render(<App />)
     await go('#/q/fdgo')
+    const headingTranslation = screen.getByText('Что вы понимаете под свободным демократическим строем?')
     const hidden = [
-      'Что вы понимаете под свободным демократическим строем?',
       /^Это основные правила нашего государства\./,
       /^Свободный демократический строй — основа/,
       'Какой из этих принципов для вас самый важный и почему?',
@@ -50,12 +50,15 @@ describe('App', () => {
     ]
     expect(screen.getByText('Welcher dieser Grundsätze ist für Sie am wichtigsten, und warum?')).toBeTruthy()
     for (const text of hidden) expect(screen.queryByText(text), String(text)).toBeNull()
+    expect(headingTranslation.classList.contains('invisible')).toBe(true)
 
     fireEvent.click(screen.getByRole('button', { name: 'Показать перевод и слова' }))
     for (const text of hidden) expect(screen.getByText(text), String(text)).toBeTruthy()
+    expect(headingTranslation.classList.contains('invisible')).toBe(false)
 
     fireEvent.click(screen.getByRole('button', { name: 'Скрыть перевод и слова' }))
     for (const text of hidden) expect(screen.queryByText(text), String(text)).toBeNull()
+    expect(headingTranslation.classList.contains('invisible')).toBe(true)
   })
 
   it('explains under the key field where to get a key, how it is kept and the cost', () => {

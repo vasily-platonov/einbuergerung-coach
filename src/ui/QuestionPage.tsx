@@ -32,7 +32,8 @@ export function QuestionPage({ index, locale, connection, onConnect }: Props) {
 
       <p className="eyebrow">{ui.blocks[meta.block]}</p>
       <h1 lang="de">{german.question}</h1>
-      {showTranslation && <p className="muted">{translated.question}</p>}
+      {/* Always in the layout, so the toggle below stays in place when this appears. */}
+      <p className={showTranslation ? 'muted' : 'muted invisible'}>{translated.question}</p>
       <button
         type="button"
         className="button translation-toggle"
