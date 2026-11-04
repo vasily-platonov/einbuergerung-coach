@@ -72,7 +72,8 @@ const REVIEWERS: Record<Connection['provider'], Reviewer> = {
       {
         model: OPENAI_REVIEW_MODEL,
         instructions: system,
-        input: transcript,
+        // JSON mode requires the word "json" in the input itself, not only in the instructions.
+        input: `Transcript to review. Reply with the JSON object described in your instructions.\n\n${transcript}`,
         text: { format: { type: 'json_object' } },
       },
       signal,

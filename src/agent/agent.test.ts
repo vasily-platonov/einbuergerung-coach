@@ -1,8 +1,32 @@
-import { describe, expect, it } from 'vitest'
+import { describe, expect, it, vi } from 'vitest'
 import { splitSentences } from './adapters/claude'
 import { base64ToBytes, bytesToBase64, parseSampleRate, pcm16ToFloat32 } from './adapters/gemini'
 import { buildReviewPrompt, formatTranscript } from './prompt'
-import { parseReview } from './review'
+import { generateReview, parseReview } from './review'
+
+describe('generateReview with OpenAI', () => {
+  it('mentions JSON in the input, as JSON mode requires, and reads the reply', async () => {
+    const fetchMock = vi.fn(async (_url: string, _init: RequestInit) =>
+      Response.json({ output: [{ content: [{ text: '{"readiness":"ready","summary":"gut"}' }] }] }),
+    )
+    vi.stubGlobal('fetch', fetchMock)
+    try {
+      const review = await generateReview(
+        { provider: 'openai', apiKey: 'k' },
+        'Frage?',
+        'Russian',
+        [{ id: '1', role: 'applicant', text: 'Darum.' }],
+        new AbortController().signal,
+      )
+      const body = JSON.parse(fetchMock.mock.calls[0][1].body as string) as { input: string }
+      expect(body.input).toMatch(/json/i)
+      expect(body.input).toContain('Applicant: Darum.')
+      expect(review.readiness).toBe('ready')
+    } finally {
+      vi.unstubAllGlobals()
+    }
+  })
+})
 
 describe('parseReview', () => {
   it('reads JSON wrapped in other text and normalizes missing fields', () => {
