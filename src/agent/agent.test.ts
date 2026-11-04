@@ -10,33 +10,73 @@ describe('generateReview with Gemini', () => {
   const answer = () =>
     Response.json({ candidates: [{ content: { parts: [{ text: '{"readiness":"ready"}' }] } }] })
 
+  afterEach(() => vi.unstubAllGlobals())
+
+  it('asks the first model once and then moves to the second', async () => {
+    const fetchMock = vi.fn(async (url: string) =>
+      url.includes('gemini-3.6-flash') ? answer() : new Response('busy', { status: 503 }),
+    )
+    vi.stubGlobal('fetch', fetchMock)
+
+    const review = await generateReview(connection, 'Frage?', 'Russian', turns, new AbortController().signal)
+
+    expect(review.readiness).toBe('ready')
+    expect(fetchMock.mock.calls.map(([url]) => /gemini-[\d.]+-flash/.exec(url)?.[0])).toEqual([
+      'gemini-3.8-flash',
+      'gemini-3.6-flash',
+    ])
+  })
+
+  it('makes one request to the first model and three to the second, reporting each retry', async () => {
+    vi.useFakeTimers()
+    const fetchMock = vi.fn(async (_url: string) => new Response('busy', { status: 503 }))
+    vi.stubGlobal('fetch', fetchMock)
+    const onRetry = vi.fn()
+
+    const result = generateReview(connection, 'Frage?', 'Russian', turns, new AbortController().signal, onRetry).catch(
+      (error: Error) => error.message,
+    )
+    await vi.runAllTimersAsync()
+    vi.useRealTimers()
+
+    expect(await result).toContain('HTTP 503')
+    const urls = fetchMock.mock.calls.map(([url]) => url)
+    expect(urls.filter((url) => url.includes('gemini-3.8-flash'))).toHaveLength(1)
+    expect(urls.filter((url) => url.includes('gemini-3.6-flash'))).toHaveLength(3)
+    expect(onRetry).toHaveBeenCalledTimes(3)
+  })
+
+  it('does not repeat a rejected request on the second model', async () => {
+    const fetchMock = vi.fn(async () => new Response('bad request', { status: 400 }))
+    vi.stubGlobal('fetch', fetchMock)
+
+    await expect(generateReview(connection, 'Frage?', 'Russian', turns, new AbortController().signal)).rejects.toThrow('HTTP 400')
+    expect(fetchMock).toHaveBeenCalledTimes(2)
+  })
+})
+
+describe('generateReview with OpenAI when overloaded', () => {
   beforeEach(() => vi.useFakeTimers())
   afterEach(() => {
     vi.useRealTimers()
     vi.unstubAllGlobals()
   })
 
-  it('retries when a model is overloaded and then moves to the next model', async () => {
-    const fetchMock = vi.fn(async (url: string) =>
-      url.includes('gemini-3.6-flash') ? answer() : new Response('busy', { status: 503 }),
-    )
+  it('retries temporary errors', async () => {
+    const fetchMock = vi.fn(async () => new Response('busy', { status: 503 }))
     vi.stubGlobal('fetch', fetchMock)
 
-    const result = generateReview(connection, 'Frage?', 'Russian', turns, new AbortController().signal)
+    const result = generateReview(
+      { provider: 'openai', apiKey: 'k' },
+      'Frage?',
+      'Russian',
+      [{ id: '1', role: 'applicant', text: 'Darum.' }],
+      new AbortController().signal,
+    ).catch((error: Error) => error.message)
     await vi.runAllTimersAsync()
 
-    expect((await result).readiness).toBe('ready')
-    const urls = fetchMock.mock.calls.map(([url]) => url)
-    expect(urls.filter((url) => url.includes('gemini-3.8-flash'))).toHaveLength(3)
-    expect(urls.filter((url) => url.includes('gemini-3.6-flash'))).toHaveLength(1)
-  })
-
-  it('does not retry a rejected request', async () => {
-    const fetchMock = vi.fn(async () => new Response('bad key', { status: 400 }))
-    vi.stubGlobal('fetch', fetchMock)
-
-    await expect(generateReview(connection, 'Frage?', 'Russian', turns, new AbortController().signal)).rejects.toThrow('HTTP 400')
-    expect(fetchMock).toHaveBeenCalledTimes(1)
+    expect(await result).toContain('HTTP 503')
+    expect(fetchMock).toHaveBeenCalledTimes(3)
   })
 })
 

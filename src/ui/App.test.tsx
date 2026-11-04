@@ -38,16 +38,24 @@ describe('App', () => {
     expect(screen.getByText('Сначала подключите провайдера:')).toBeTruthy()
   })
 
-  it('always shows answer translations and offers translated follow-up questions', async () => {
+  it('keeps all translations and the vocabulary behind one toggle', async () => {
     render(<App />)
     await go('#/q/fdgo')
-    expect(screen.getByText(/^Это основные правила нашего государства\./)).toBeTruthy()
-    expect(screen.getByText(/^Свободный демократический строй — основа/)).toBeTruthy()
+    const hidden = [
+      'Что вы понимаете под свободным демократическим строем?',
+      /^Это основные правила нашего государства\./,
+      /^Свободный демократический строй — основа/,
+      'Какой из этих принципов для вас самый важный и почему?',
+      'Слова',
+    ]
     expect(screen.getByText('Welcher dieser Grundsätze ist für Sie am wichtigsten, und warum?')).toBeTruthy()
-    expect(screen.queryByText('Какой из этих принципов для вас самый важный и почему?')).toBeNull()
+    for (const text of hidden) expect(screen.queryByText(text), String(text)).toBeNull()
 
-    fireEvent.click(screen.getByRole('button', { name: 'Показать перевод вопросов' }))
-    expect(screen.getByText('Какой из этих принципов для вас самый важный и почему?')).toBeTruthy()
+    fireEvent.click(screen.getByRole('button', { name: 'Показать перевод и слова' }))
+    for (const text of hidden) expect(screen.getByText(text), String(text)).toBeTruthy()
+
+    fireEvent.click(screen.getByRole('button', { name: 'Скрыть перевод и слова' }))
+    for (const text of hidden) expect(screen.queryByText(text), String(text)).toBeNull()
   })
 
   it('explains under the key field where to get a key, how it is kept and the cost', () => {

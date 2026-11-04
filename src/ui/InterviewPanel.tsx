@@ -102,8 +102,11 @@ export function InterviewPanel({ question, locale, connection, onConnect }: Prop
       )}
 
       {state.status === 'reviewing' && (
-        <p role="status" aria-live="polite">
-          {text.reviewing}
+        <p className="loading" role="status" aria-live="polite">
+          <span className="spinner" aria-hidden="true" />
+          {state.reviewAttempt > 1
+            ? text.retrying.replace('{attempt}', String(state.reviewAttempt))
+            : text.reviewing}
         </p>
       )}
 

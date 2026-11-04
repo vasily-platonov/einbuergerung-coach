@@ -40,7 +40,8 @@ describe('content', () => {
         expect(question.followUps.length, id).toBe(2)
         expect(question.keyIdeas.length, id).toBeGreaterThan(0)
         expect(question.mistakes.length, id).toBeGreaterThan(0)
-        expect(question.glossary.length, id).toBeGreaterThan(0)
+        expect(question.glossary.length, id).toBe(8)
+        expect(new Set(question.glossary.map((entry) => entry.term)).size, id).toBe(8)
         expect(question.shortAnswer, id).toBeTruthy()
         expect(question.fullAnswer, id).toBeTruthy()
       }

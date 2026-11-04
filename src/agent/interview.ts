@@ -13,6 +13,8 @@ export interface InterviewState {
   timeWarning: boolean
   transcript: TranscriptTurn[]
   review: Review | null
+  /** Which attempt at the review is running, so a long wait can show progress. */
+  reviewAttempt: number
   error: string | null
 }
 
@@ -23,6 +25,7 @@ export const INITIAL_STATE: InterviewState = {
   timeWarning: false,
   transcript: [],
   review: null,
+  reviewAttempt: 1,
   error: null,
 }
 
@@ -105,7 +108,7 @@ export class Interview {
   }
 
   private async requestReview(): Promise<void> {
-    this.update({ status: 'reviewing', error: null })
+    this.update({ status: 'reviewing', error: null, reviewAttempt: 1 })
     try {
       const review = await this.dependencies.review(
         this.connection,
@@ -113,6 +116,7 @@ export class Interview {
         this.language,
         this.state.transcript,
         this.reviewController.signal,
+        this.handleReviewRetry,
       )
       if (!this.disposed) this.update({ status: 'reviewed', review })
     } catch (error) {
@@ -126,6 +130,10 @@ export class Interview {
     this.disposed = true
     this.reviewController.abort()
     this.releaseSession()
+  }
+
+  private readonly handleReviewRetry = (): void => {
+    if (!this.disposed) this.update({ reviewAttempt: this.state.reviewAttempt + 1 })
   }
 
   private handlePhase(phase: SessionPhase): void {

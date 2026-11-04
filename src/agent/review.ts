@@ -12,7 +12,10 @@ export interface Review {
 }
 
 const OPENAI_REVIEW_MODEL = 'gpt-6.1-terra'
-/** Tried in order, because a model can be temporarily overloaded while another still answers. */
+/**
+ * Tried in order, because a model can be overloaded while another still answers.
+ * The newest model often fails, so it gets one attempt and the last model gets the retries.
+ */
 const GEMINI_REVIEW_MODELS = ['gemini-3.8-flash', 'gemini-3.6-flash']
 const TEMPORARY_STATUSES = new Set([500, 502, 503, 504])
 const RETRY_DELAYS_MS = [1000, 3000]
@@ -42,14 +45,21 @@ export async function generateReview(
   language: string,
   turns: TranscriptTurn[],
   signal: AbortSignal,
+  onRetry: () => void = () => undefined,
 ): Promise<Review> {
   const system = buildReviewPrompt(question, language)
   const transcript = formatTranscript(turns)
-  const raw = await REVIEWERS[connection.provider](connection.apiKey, system, transcript, signal)
+  const raw = await REVIEWERS[connection.provider](connection.apiKey, system, transcript, signal, onRetry)
   return parseReview(raw)
 }
 
-type Reviewer = (apiKey: string, system: string, transcript: string, signal: AbortSignal) => Promise<string>
+type Reviewer = (
+  apiKey: string,
+  system: string,
+  transcript: string,
+  signal: AbortSignal,
+  onRetry: () => void,
+) => Promise<string>
 
 const REVIEWERS: Record<Connection['provider'], Reviewer> = {
   async claude(apiKey, system, transcript, signal) {
@@ -68,8 +78,8 @@ const REVIEWERS: Record<Connection['provider'], Reviewer> = {
     return claudeText(await stream.finalMessage())
   },
 
-  async openai(apiKey, system, transcript, signal) {
-    const data = await postJson<OpenAIResponse>(
+  async openai(apiKey, system, transcript, signal, onRetry) {
+    const data = await postJsonWithRetries<OpenAIResponse>(
       'https://api.openai.com/v1/responses',
       { Authorization: `Bearer ${apiKey}` },
       {
@@ -80,6 +90,7 @@ const REVIEWERS: Record<Connection['provider'], Reviewer> = {
         text: { format: { type: 'json_object' } },
       },
       signal,
+      onRetry,
     )
     return (data.output ?? [])
       .flatMap((item) => item.content ?? [])
@@ -87,23 +98,24 @@ const REVIEWERS: Record<Connection['provider'], Reviewer> = {
       .join('')
   },
 
-  async gemini(apiKey, system, transcript, signal) {
+  async gemini(apiKey, system, transcript, signal, onRetry) {
+    const body = {
+      systemInstruction: { parts: [{ text: system }] },
+      contents: [{ role: 'user', parts: [{ text: transcript }] }],
+      generationConfig: { responseMimeType: 'application/json' },
+    }
+    const headers = { 'x-goog-api-key': apiKey }
     for (const [index, model] of GEMINI_REVIEW_MODELS.entries()) {
+      const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`
+      const isLastModel = index === GEMINI_REVIEW_MODELS.length - 1
       try {
-        const data = await postJson<GeminiResponse>(
-          `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`,
-          { 'x-goog-api-key': apiKey },
-          {
-            systemInstruction: { parts: [{ text: system }] },
-            contents: [{ role: 'user', parts: [{ text: transcript }] }],
-            generationConfig: { responseMimeType: 'application/json' },
-          },
-          signal,
-        )
+        const data = isLastModel
+          ? await postJsonWithRetries<GeminiResponse>(url, headers, body, signal, onRetry)
+          : await postJson<GeminiResponse>(url, headers, body, signal)
         return (data.candidates?.[0]?.content?.parts ?? []).map((part) => part.text ?? '').join('')
       } catch (error) {
-        const isLastModel = index === GEMINI_REVIEW_MODELS.length - 1
-        if (isLastModel || !(error instanceof ProviderError) || !TEMPORARY_STATUSES.has(error.status ?? 0)) throw error
+        if (signal.aborted || isLastModel) throw error
+        onRetry()
       }
     }
     throw new ProviderError('No review model is available.')
@@ -135,18 +147,32 @@ async function postJson<T>(
   body: unknown,
   signal: AbortSignal,
 ): Promise<T> {
+  const response = await fetch(url, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', ...headers },
+    body: JSON.stringify(body),
+    signal,
+  })
+  if (!response.ok) throw new ProviderError(`HTTP ${response.status}: ${await response.text()}`, response.status)
+  return (await response.json()) as T
+}
+
+async function postJsonWithRetries<T>(
+  url: string,
+  headers: Record<string, string>,
+  body: unknown,
+  signal: AbortSignal,
+  onRetry: () => void,
+): Promise<T> {
   for (let attempt = 0; ; attempt++) {
-    const response = await fetch(url, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', ...headers },
-      body: JSON.stringify(body),
-      signal,
-    })
-    if (response.ok) return (await response.json()) as T
-    if (!TEMPORARY_STATUSES.has(response.status) || attempt >= RETRY_DELAYS_MS.length) {
-      throw new ProviderError(`HTTP ${response.status}: ${await response.text()}`, response.status)
+    try {
+      return await postJson<T>(url, headers, body, signal)
+    } catch (error) {
+      const temporary = error instanceof ProviderError && TEMPORARY_STATUSES.has(error.status ?? 0)
+      if (!temporary || attempt >= RETRY_DELAYS_MS.length) throw error
+      onRetry()
+      await wait(RETRY_DELAYS_MS[attempt], signal)
     }
-    await wait(RETRY_DELAYS_MS[attempt], signal)
   }
 }
 

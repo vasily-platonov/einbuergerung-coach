@@ -32,8 +32,13 @@ export function QuestionPage({ index, locale, connection, onConnect }: Props) {
 
       <p className="eyebrow">{ui.blocks[meta.block]}</p>
       <h1 lang="de">{german.question}</h1>
-      <p className="muted">{translated.question}</p>
-      <button type="button" className="button ghost" onClick={() => setShowTranslation(!showTranslation)}>
+      {showTranslation && <p className="muted">{translated.question}</p>}
+      <button
+        type="button"
+        className="button translation-toggle"
+        aria-pressed={showTranslation}
+        onClick={() => setShowTranslation(!showTranslation)}
+      >
         {showTranslation ? text.hideTranslation : text.showTranslation}
       </button>
 
@@ -59,8 +64,8 @@ export function QuestionPage({ index, locale, connection, onConnect }: Props) {
       </section>
 
       <div className="answers">
-        <Answer title={text.shortAnswer} german={german.shortAnswer} translation={translated.shortAnswer} />
-        <Answer title={text.fullAnswer} german={german.fullAnswer} translation={translated.fullAnswer} />
+        <Answer title={text.shortAnswer} german={german.shortAnswer} translation={translated.shortAnswer} show={showTranslation} />
+        <Answer title={text.fullAnswer} german={german.fullAnswer} translation={translated.fullAnswer} show={showTranslation} />
       </div>
       {hasPlaceholders && <p className="muted small">{text.placeholders}</p>}
 
@@ -85,17 +90,19 @@ export function QuestionPage({ index, locale, connection, onConnect }: Props) {
         </ul>
       </section>
 
-      <section className="card">
-        <h2>{text.glossary}</h2>
-        <dl className="glossary">
-          {translated.glossary.map((entry) => (
-            <div key={entry.term}>
-              <dt lang="de">{entry.term}</dt>
-              <dd>{entry.meaning}</dd>
-            </div>
-          ))}
-        </dl>
-      </section>
+      {showTranslation && (
+        <section className="card">
+          <h2>{text.glossary}</h2>
+          <dl className="glossary">
+            {translated.glossary.map((entry) => (
+              <div key={entry.term}>
+                <dt lang="de">{entry.term}</dt>
+                <dd>{entry.meaning}</dd>
+              </div>
+            ))}
+          </dl>
+        </section>
+      )}
 
       <InterviewPanel
         question={german.question}
@@ -125,12 +132,12 @@ export function QuestionPage({ index, locale, connection, onConnect }: Props) {
   )
 }
 
-function Answer(props: { title: string; german: string; translation: string }) {
+function Answer(props: { title: string; german: string; translation: string; show: boolean }) {
   return (
     <section className="card answer">
       <h2>{props.title}</h2>
       <p lang="de">{props.german}</p>
-      <p className="translation">{props.translation}</p>
+      {props.show && <p className="translation">{props.translation}</p>}
     </section>
   )
 }

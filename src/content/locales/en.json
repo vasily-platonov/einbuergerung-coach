@@ -38,8 +38,8 @@
       "previous": "Previous",
       "next": "Next",
       "progress": "Question {current} of {total}",
-      "showTranslation": "Show question translations",
-      "hideTranslation": "Hide question translations",
+      "showTranslation": "Show translations and vocabulary",
+      "hideTranslation": "Hide translations and vocabulary",
       "variants": "Other ways to ask",
       "followUps": "What they may ask after your answer",
       "keyIdeas": "Key ideas",
@@ -68,6 +68,7 @@
       "finish": "Finish and get the review",
       "timeWarning": "One minute left.",
       "reviewing": "Preparing the review…",
+      "retrying": "The service did not respond, trying again (attempt {attempt})…",
       "noAnswers": "You have not answered any question yet, so there is nothing to review.",
       "reviewFailed": "The review could not be created, but the conversation is kept while you stay on this page, so you can try again. Error:",
       "retryReview": "Retry the review",
@@ -95,7 +96,7 @@
       "shortAnswer": "These are the basic rules of our state. The people elect the parliament. Everyone must obey the laws. Every person has dignity and basic rights.",
       "fullAnswer": "The free democratic basic order is the foundation of our state. It includes human dignity, democracy and the rule of law. The people elect parliament in free elections, and there are several parties and an opposition. The courts are independent, and the state must obey the law too. This excludes dictatorship and arbitrary state power.",
       "mistakes": ["Saying only \"democracy\" without explaining what it means in practice.", "Repeating a memorized sentence you cannot explain with an example."],
-      "glossary": [{ "term": "die Grundordnung", "meaning": "basic order" }, { "term": "die Willkür", "meaning": "arbitrariness, arbitrary rule" }]
+      "glossary": [{ "term": "die Grundordnung", "meaning": "basic order" }, { "term": "die Willkür", "meaning": "arbitrariness, arbitrary rule" }, { "term": "die Würde", "meaning": "dignity" }, { "term": "der Rechtsstaat", "meaning": "state under the rule of law" }, { "term": "die Wahl", "meaning": "election" }, { "term": "die Partei", "meaning": "political party" }, { "term": "das Gericht", "meaning": "court" }, { "term": "ausgeschlossen", "meaning": "excluded" }]
     },
     "volkssouveraenitaet": {
       "question": "What does popular sovereignty mean?",
@@ -105,7 +106,7 @@
       "shortAnswer": "Power in the state comes from the people. Citizens elect the parliament. Elections are free and secret.",
       "fullAnswer": "Popular sovereignty means that all state authority comes from the people. Citizens elect the Bundestag and the state parliaments in general, free, equal and secret elections. The elected members then make the laws. Direct votes are very rare at federal level, but North Rhine-Westphalia has popular initiatives, for example, and towns have citizens' referendums.",
       "mistakes": ["Claiming that citizens often decide federal matters by referendum.", "Saying that power belongs to the government."],
-      "glossary": [{ "term": "die Staatsgewalt", "meaning": "state authority" }, { "term": "der Bürgerentscheid", "meaning": "local citizens' referendum" }]
+      "glossary": [{ "term": "die Staatsgewalt", "meaning": "state authority" }, { "term": "der Bürgerentscheid", "meaning": "local citizens' referendum" }, { "term": "ausgehen von", "meaning": "to come from" }, { "term": "wählen", "meaning": "to elect, to vote" }, { "term": "geheim", "meaning": "secret" }, { "term": "der/die Abgeordnete", "meaning": "member of parliament" }, { "term": "das Gesetz", "meaning": "law" }, { "term": "das Volksbegehren", "meaning": "popular initiative" }]
     },
     "rechtsstaat": {
       "question": "What is meant by the rule of law?",
@@ -115,7 +116,7 @@
       "shortAnswer": "Nobody is above the law. The state must obey the laws too. If an authority decides wrongly, I can go to court.",
       "fullAnswer": "Under the rule of law, the law applies to everyone, including politicians, authorities and the police. Parliament is bound by the constitution, and government and courts are bound by law and justice. If an authority violates my rights, I can sue in an independent court. In this way the law protects people from arbitrary state power.",
       "mistakes": ["Talking only about citizens obeying laws and forgetting the state.", "Not mentioning the option of going to court."],
-      "glossary": [{ "term": "klagen", "meaning": "to sue" }, { "term": "die Behörde", "meaning": "public authority" }]
+      "glossary": [{ "term": "klagen", "meaning": "to sue" }, { "term": "die Behörde", "meaning": "public authority" }, { "term": "gelten", "meaning": "to apply" }, { "term": "gebunden sein an", "meaning": "to be bound by" }, { "term": "die Verfassung", "meaning": "constitution" }, { "term": "verletzen", "meaning": "to violate" }, { "term": "das Recht", "meaning": "law, right" }, { "term": "schützen", "meaning": "to protect" }]
     },
     "opposition": {
       "question": "Why is a parliamentary opposition important?",
@@ -125,7 +126,7 @@
       "shortAnswer": "The opposition is the parties that do not govern. It checks and criticizes the government. At the next election it can become the government.",
       "fullAnswer": "The opposition consists of the parties in parliament that are not in government. It asks questions, criticizes mistakes and makes other proposals. This matters because it keeps power under control. Voters also have a real choice, because the opposition can take over government after an election. A one-party system would make this impossible.",
       "mistakes": ["Treating the opposition as an enemy of the state.", "Saying only \"it criticizes\" without explaining why democracy needs that."],
-      "glossary": [{ "term": "die Opposition", "meaning": "opposition" }, { "term": "die Macht", "meaning": "power" }]
+      "glossary": [{ "term": "die Opposition", "meaning": "opposition" }, { "term": "die Macht", "meaning": "power" }, { "term": "kritisieren", "meaning": "to criticize" }, { "term": "der Vorschlag", "meaning": "proposal" }, { "term": "kontrollieren", "meaning": "to oversee, to check" }, { "term": "die Regierung", "meaning": "government" }, { "term": "übernehmen", "meaning": "to take over" }, { "term": "der Wähler / die Wählerin", "meaning": "voter" }]
     },
     "regierung": {
       "question": "What does it mean that the government is accountable and replaceable?",
@@ -135,7 +136,7 @@
       "shortAnswer": "The government must explain its work to parliament. The Bundestag oversees it. The government can change through elections.",
       "fullAnswer": "The federal government must answer to the Bundestag, and parliament decides on the budget. It holds power only for a time, because citizens can decide differently at the next election. The Bundestag can also remove the chancellor earlier if a majority elects a new chancellor at the same time. This is called a constructive vote of no confidence.",
       "mistakes": ["Saying the chancellor can simply be dismissed without electing a successor.", "Confusing the Bundestag with the federal government."],
-      "glossary": [{ "term": "ablösbar", "meaning": "replaceable" }, { "term": "das konstruktive Misstrauensvotum", "meaning": "vote of no confidence that also elects a new chancellor" }]
+      "glossary": [{ "term": "ablösbar", "meaning": "replaceable" }, { "term": "das konstruktive Misstrauensvotum", "meaning": "vote of no confidence that also elects a new chancellor" }, { "term": "verantwortlich", "meaning": "accountable" }, { "term": "der Bundestag", "meaning": "Bundestag, federal parliament" }, { "term": "der Haushalt", "meaning": "budget" }, { "term": "der Bundeskanzler / die Bundeskanzlerin", "meaning": "Federal Chancellor" }, { "term": "abwählen", "meaning": "to vote out" }, { "term": "die Mehrheit", "meaning": "majority" }]
     },
     "gerichte": {
       "question": "What does the independence of the courts mean?",
@@ -145,7 +146,7 @@
       "shortAnswer": "Judges decide only according to the law. The government cannot give them orders. A court can also decide against the state.",
       "fullAnswer": "Judges are independent and subject only to the law. Neither the government nor parliament may tell them how to decide a case. This is why courts can rule against the state and check its power. The Federal Constitutional Court can even strike down laws that violate the Basic Law.",
       "mistakes": ["Saying that courts report to a minister.", "Not explaining why independence matters: to check power and protect people."],
-      "glossary": [{ "term": "unabhängig", "meaning": "independent" }, { "term": "das Bundesverfassungsgericht", "meaning": "Federal Constitutional Court" }]
+      "glossary": [{ "term": "unabhängig", "meaning": "independent" }, { "term": "das Bundesverfassungsgericht", "meaning": "Federal Constitutional Court" }, { "term": "der Richter / die Richterin", "meaning": "judge" }, { "term": "das Urteil", "meaning": "court ruling" }, { "term": "entscheiden", "meaning": "to decide" }, { "term": "aufheben", "meaning": "to strike down" }, { "term": "verstoßen gegen", "meaning": "to violate" }, { "term": "unterworfen sein", "meaning": "to be subject to" }]
     },
     "willkuer": {
       "question": "What does it mean that rule by violence and arbitrariness is excluded?",
@@ -155,7 +156,7 @@
       "shortAnswer": "The state cannot do what it likes. It must obey the laws. The police may use force only when the law allows it and it is necessary.",
       "fullAnswer": "It means that nobody may rule alone and as they please. Every state decision needs a legal basis and can be reviewed by the courts. In principle only the state may use force, for example the police, and only when the law allows it and it is proportionate. A private person may defend themselves only in self-defense.",
       "mistakes": ["Saying the police may use force whenever they think it necessary.", "Saying force is banned for everyone with no exceptions: self-defense is allowed."],
-      "glossary": [{ "term": "verhältnismäßig", "meaning": "proportionate" }, { "term": "die Notwehr", "meaning": "self-defense" }]
+      "glossary": [{ "term": "verhältnismäßig", "meaning": "proportionate" }, { "term": "die Notwehr", "meaning": "self-defense" }, { "term": "die Gewalt", "meaning": "violence, force" }, { "term": "die Herrschaft", "meaning": "rule" }, { "term": "die Grundlage", "meaning": "basis" }, { "term": "überprüfen", "meaning": "to review" }, { "term": "anwenden", "meaning": "to use, to apply" }, { "term": "das Belieben", "meaning": "discretion, whim" }]
     },
     "menschenrechte": {
       "question": "What are the human rights in the Basic Law?",
@@ -165,7 +166,7 @@
       "shortAnswer": "Every person has dignity. There is the right to life, equality before the law and freedom of opinion. Religion is free too.",
       "fullAnswer": "Basic rights are mainly in Articles 1 to 19 of the Basic Law. Human dignity is inviolable. Also important are the right to life, equality before the law, freedom of opinion and freedom of religion. Many rights apply to all people, some only to Germans, such as freedom of assembly. The state may restrict other basic rights only by law and within narrow limits. The constitution of North Rhine-Westphalia incorporates these basic rights.",
       "mistakes": ["Saying no basic right can ever be restricted: human dignity is the one with no restriction.", "Naming only social benefits and forgetting the basic freedoms."],
-      "glossary": [{ "term": "unantastbar", "meaning": "inviolable" }, { "term": "das Grundrecht", "meaning": "basic right" }]
+      "glossary": [{ "term": "unantastbar", "meaning": "inviolable" }, { "term": "das Grundrecht", "meaning": "basic right" }, { "term": "die Würde", "meaning": "dignity" }, { "term": "die Meinungsfreiheit", "meaning": "freedom of opinion" }, { "term": "die Religionsfreiheit", "meaning": "freedom of religion" }, { "term": "die Versammlungsfreiheit", "meaning": "freedom of assembly" }, { "term": "einschränken", "meaning": "to restrict" }, { "term": "die Gleichheit", "meaning": "equality" }]
     },
     "menschenwuerde": {
       "question": "Why are antisemitic or racist acts incompatible with human dignity?",
@@ -175,7 +176,7 @@
       "shortAnswer": "Every person has the same worth. Antisemitism and racism say that some people are worth less. That goes against human dignity.",
       "fullAnswer": "Human dignity belongs to every person, whatever their origin, religion or skin color. Antisemitism and racism, by contrast, treat people as worth less just because they belong to a group. This is why the nationality law expressly says that such acts violate the free democratic basic order. If I experience this, I object, or I get help if it is dangerous.",
       "mistakes": ["Speaking in general terms without linking it to human dignity.", "Justifying hostility towards Jews with events in other countries."],
-      "glossary": [{ "term": "menschenverachtend", "meaning": "inhumane, showing contempt for people" }, { "term": "widersprechen", "meaning": "to object" }]
+      "glossary": [{ "term": "menschenverachtend", "meaning": "inhumane, showing contempt for people" }, { "term": "widersprechen", "meaning": "to object" }, { "term": "die Herkunft", "meaning": "origin" }, { "term": "die Hautfarbe", "meaning": "skin color" }, { "term": "der Antisemitismus", "meaning": "antisemitism" }, { "term": "der Rassismus", "meaning": "racism" }, { "term": "die Handlung", "meaning": "act" }, { "term": "beleidigen", "meaning": "to insult" }]
     },
     "verantwortung": {
       "question": "What does the commitment to Germany's special historical responsibility mean?",
@@ -185,7 +186,7 @@
       "shortAnswer": "Germany committed terrible crimes under National Socialism. That is why Germany protects Jewish life today. Germany wants peace and may not wage a war of aggression.",
       "fullAnswer": "Because of the crimes of National Socialism, Germany has a special responsibility. Above all this means protecting Jewish life. It also includes peaceful coexistence between peoples and the ban on waging a war of aggression. Defense remains allowed. Even if my family and I had nothing to do with those events, as a German citizen I take on this responsibility for the future.",
       "mistakes": ["Saying Germany may never use military force at all: the ban is on wars of aggression.", "Answering \"this has nothing to do with me\"."],
-      "glossary": [{ "term": "der Angriffskrieg", "meaning": "war of aggression" }, { "term": "die Verantwortung", "meaning": "responsibility" }]
+      "glossary": [{ "term": "der Angriffskrieg", "meaning": "war of aggression" }, { "term": "die Verantwortung", "meaning": "responsibility" }, { "term": "das Verbrechen", "meaning": "crime" }, { "term": "jüdisch", "meaning": "Jewish" }, { "term": "der Schutz", "meaning": "protection" }, { "term": "das Zusammenleben", "meaning": "living together, coexistence" }, { "term": "die Verteidigung", "meaning": "defense" }, { "term": "das Bekenntnis", "meaning": "commitment" }]
     },
     "israel": {
       "question": "What is meant by Israel's right to exist, and why is it especially important for Germany?",
@@ -195,7 +196,7 @@
       "shortAnswer": "Israel has the right to exist as a safe state. Because of the Holocaust, this is especially important for Germany. You can criticize the government, but you must not reject Israel's existence.",
       "fullAnswer": "The right to exist means that the state of Israel may exist and live in security. This is especially important for Germany because the National Socialists murdered six million Jews. This history is the reason for the special responsibility. You can criticize the policies of an Israeli government, as with any other state. But anyone who denies Israel's right to exist or blames Jews for those policies crosses a clear line.",
       "mistakes": ["Mixing up criticism of the Israeli government with hostility towards Jews.", "Using someone else's words without understanding them: if you have doubts, work through them beforehand."],
-      "glossary": [{ "term": "das Existenzrecht", "meaning": "right to exist" }, { "term": "die Sicherheit", "meaning": "security" }]
+      "glossary": [{ "term": "das Existenzrecht", "meaning": "right to exist" }, { "term": "die Sicherheit", "meaning": "security" }, { "term": "bestehen", "meaning": "to exist" }, { "term": "ermorden", "meaning": "to murder" }, { "term": "kritisieren", "meaning": "to criticize" }, { "term": "verantwortlich machen", "meaning": "to blame" }, { "term": "die Grenze", "meaning": "line, limit" }, { "term": "überschreiten", "meaning": "to cross" }]
     },
     "extremismus-erklaerung": {
       "question": "What do you declare about extremism in the loyalty declaration?",
@@ -205,7 +206,7 @@
       "shortAnswer": "I declare that I do not pursue or support extremist aims. This applies to today and the past. If the declaration is false, I can lose my naturalization.",
       "fullAnswer": "I declare that I do not pursue or support efforts against the free democratic basic order or the security of the state, and that I have not done so in the past. If I supported something earlier, I must say so openly and credibly show that I have turned away from it. A false declaration is dangerous, because a naturalization can later be revoked on that basis.",
       "mistakes": ["Treating the declaration as a formality.", "Hiding the past instead of getting legal advice or counseling."],
-      "glossary": [{ "term": "die Loyalitätserklärung", "meaning": "loyalty declaration" }, { "term": "glaubhaft machen", "meaning": "to show credibly" }]
+      "glossary": [{ "term": "die Loyalitätserklärung", "meaning": "loyalty declaration" }, { "term": "glaubhaft machen", "meaning": "to show credibly" }, { "term": "verfolgen", "meaning": "to pursue (an aim)" }, { "term": "unterstützen", "meaning": "to support" }, { "term": "sich abwenden von", "meaning": "to turn away from" }, { "term": "zurücknehmen", "meaning": "to revoke" }, { "term": "die Unterschrift", "meaning": "signature" }, { "term": "die Erklärung", "meaning": "declaration" }]
     },
     "extremismus-gruende": {
       "question": "Which extremist efforts prevent you from being naturalized?",
@@ -215,7 +216,7 @@
       "shortAnswer": "You will not be naturalized if you want to abolish democracy. The same applies if you use or support violence for political aims.",
       "fullAnswer": "These are efforts against the free democratic basic order, or against the existence or security of the federation or a state. This also includes putting unlawful pressure on constitutional bodies such as the Bundestag. It further covers violence that, from Germany, endangers its foreign interests. Antisemitic, racist or inhumane acts also violate the basic order.",
       "mistakes": ["Thinking that any criticism of the government leads to refusal.", "Saying that only formal membership of an organization matters."],
-      "glossary": [{ "term": "die Bestrebung", "meaning": "effort, activity with an aim" }, { "term": "das Verfassungsorgan", "meaning": "constitutional body" }]
+      "glossary": [{ "term": "die Bestrebung", "meaning": "effort, activity with an aim" }, { "term": "das Verfassungsorgan", "meaning": "constitutional body" }, { "term": "der Bestand", "meaning": "existence" }, { "term": "rechtswidrig", "meaning": "unlawful" }, { "term": "der Druck", "meaning": "pressure" }, { "term": "gefährden", "meaning": "to endanger" }, { "term": "auswärtige Interessen", "meaning": "foreign interests" }, { "term": "verstoßen gegen", "meaning": "to violate" }]
     },
     "extremismus-erkennen": {
       "question": "How do you recognize extremist efforts?",
@@ -225,7 +226,7 @@
       "shortAnswer": "Extremists want to abolish democracy. They often want violence or hate certain people. But criticizing the government is not extremism.",
       "fullAnswer": "Extremists reject core values such as human dignity, democracy and the rule of law. They often justify violence or incite hatred against people because of origin, religion or opinion. Distinctions include right-wing extremism, left-wing extremism, Islamism and foreign-related extremism. Normal criticism of the government, peaceful demonstrations and different political opinions are allowed and are part of democracy.",
       "mistakes": ["Calling any opposition extremist.", "Associating extremism with a whole religion or nationality."],
-      "glossary": [{ "term": "hetzen", "meaning": "to incite hatred" }, { "term": "auslandsbezogener Extremismus", "meaning": "extremism linked to foreign countries and conflicts" }]
+      "glossary": [{ "term": "hetzen", "meaning": "to incite hatred" }, { "term": "auslandsbezogener Extremismus", "meaning": "extremism linked to foreign countries and conflicts" }, { "term": "ablehnen", "meaning": "to reject" }, { "term": "rechtfertigen", "meaning": "to justify" }, { "term": "der Rechtsextremismus", "meaning": "right-wing extremism" }, { "term": "der Linksextremismus", "meaning": "left-wing extremism" }, { "term": "der Islamismus", "meaning": "Islamism" }, { "term": "friedlich", "meaning": "peaceful" }]
     },
     "extremismus-unterstuetzung": {
       "question": "Which actions count as supporting extremist efforts?",
@@ -235,7 +236,7 @@
       "shortAnswer": "Support means helping such a group. That can be money, promotion or organizing. You do not have to be a member.",
       "fullAnswer": "Support can be any action that helps an extremist group, even without membership. Examples are donations, online promotion, organizing events or collecting money. It does depend on the individual case, however. If I am unsure, I look for information, for example from the domestic intelligence service, and speak openly with the authority or a counseling center before I sign.",
       "mistakes": ["Thinking it does not count as support without formal membership.", "Signing the declaration without clearing up your doubts."],
-      "glossary": [{ "term": "unterstützen", "meaning": "to support" }, { "term": "die Spende", "meaning": "donation" }]
+      "glossary": [{ "term": "unterstützen", "meaning": "to support" }, { "term": "die Spende", "meaning": "donation" }, { "term": "die Mitgliedschaft", "meaning": "membership" }, { "term": "die Werbung", "meaning": "promotion" }, { "term": "die Veranstaltung", "meaning": "event" }, { "term": "der Einzelfall", "meaning": "individual case" }, { "term": "der Verfassungsschutz", "meaning": "domestic intelligence service" }, { "term": "die Beratungsstelle", "meaning": "counseling center" }]
     },
     "zusammenfassung": {
       "question": "Can you briefly summarize what you commit to?",
@@ -245,7 +246,7 @@
       "shortAnswer": "I accept democracy and the Basic Law. I do not support extremism. I reject antisemitism and racism and share Germany's historical responsibility.",
       "fullAnswer": "I commit to the free democratic basic order, meaning human dignity, democracy and the rule of law. I declare that I do not pursue or support efforts against it. I reject antisemitic, racist and other inhumane acts. I also commit to Germany's special historical responsibility, above all the protection of Jewish life, and to peaceful coexistence between peoples and the ban on wars of aggression.",
       "mistakes": ["Calling it an oath: it is a commitment and a declaration.", "Memorizing the text and being unable to explain a single point."],
-      "glossary": [{ "term": "das Bekenntnis", "meaning": "commitment, declaration of allegiance" }, { "term": "ablehnen", "meaning": "to reject" }]
+      "glossary": [{ "term": "das Bekenntnis", "meaning": "commitment, declaration of allegiance" }, { "term": "ablehnen", "meaning": "to reject" }, { "term": "sich bekennen zu", "meaning": "to commit to" }, { "term": "die Demokratie", "meaning": "democracy" }, { "term": "die Bestrebung", "meaning": "effort, activity with an aim" }, { "term": "das Verbot", "meaning": "ban" }, { "term": "die Völker", "meaning": "peoples" }, { "term": "die Menschenwürde", "meaning": "human dignity" }]
     },
     "nationalsozialismus": {
       "question": "What was National Socialism?",
@@ -255,7 +256,7 @@
       "shortAnswer": "From 1933 to 1945, Germany was a dictatorship under Hitler. There was no freedom. Many people were persecuted and murdered. Germany started the Second World War.",
       "fullAnswer": "National Socialism was the dictatorship under Adolf Hitler from 1933 to 1945. The Nazis abolished democracy, free parties and press freedom and persecuted dissenters. Their ideology was racist and antisemitic. In 1939 Germany started the Second World War and committed grave crimes. The Basic Law was written partly as a response, which is why human dignity comes right at its start.",
       "mistakes": ["Downplaying the crimes or comparing them to excuse them.", "Talking only about the war and omitting the dictatorship and persecution."],
-      "glossary": [{ "term": "die Diktatur", "meaning": "dictatorship" }, { "term": "verfolgen", "meaning": "to persecute" }]
+      "glossary": [{ "term": "die Diktatur", "meaning": "dictatorship" }, { "term": "verfolgen", "meaning": "to persecute" }, { "term": "abschaffen", "meaning": "to abolish" }, { "term": "die Pressefreiheit", "meaning": "press freedom" }, { "term": "Andersdenkende", "meaning": "dissenters" }, { "term": "die Ideologie", "meaning": "ideology" }, { "term": "der Zweite Weltkrieg", "meaning": "Second World War" }, { "term": "das Verbrechen", "meaning": "crime" }]
     },
     "holocaust": {
       "question": "What was the Holocaust?",
@@ -265,7 +266,7 @@
       "shortAnswer": "The Holocaust was the murder of about six million Jews in Europe. The National Socialists planned and carried it out. We must remember it so that it never happens again.",
       "fullAnswer": "The Holocaust, Shoah in Hebrew, was the systematic murder of about six million European Jews by the National Socialists. Sinti and Roma, people with disabilities, political opponents, homosexual people and other groups were also persecuted and murdered. Remembrance matters because it shows where hatred and the loss of democracy can lead. So we must oppose antisemitism today too.",
       "mistakes": ["Giving wrong figures or casting doubt on the scale.", "Saying \"that was long ago and no longer matters\"."],
-      "glossary": [{ "term": "ermorden", "meaning": "to murder" }, { "term": "die Erinnerung", "meaning": "remembrance" }]
+      "glossary": [{ "term": "ermorden", "meaning": "to murder" }, { "term": "die Erinnerung", "meaning": "remembrance" }, { "term": "systematisch", "meaning": "systematic" }, { "term": "die Verfolgung", "meaning": "persecution" }, { "term": "Sinti und Roma", "meaning": "Sinti and Roma" }, { "term": "der Hass", "meaning": "hatred" }, { "term": "entgegentreten", "meaning": "to oppose" }, { "term": "das Opfer", "meaning": "victim" }]
     },
     "leugnung": {
       "question": "What does it mean to deny the Holocaust, and how does the state respond?",
@@ -275,7 +276,7 @@
       "shortAnswer": "It means saying the Holocaust did not happen. That is false, and it is punishable in Germany. I object when someone says it.",
       "fullAnswer": "Anyone who denies the Holocaust claims, against all historical evidence, that these crimes did not happen, or plays them down. This hurts the victims and their families. In Germany it is punishable under certain conditions by section 130 of the Criminal Code, for example publicly or at a meeting if it can disturb the public peace. Freedom of opinion is important, but it has limits.",
       "mistakes": ["Claiming that every statement is protected by freedom of opinion.", "Debating \"alternative versions\" of history."],
-      "glossary": [{ "term": "leugnen", "meaning": "to deny" }, { "term": "strafbar", "meaning": "punishable by law" }]
+      "glossary": [{ "term": "leugnen", "meaning": "to deny" }, { "term": "strafbar", "meaning": "punishable by law" }, { "term": "behaupten", "meaning": "to claim" }, { "term": "der Beweis", "meaning": "evidence" }, { "term": "verharmlosen", "meaning": "to play down" }, { "term": "verletzen", "meaning": "to hurt" }, { "term": "der öffentliche Frieden", "meaning": "public peace" }, { "term": "das Strafgesetzbuch", "meaning": "Criminal Code" }]
     },
     "gleichberechtigung": {
       "question": "What does equal rights for women and men mean?",
@@ -285,7 +286,7 @@
       "shortAnswer": "Women and men have the same rights. A woman decides for herself how she works and lives. Everyone decides for themselves whom to marry.",
       "fullAnswer": "The Basic Law says that men and women have equal rights. A woman decides for herself about work, money, education and partnership, and no man may forbid her this. Marriage must be voluntary, and forced marriage and domestic violence are punishable. Polygamy is not allowed in Germany. The state should also help reduce existing disadvantages.",
       "mistakes": ["Saying \"equal, but the husband makes the decisions\".", "Treating domestic violence as a private family matter."],
-      "glossary": [{ "term": "gleichberechtigt", "meaning": "having equal rights" }, { "term": "die Zwangsheirat", "meaning": "forced marriage" }]
+      "glossary": [{ "term": "gleichberechtigt", "meaning": "having equal rights" }, { "term": "die Zwangsheirat", "meaning": "forced marriage" }, { "term": "die Ehe", "meaning": "marriage" }, { "term": "freiwillig", "meaning": "voluntary" }, { "term": "verbieten", "meaning": "to forbid" }, { "term": "die Mehrehe", "meaning": "polygamy" }, { "term": "die Ausbildung", "meaning": "vocational training, education" }, { "term": "der Nachteil", "meaning": "disadvantage" }]
     },
     "religion": {
       "question": "What is freedom of religion, and what applies if religious rules and laws conflict?",
@@ -295,7 +296,7 @@
       "shortAnswer": "Everyone may freely choose their religion. You may also have no religion. If there is a conflict, German law applies.",
       "fullAnswer": "Freedom of religion means I may freely practice my faith, change it or have no faith at all. The state is neutral, and nobody may be disadvantaged because of religion. But religious rules do not stand above the law. If they violate laws or the rights of others, the laws apply. I treat people of other religions with respect.",
       "mistakes": ["Placing religious rules above the law.", "Saying other religions are tolerable only if they stay out of sight."],
-      "glossary": [{ "term": "die Religionsfreiheit", "meaning": "freedom of religion" }, { "term": "benachteiligen", "meaning": "to disadvantage" }]
+      "glossary": [{ "term": "die Religionsfreiheit", "meaning": "freedom of religion" }, { "term": "benachteiligen", "meaning": "to disadvantage" }, { "term": "der Glaube", "meaning": "faith" }, { "term": "neutral", "meaning": "neutral" }, { "term": "die Regel", "meaning": "rule" }, { "term": "verstoßen gegen", "meaning": "to violate" }, { "term": "der Respekt", "meaning": "respect" }, { "term": "wechseln", "meaning": "to change" }]
     },
     "selbstbestimmung": {
       "question": "What is your view of people in Germany deciding for themselves about partnership and sexual orientation?",
@@ -305,7 +306,7 @@
       "shortAnswer": "Everyone decides for themselves whom they love. Men can marry men and women can marry women. I respect this, even if I live differently.",
       "fullAnswer": "In Germany, everyone has the right to shape their life freely as long as they do not violate the rights of others. This includes choosing a partner. Since 2017, same-sex couples can marry too. I do not have to choose every way of life for myself, but I respect these rights. I reject insults and violence against these people.",
       "mistakes": ["Thinking personal disagreement gives a right to demean others.", "Pretending to hold views you do not hold: it is better to honestly separate personal opinion from respect for others' rights."],
-      "glossary": [{ "term": "die Partnerschaft", "meaning": "partnership" }, { "term": "respektieren", "meaning": "to respect" }]
+      "glossary": [{ "term": "die Partnerschaft", "meaning": "partnership" }, { "term": "respektieren", "meaning": "to respect" }, { "term": "gestalten", "meaning": "to shape" }, { "term": "das Geschlecht", "meaning": "sex, gender" }, { "term": "heiraten", "meaning": "to marry" }, { "term": "die Lebensweise", "meaning": "way of life" }, { "term": "die Beleidigung", "meaning": "insult" }, { "term": "das Paar", "meaning": "couple" }]
     },
     "motivation": {
       "question": "Why do you want to become a German citizen?",
@@ -315,7 +316,7 @@
       "shortAnswer": "I have lived in Germany for [number] years. My home is here. I want to vote and have a say.",
       "fullAnswer": "I have lived in [city] for [number] years and work as a [job]. My family and my life are here, so Germany is my home. I do not only want to live here but also to have a say, for example in elections. I especially value [for example: freedom and the rule of law], because [personal reason].",
       "mistakes": ["Mentioning only the convenient passport or visa-free travel.", "Learning someone else's story: the agent and the officer can ask for details."],
-      "glossary": [{ "term": "mitbestimmen", "meaning": "to have a say" }, { "term": "die Einbürgerung", "meaning": "naturalization" }]
+      "glossary": [{ "term": "mitbestimmen", "meaning": "to have a say" }, { "term": "die Einbürgerung", "meaning": "naturalization" }, { "term": "das Zuhause", "meaning": "home" }, { "term": "der Beruf", "meaning": "job, profession" }, { "term": "schätzen", "meaning": "to value" }, { "term": "die Freiheit", "meaning": "freedom" }, { "term": "das Wahlrecht", "meaning": "right to vote" }, { "term": "der Grund", "meaning": "reason" }]
     },
     "integration": {
       "question": "How do you live in Germany, and how did you settle in?",
@@ -325,7 +326,7 @@
       "shortAnswer": "I work as a [job] and live with [family] in [city]. I learned German in a course and at work. I have contact with colleagues and neighbors.",
       "fullAnswer": "I came to Germany in [year] and live in [city]. I work as a [job] and earn my own living. I learned German [in a course, at work]. I have contact with [colleagues, neighbors, a club]. At first [example] was difficult, but today I feel at home here.",
       "mistakes": ["Answering in one word with no examples.", "Inventing facts that do not match your documents."],
-      "glossary": [{ "term": "der Lebensunterhalt", "meaning": "livelihood" }, { "term": "der Verein", "meaning": "club, association" }]
+      "glossary": [{ "term": "der Lebensunterhalt", "meaning": "livelihood" }, { "term": "der Verein", "meaning": "club, association" }, { "term": "der Kollege / die Kollegin", "meaning": "colleague" }, { "term": "der Nachbar / die Nachbarin", "meaning": "neighbor" }, { "term": "verdienen", "meaning": "to earn" }, { "term": "der Kontakt", "meaning": "contact" }, { "term": "schwierig", "meaning": "difficult" }, { "term": "sich zu Hause fühlen", "meaning": "to feel at home" }]
     }
   }
 }

@@ -125,6 +125,25 @@ describe('Interview', () => {
     expect(latest().review).toEqual(REVIEW)
   })
 
+  it('counts review attempts and starts over on a manual retry', async () => {
+    const { interview, review, latest, events } = setup()
+    const attempts: number[] = []
+    await interview.start()
+    events().onTurn({ id: '1', role: 'applicant', text: 'Das Volk wählt.' })
+    review.mockImplementationOnce(async (_connection, _question, _language, _turns, _signal, onRetry) => {
+      attempts.push(latest().reviewAttempt)
+      onRetry?.()
+      attempts.push(latest().reviewAttempt)
+      throw new Error('HTTP 503')
+    })
+
+    await interview.finish()
+    expect(attempts).toEqual([1, 2])
+
+    await interview.retryReview()
+    expect(latest().reviewAttempt).toBe(1)
+  })
+
   it('reports a failed start', async () => {
     const { interview, session, latest } = setup()
     vi.mocked(session.start).mockRejectedValueOnce(new Error('HTTP 401'))
