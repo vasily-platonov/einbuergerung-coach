@@ -53,7 +53,7 @@ export class GeminiVoiceSession implements VoiceSession {
           JSON.stringify({
             setup: {
               model: LIVE_MODEL,
-              responseModalities: ['AUDIO'],
+              generationConfig: { responseModalities: ['AUDIO'] },
               systemInstruction: { parts: [{ text: this.config.instructions }] },
               inputAudioTranscription: {},
               outputAudioTranscription: {},
