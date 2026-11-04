@@ -6,7 +6,7 @@
     "tagline": "Prepare for the German citizenship conversation",
     "intro": "Study a question, then take a short spoken interview in German and get a review. Understanding the idea matters most: this is not a language exam.",
     "disclaimerTitle": "Please note",
-    "disclaimer": "This is study material, not an official question list and not legal advice. The questions are based on examples published online and on material from different German states. The content and format of the conversation depend on the authority. Check the current requirements with your own authority in NRW.",
+    "disclaimer": "This is study material, not an official question list and not legal advice. The questions are based on examples published online and on material from different German states. The content and format of the conversation depend on the authority. Check the current requirements with your own authority in NRW. The interview and the assessment are carried out by a language model (LLM), which can make mistakes and does not always assess correctly.",
     "questionsTitle": "Questions",
     "blocks": {
       "democracy": "Democratic order",

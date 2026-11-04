@@ -67,6 +67,11 @@ describe('App', () => {
     expect(screen.getByText(/около 15 центов/)).toBeTruthy()
   })
 
+  it('warns on the start page that a language model runs the interview and can be wrong', () => {
+    render(<App />)
+    expect(screen.getByText(/языковая модель \(LLM\): она может ошибаться/)).toBeTruthy()
+  })
+
   it('switches the language', async () => {
     render(<App />)
     fireEvent.click(screen.getByRole('button', { name: 'English' }))
