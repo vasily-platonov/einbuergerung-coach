@@ -24,11 +24,17 @@ In development, the provider list includes **Demo**, which runs a short intervie
 
 | Provider | Voice | Interview model | Review model |
 |---|---|---|---|
-| OpenAI | Native, over WebRTC | `gpt-realtime-2.1` | `gpt-6.1-terra` |
-| Google Gemini | Native, over WebSocket | `gemini-3.8-live` | `gemini-3.8-flash` |
+| OpenAI | Native, over WebRTC | `gpt-realtime-2.1`, with `gpt-transcribe` for your speech | `gpt-6.1-terra` |
+| Google Gemini | Native, over WebSocket | `gemini-3.8-live` | `gemini-3.8-flash`, then `gemini-3.6-flash` |
 | Anthropic Claude | Browser speech (best in Chrome and Edge) | `claude-opus-5-5` | `claude-opus-5-5` |
 
-Claude requests use `fallbacks: "default"`, so if a safety classifier declines a request on a topic such as the Holocaust or extremism, Anthropic retries it on another model.
+If a review request fails:
+
+- **OpenAI** retries temporary server errors up to two more times.
+- **Gemini** makes one request to `gemini-3.8-flash`. If that fails, it makes up to three requests to `gemini-3.6-flash`, retrying only temporary server errors.
+- **Claude** relies on the retries built into the Anthropic SDK. Its requests also use `fallbacks: "default"`, so if a safety classifier declines a request on a topic such as the Holocaust or extremism, Anthropic retries it on another model.
+
+If the review still fails, the page offers to retry it with the same conversation.
 
 ### Key safety
 
