@@ -69,6 +69,8 @@
       "timeWarning": "One minute left.",
       "reviewing": "Preparing the review…",
       "noAnswers": "You have not answered any question yet, so there is nothing to review.",
+      "reviewFailed": "The review could not be created, but the conversation is kept while you stay on this page, so you can try again. Error:",
+      "retryReview": "Retry the review",
       "failed": "Something went wrong:",
       "again": "Start again"
     },

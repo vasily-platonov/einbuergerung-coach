@@ -319,6 +319,12 @@ textarea:focus-visible {
   gap: 12px;
 }
 
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
 .key-links {
   display: flex;
   flex-wrap: wrap;

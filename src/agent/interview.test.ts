@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
-import { Interview, SESSION_LIMIT_MS, WARNING_BEFORE_END_MS, type InterviewState } from './interview'
+import { Interview, SESSION_LIMIT_MS, WARNING_BEFORE_END_MS, type InterviewDependencies, type InterviewState } from './interview'
 import { END_PHRASE } from './prompt'
 import type { Review } from './review'
 import type { VoiceSession, VoiceSessionConfig } from './types'
@@ -23,7 +23,7 @@ function setup() {
     canRecord: () => true,
     stop: vi.fn(),
   }
-  const review = vi.fn(async () => REVIEW)
+  const review = vi.fn<InterviewDependencies['review']>(async () => REVIEW)
   const states: InterviewState[] = []
   const interview = new Interview(
     { provider: 'demo', apiKey: 'k' },
@@ -105,6 +105,24 @@ describe('Interview', () => {
     events().onPhase('your-turn')
     expect(session.stop).toHaveBeenCalled()
     expect(latest()).toBe(before)
+  })
+
+  it('keeps the conversation after a failed review and can retry it', async () => {
+    const { interview, review, latest, events } = setup()
+    await interview.start()
+    events().onTurn({ id: '1', role: 'applicant', text: 'Das Volk wählt.' })
+    review.mockRejectedValueOnce(new Error('HTTP 503'))
+
+    await interview.finish()
+    expect(latest().status).toBe('review-failed')
+    expect(latest().error).toBe('HTTP 503')
+
+    await interview.retryReview()
+    expect(review).toHaveBeenCalledTimes(2)
+    expect(review.mock.calls[1]).toEqual(review.mock.calls[0])
+    expect(latest().status).toBe('reviewed')
+    expect(latest().error).toBeNull()
+    expect(latest().review).toEqual(REVIEW)
   })
 
   it('reports a failed start', async () => {

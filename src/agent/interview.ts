@@ -7,7 +7,7 @@ export const SESSION_LIMIT_MS = 10 * 60 * 1000
 export const WARNING_BEFORE_END_MS = 60 * 1000
 
 export interface InterviewState {
-  status: 'idle' | 'active' | 'reviewing' | 'reviewed' | 'failed'
+  status: 'idle' | 'active' | 'reviewing' | 'reviewed' | 'review-failed' | 'failed'
   phase: SessionPhase
   canRecord: boolean
   timeWarning: boolean
@@ -96,7 +96,16 @@ export class Interview {
       this.update({ status: 'reviewed', review: null })
       return
     }
-    this.update({ status: 'reviewing' })
+    await this.requestReview()
+  }
+
+  /** Sends the same conversation again after a failed review. */
+  async retryReview(): Promise<void> {
+    if (!this.disposed && this.state.status === 'review-failed') await this.requestReview()
+  }
+
+  private async requestReview(): Promise<void> {
+    this.update({ status: 'reviewing', error: null })
     try {
       const review = await this.dependencies.review(
         this.connection,
@@ -107,7 +116,9 @@ export class Interview {
       )
       if (!this.disposed) this.update({ status: 'reviewed', review })
     } catch (error) {
-      this.fail(error)
+      if (!this.disposed) {
+        this.update({ status: 'review-failed', error: error instanceof Error ? error.message : String(error) })
+      }
     }
   }
 

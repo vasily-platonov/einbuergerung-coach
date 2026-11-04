@@ -39,4 +39,11 @@ export interface VoiceSession {
 }
 
 /** The API rejected the key or the request. The message can be shown as it is. */
-export class ProviderError extends Error {}
+export class ProviderError extends Error {
+  constructor(
+    message: string,
+    readonly status?: number,
+  ) {
+    super(message)
+  }
+}

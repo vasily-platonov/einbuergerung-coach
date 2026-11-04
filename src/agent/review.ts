@@ -12,7 +12,10 @@ export interface Review {
 }
 
 const OPENAI_REVIEW_MODEL = 'gpt-6.1-terra'
-const GEMINI_REVIEW_MODEL = 'gemini-3.8-flash'
+/** Tried in order, because a model can be temporarily overloaded while another still answers. */
+const GEMINI_REVIEW_MODELS = ['gemini-3.8-flash', 'gemini-3.6-flash']
+const TEMPORARY_STATUSES = new Set([500, 502, 503, 504])
+const RETRY_DELAYS_MS = [1000, 3000]
 
 export function parseReview(raw: string): Review {
   const start = raw.indexOf('{')
@@ -85,17 +88,25 @@ const REVIEWERS: Record<Connection['provider'], Reviewer> = {
   },
 
   async gemini(apiKey, system, transcript, signal) {
-    const data = await postJson<GeminiResponse>(
-      `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_REVIEW_MODEL}:generateContent`,
-      { 'x-goog-api-key': apiKey },
-      {
-        systemInstruction: { parts: [{ text: system }] },
-        contents: [{ role: 'user', parts: [{ text: transcript }] }],
-        generationConfig: { responseMimeType: 'application/json' },
-      },
-      signal,
-    )
-    return (data.candidates?.[0]?.content?.parts ?? []).map((part) => part.text ?? '').join('')
+    for (const [index, model] of GEMINI_REVIEW_MODELS.entries()) {
+      try {
+        const data = await postJson<GeminiResponse>(
+          `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`,
+          { 'x-goog-api-key': apiKey },
+          {
+            systemInstruction: { parts: [{ text: system }] },
+            contents: [{ role: 'user', parts: [{ text: transcript }] }],
+            generationConfig: { responseMimeType: 'application/json' },
+          },
+          signal,
+        )
+        return (data.candidates?.[0]?.content?.parts ?? []).map((part) => part.text ?? '').join('')
+      } catch (error) {
+        const isLastModel = index === GEMINI_REVIEW_MODELS.length - 1
+        if (isLastModel || !(error instanceof ProviderError) || !TEMPORARY_STATUSES.has(error.status ?? 0)) throw error
+      }
+    }
+    throw new ProviderError('No review model is available.')
   },
 
   async demo() {
@@ -124,12 +135,31 @@ async function postJson<T>(
   body: unknown,
   signal: AbortSignal,
 ): Promise<T> {
-  const response = await fetch(url, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json', ...headers },
-    body: JSON.stringify(body),
-    signal,
+  for (let attempt = 0; ; attempt++) {
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', ...headers },
+      body: JSON.stringify(body),
+      signal,
+    })
+    if (response.ok) return (await response.json()) as T
+    if (!TEMPORARY_STATUSES.has(response.status) || attempt >= RETRY_DELAYS_MS.length) {
+      throw new ProviderError(`HTTP ${response.status}: ${await response.text()}`, response.status)
+    }
+    await wait(RETRY_DELAYS_MS[attempt], signal)
+  }
+}
+
+function wait(ms: number, signal: AbortSignal): Promise<void> {
+  return new Promise((resolve, reject) => {
+    const timer = setTimeout(resolve, ms)
+    signal.addEventListener(
+      'abort',
+      () => {
+        clearTimeout(timer)
+        reject(signal.reason)
+      },
+      { once: true },
+    )
   })
-  if (!response.ok) throw new ProviderError(`HTTP ${response.status}: ${await response.text()}`)
-  return (await response.json()) as T
 }

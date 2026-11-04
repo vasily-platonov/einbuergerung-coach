@@ -1,8 +1,44 @@
-import { describe, expect, it, vi } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { splitSentences } from './adapters/claude'
 import { base64ToBytes, bytesToBase64, parseSampleRate, pcm16ToFloat32 } from './adapters/gemini'
 import { buildReviewPrompt, formatTranscript } from './prompt'
 import { generateReview, parseReview } from './review'
+
+describe('generateReview with Gemini', () => {
+  const turns = [{ id: '1', role: 'applicant' as const, text: 'Darum.' }]
+  const connection = { provider: 'gemini' as const, apiKey: 'k' }
+  const answer = () =>
+    Response.json({ candidates: [{ content: { parts: [{ text: '{"readiness":"ready"}' }] } }] })
+
+  beforeEach(() => vi.useFakeTimers())
+  afterEach(() => {
+    vi.useRealTimers()
+    vi.unstubAllGlobals()
+  })
+
+  it('retries when a model is overloaded and then moves to the next model', async () => {
+    const fetchMock = vi.fn(async (url: string) =>
+      url.includes('gemini-3.6-flash') ? answer() : new Response('busy', { status: 503 }),
+    )
+    vi.stubGlobal('fetch', fetchMock)
+
+    const result = generateReview(connection, 'Frage?', 'Russian', turns, new AbortController().signal)
+    await vi.runAllTimersAsync()
+
+    expect((await result).readiness).toBe('ready')
+    const urls = fetchMock.mock.calls.map(([url]) => url)
+    expect(urls.filter((url) => url.includes('gemini-3.8-flash'))).toHaveLength(3)
+    expect(urls.filter((url) => url.includes('gemini-3.6-flash'))).toHaveLength(1)
+  })
+
+  it('does not retry a rejected request', async () => {
+    const fetchMock = vi.fn(async () => new Response('bad key', { status: 400 }))
+    vi.stubGlobal('fetch', fetchMock)
+
+    await expect(generateReview(connection, 'Frage?', 'Russian', turns, new AbortController().signal)).rejects.toThrow('HTTP 400')
+    expect(fetchMock).toHaveBeenCalledTimes(1)
+  })
+})
 
 describe('generateReview with OpenAI', () => {
   it('mentions JSON in the input, as JSON mode requires, and reads the reply', async () => {

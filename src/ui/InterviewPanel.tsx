@@ -107,6 +107,22 @@ export function InterviewPanel({ question, locale, connection, onConnect }: Prop
         </p>
       )}
 
+      {state.status === 'review-failed' && (
+        <>
+          <p className="error" role="alert">
+            {text.reviewFailed} {state.error}
+          </p>
+          <div className="actions">
+            <button type="button" className="button primary" onClick={() => void interview.current?.retryReview()}>
+              {text.retryReview}
+            </button>
+            <button type="button" className="button ghost" onClick={start} disabled={!connection}>
+              {text.again}
+            </button>
+          </div>
+        </>
+      )}
+
       {state.status === 'failed' && (
         <>
           <p className="error" role="alert">
