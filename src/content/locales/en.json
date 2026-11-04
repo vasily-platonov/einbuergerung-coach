@@ -30,7 +30,7 @@
       "basicVoice": "Basic voice: the browser recognizes and speaks the text. It works best in Chrome and Edge.",
       "nativeVoice": "The provider's native voice.",
       "sessionOnly": "The key is kept only for this session: it stays in this tab's memory, is not saved anywhere, and is sent only to the provider you chose. It disappears when you close or reload the tab.",
-      "cost": "For reference: in a test with OpenAI, an interview on one question cost about 15 cents. The cost depends on the length of the conversation and the provider.",
+      "cost": "For reference: in a test with OpenAI, an interview on one question cost about 15 cents. The cost depends on the length of the conversation and the provider. Providers sometimes offer free tiers, so if you just want to evaluate the site, try them all before buying anything.",
       "safety": "Set a spending limit with the provider, and preferably create a separate key for this site."
     },
     "question": {

@@ -67,7 +67,7 @@ describe('App', () => {
     expect(screen.getByRole('link', { name: 'Google Gemini' }).getAttribute('href')).toBe('https://aistudio.google.com/apikey')
     expect(screen.getByRole('link', { name: 'Anthropic Claude' }).getAttribute('href')).toBe('https://platform.claude.com/settings/keys')
     expect(screen.getByText(/^Ключ хранится только на время сессии/)).toBeTruthy()
-    expect(screen.getByText(/около 15 центов/)).toBeTruthy()
+    expect(screen.getByText(/около 15 центов.*бесплатные тарифы/)).toBeTruthy()
   })
 
   it('warns on the start page that a language model runs the interview and can be wrong', () => {
