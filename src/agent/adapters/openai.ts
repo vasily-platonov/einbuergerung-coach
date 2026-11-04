@@ -34,6 +34,8 @@ export class OpenAIVoiceSession implements VoiceSession {
   async start(): Promise<void> {
     this.config.events.onPhase('connecting')
     this.microphone = (await navigator.mediaDevices?.getUserMedia({ audio: true }).catch(() => null)) ?? null
+    // The visitor can leave the page while the permission prompt is open, so stop() may already have run.
+    if (this.stopped) return this.stop()
     const token = await this.createClientSecret()
     if (this.stopped) return this.stop()
 

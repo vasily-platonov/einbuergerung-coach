@@ -65,7 +65,7 @@ export function ConnectPanel({ ui, connection, onConnect }: Props) {
           {text.apiKey}
           <input
             type="password"
-            autoComplete="off"
+            autoComplete="new-password"
             spellCheck={false}
             required={provider !== 'demo'}
             value={apiKey}
