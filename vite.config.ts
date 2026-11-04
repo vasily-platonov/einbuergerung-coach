@@ -1,7 +1,8 @@
 import react from '@vitejs/plugin-react'
 import { defineConfig, type Plugin } from 'vitest/config'
 
-// Only the provider APIs may receive data, so a stray script cannot send a key anywhere else.
+// Keeps out third-party and injected scripts, and limits fetch and WebSocket traffic to the provider APIs.
+// It does not cover WebRTC, which OpenAI voice needs, or navigation, so a script already running could still use those.
 const CONTENT_SECURITY_POLICY = [
   "default-src 'none'",
   "script-src 'self'",

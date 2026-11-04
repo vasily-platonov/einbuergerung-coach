@@ -38,7 +38,11 @@ If the review still fails, the page offers to retry it with the same conversatio
 
 ### Key safety
 
-The key is available to the page's JavaScript and is sent only to the provider. A strict Content Security Policy in the production build blocks third-party scripts and other destinations. Even so, use a separate key with a spending limit. OpenAI's documentation recommends creating session tokens on a server, and this site deliberately does it in the browser, using your own key, so that no server handles it. The Gemini Live API receives the key as a URL parameter over an encrypted connection.
+The key is available to the page's JavaScript and is sent only to the provider. A strict Content Security Policy in the production build blocks third-party scripts and limits `fetch` and WebSocket requests to the provider APIs. It does not cover WebRTC or navigation, so a script that was already running could still send data out that way. The site also refuses to run inside another page's frame. Even so, use a separate key with a spending limit. OpenAI's documentation recommends creating session tokens on a server, and this site deliberately does it in the browser, using your own key, so that no server handles it. The Gemini Live API receives the key as a URL parameter over an encrypted connection. Browsers may offer to save the key like a password, and the site asks visitors to decline.
+
+### Voice privacy
+
+OpenAI and Gemini receive your voice directly. With Claude, the browser handles speech recognition and may send your voice to its maker, such as Google or Microsoft, so the site suggests typing as the alternative.
 
 ## Change the content
 
@@ -58,6 +62,8 @@ The first 16 questions follow a [set of examples published on LiveJournal](https
 ## Publish
 
 `.github/workflows/deploy.yml` publishes to GitHub Pages. It runs only when started by hand from the Actions tab, after you enable Pages with **GitHub Actions** as the source in the repository settings.
+
+On a `<user>.github.io` address, every Pages project of that account shares one origin, including the microphone permission. Publish there only next to projects you trust, or use a custom domain.
 
 ## License
 

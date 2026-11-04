@@ -15,7 +15,7 @@ A browser-only trainer for the German naturalization conversation. `README.md` c
 - A new voice provider implements `VoiceSession` in `src/agent/adapters/` and registers in `src/agent/providers.ts`.
 - A new API host also goes into `connect-src` in `vite.config.ts`, or the production build blocks it. The policy applies only to the build, so check new hosts with `npm run build` and `npm run preview`.
 - Styles go in `src/ui/styles.css` as classes, because the policy has `style-src 'self'`.
-- A new release updates both `VERSION` and `package.json`. A test keeps them equal.
+- A new release updates both `VERSION` and `package.json`, and adds an entry to `CHANGELOG.md`. A test keeps the two versions equal.
 
 ## Content
 
