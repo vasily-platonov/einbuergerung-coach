@@ -15,6 +15,7 @@ export interface QuestionMeta {
 export interface GermanQuestion {
   question: string
   variants: string[]
+  followUps: string[]
   shortAnswer: string
   fullAnswer: string
 }

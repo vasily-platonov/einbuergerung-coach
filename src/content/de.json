@@ -2,144 +2,168 @@
   "fdgo": {
     "question": "Was verstehen Sie unter der freiheitlichen demokratischen Grundordnung?",
     "variants": ["Was bedeutet fdGO für Sie?", "Welche Grundsätze gehören zu unserer Verfassungsordnung?", "Was haben Sie mit Ihrer Unterschrift unter dem Bekenntnis bestätigt?"],
+    "followUps": ["Welcher dieser Grundsätze ist für Sie am wichtigsten, und warum?","Was wäre anders, wenn Deutschland keine Demokratie wäre?"],
     "shortAnswer": "Das sind die Grundregeln unseres Staates. Das Volk wählt das Parlament. Alle müssen die Gesetze einhalten. Jeder Mensch hat Würde und Grundrechte.",
     "fullAnswer": "Die freiheitliche demokratische Grundordnung ist die Basis unseres Staates. Dazu gehören die Würde des Menschen, die Demokratie und der Rechtsstaat. Das Volk wählt das Parlament in freien Wahlen, und es gibt mehrere Parteien und eine Opposition. Die Gerichte sind unabhängig und auch der Staat muss sich an die Gesetze halten. Eine Diktatur und staatliche Willkür sind damit ausgeschlossen."
   },
   "volkssouveraenitaet": {
     "question": "Was bedeutet Volkssouveränität?",
     "variants": ["Von wem geht in Deutschland die Staatsgewalt aus?", "Wie können die Bürger über die Politik mitbestimmen?", "Warum sind freie Wahlen so wichtig?"],
+    "followUps": ["Was bedeutet es, dass eine Wahl geheim ist?","Wie können Bürger auch zwischen den Wahlen Einfluss nehmen?"],
     "shortAnswer": "Die Macht im Staat kommt vom Volk. Die Bürger wählen das Parlament. Die Wahlen sind frei und geheim.",
     "fullAnswer": "Volkssouveränität bedeutet: Alle Staatsgewalt geht vom Volk aus. Die Bürger wählen den Bundestag und die Landtage in allgemeinen, freien, gleichen und geheimen Wahlen. Die gewählten Abgeordneten machen dann die Gesetze. Auf Bundesebene gibt es nur sehr selten direkte Abstimmungen, aber in Nordrhein-Westfalen gibt es zum Beispiel Volksbegehren und in den Städten Bürgerentscheide."
   },
   "rechtsstaat": {
     "question": "Was versteht man unter Rechtsstaatlichkeit?",
     "variants": ["Was bedeutet es, dass Deutschland ein Rechtsstaat ist?", "Steht jemand in Deutschland über dem Gesetz?", "Was können Sie tun, wenn eine Behörde falsch entscheidet?"],
+    "followUps": ["Können Sie ein Beispiel nennen, wann ein Bürger gegen den Staat klagen kann?","Gilt das Gesetz auch für den Bundeskanzler?"],
     "shortAnswer": "Niemand steht über dem Gesetz. Auch der Staat muss die Gesetze einhalten. Wenn eine Behörde falsch entscheidet, kann ich vor Gericht gehen.",
     "fullAnswer": "Im Rechtsstaat gilt das Recht für alle, auch für Politiker, Behörden und die Polizei. Das Parlament ist an die Verfassung gebunden, Regierung und Gerichte sind an Gesetz und Recht gebunden. Wenn eine Behörde meine Rechte verletzt, kann ich dagegen vor einem unabhängigen Gericht klagen. So schützt das Recht die Menschen vor staatlicher Willkür."
   },
   "opposition": {
     "question": "Warum ist eine parlamentarische Opposition wichtig?",
     "variants": ["Was ist die Aufgabe der Opposition?", "Warum gibt es in Deutschland mehrere Parteien?", "Was wäre, wenn es nur eine Partei gäbe?"],
+    "followUps": ["Was kann die Opposition tun, wenn sie mit einem Gesetz nicht einverstanden ist?","Darf man in Deutschland die Regierung öffentlich kritisieren?"],
     "shortAnswer": "Die Opposition sind die Parteien, die nicht regieren. Sie kontrolliert und kritisiert die Regierung. Bei der nächsten Wahl kann sie selbst die Regierung werden.",
     "fullAnswer": "Die Opposition besteht aus den Parteien im Parlament, die nicht in der Regierung sind. Sie stellt Fragen, kritisiert Fehler und macht andere Vorschläge. Das ist wichtig, weil so die Macht kontrolliert wird. Außerdem haben die Wähler eine echte Wahl, denn die Opposition kann nach einer Wahl die Regierung übernehmen. In einem System mit nur einer Partei wäre das nicht möglich."
   },
   "regierung": {
     "question": "Was bedeutet es, dass die Regierung verantwortlich und ablösbar ist?",
     "variants": ["Wer kontrolliert die Bundesregierung?", "Wie kann eine Regierung in Deutschland abgelöst werden?", "Was passiert, wenn die Mehrheit im Bundestag dem Kanzler nicht mehr vertraut?"],
+    "followUps": ["Wie oft wird der Bundestag normalerweise gewählt?","Wer wählt den Bundeskanzler oder die Bundeskanzlerin?"],
     "shortAnswer": "Die Regierung muss dem Parlament ihre Arbeit erklären. Der Bundestag kontrolliert sie. Die Regierung kann durch Wahlen wechseln.",
     "fullAnswer": "Die Bundesregierung muss dem Bundestag Rede und Antwort stehen, und das Parlament entscheidet über den Haushalt. Die Macht hat sie nur auf Zeit, denn die Bürger können bei der nächsten Wahl anders entscheiden. Der Bundestag kann den Kanzler auch vorher abwählen, wenn er gleichzeitig mit Mehrheit einen neuen Kanzler wählt. Das nennt man konstruktives Misstrauensvotum."
   },
   "gerichte": {
     "question": "Was bedeutet die Unabhängigkeit der Gerichte?",
     "variants": ["Darf die Regierung einem Richter sagen, wie er entscheiden soll?", "Warum müssen Gerichte unabhängig sein?", "Kann ein Gericht auch gegen den Staat entscheiden?"],
+    "followUps": ["Was macht das Bundesverfassungsgericht?","Warum wäre es gefährlich, wenn die Regierung Urteile bestimmen könnte?"],
     "shortAnswer": "Richter entscheiden nur nach dem Gesetz. Die Regierung darf ihnen nichts befehlen. Ein Gericht kann auch gegen den Staat entscheiden.",
     "fullAnswer": "Richter sind unabhängig und nur dem Gesetz unterworfen. Weder die Regierung noch das Parlament dürfen ihnen sagen, wie sie in einem Fall entscheiden sollen. Deshalb können Gerichte auch gegen den Staat entscheiden und staatliche Macht kontrollieren. Das Bundesverfassungsgericht kann sogar Gesetze aufheben, wenn sie gegen das Grundgesetz verstoßen."
   },
   "willkuer": {
     "question": "Was bedeutet es, dass Gewalt- und Willkürherrschaft ausgeschlossen sind?",
     "variants": ["Warum ist in Deutschland keine Diktatur erlaubt?", "Wann darf der Staat Gewalt anwenden?", "Was ist staatliche Willkür?"],
+    "followUps": ["Was können Sie tun, wenn die Polizei Sie ungerecht behandelt?","Darf man sich in Deutschland selbst Recht verschaffen, zum Beispiel mit Gewalt?"],
     "shortAnswer": "Der Staat darf nicht machen, was er will. Er muss sich an die Gesetze halten. Die Polizei darf Gewalt nur benutzen, wenn das Gesetz es erlaubt und es nötig ist.",
     "fullAnswer": "Das bedeutet, dass niemand allein und nach eigenem Belieben herrschen darf. Jede staatliche Entscheidung braucht eine gesetzliche Grundlage und kann von Gerichten überprüft werden. Gewalt darf grundsätzlich nur der Staat anwenden, zum Beispiel die Polizei, und auch nur, wenn ein Gesetz es erlaubt und es verhältnismäßig ist. Die Privatperson darf sich nur in Notwehr verteidigen."
   },
   "menschenrechte": {
     "question": "Was sind die Menschenrechte im Grundgesetz?",
     "variants": ["Welche Grundrechte kennen Sie?", "Nennen Sie bitte zwei oder drei Grundrechte.", "Darf der Staat Grundrechte einschränken?"],
+    "followUps": ["Welches Grundrecht ist Ihnen persönlich am wichtigsten, und warum?","Gelten die Grundrechte auch für Menschen ohne deutschen Pass?"],
     "shortAnswer": "Jeder Mensch hat Würde. Es gibt das Recht auf Leben, Gleichheit vor dem Gesetz und Meinungsfreiheit. Auch die Religion ist frei.",
     "fullAnswer": "Die Grundrechte stehen vor allem in den Artikeln 1 bis 19 des Grundgesetzes. Die Würde des Menschen ist unantastbar. Wichtig sind auch das Recht auf Leben, die Gleichheit vor dem Gesetz, die Meinungsfreiheit und die Religionsfreiheit. Viele Rechte gelten für alle Menschen, einige nur für Deutsche, zum Beispiel die Versammlungsfreiheit. Andere Grundrechte darf der Staat nur durch Gesetz und in engen Grenzen einschränken. Die Verfassung von Nordrhein-Westfalen übernimmt diese Grundrechte."
   },
   "menschenwuerde": {
     "question": "Warum sind antisemitische oder rassistische Handlungen mit der Menschenwürde unvereinbar?",
     "variants": ["Was bedeutet der Satz „Die Würde des Menschen ist unantastbar“?", "Was tun Sie, wenn jemand Menschen wegen ihrer Herkunft beleidigt?", "Was haben Antisemitismus und Rassismus mit unserer Verfassung zu tun?"],
+    "followUps": ["Können Sie ein Beispiel für Antisemitismus im Alltag nennen?","Was tun Sie, wenn Ihr Kind in der Schule rassistisch beleidigt wird?"],
     "shortAnswer": "Jeder Mensch hat den gleichen Wert. Antisemitismus und Rassismus sagen, dass manche Menschen weniger wert sind. Das ist gegen die Menschenwürde.",
     "fullAnswer": "Die Menschenwürde gilt für jeden Menschen, egal welche Herkunft, Religion oder Hautfarbe er hat. Antisemitismus und Rassismus behandeln Menschen dagegen als weniger wert, nur weil sie zu einer Gruppe gehören. Deshalb sagt das Staatsangehörigkeitsgesetz ausdrücklich, dass solche Handlungen gegen die freiheitliche demokratische Grundordnung verstoßen. Wenn ich so etwas erlebe, widerspreche ich oder hole Hilfe, wenn es gefährlich ist."
   },
   "verantwortung": {
     "question": "Was bedeutet das Bekenntnis zur besonderen historischen Verantwortung Deutschlands?",
     "variants": ["Warum hat Deutschland eine besondere Verantwortung?", "Warum müssen auch neue Staatsbürger diese Verantwortung übernehmen?", "Was bedeutet das Verbot eines Angriffskrieges?"],
+    "followUps": ["Was bedeutet der Schutz jüdischen Lebens konkret im Alltag?","Was bedeutet der Satz „Nie wieder“ für Sie persönlich?"],
     "shortAnswer": "Deutschland hat im Nationalsozialismus furchtbare Verbrechen begangen. Darum schützt Deutschland heute jüdisches Leben. Deutschland will Frieden und darf keinen Angriffskrieg führen.",
     "fullAnswer": "Wegen der nationalsozialistischen Verbrechen hat Deutschland eine besondere Verantwortung. Dazu gehört vor allem der Schutz jüdischen Lebens. Dazu gehören auch das friedliche Zusammenleben der Völker und das Verbot, einen Angriffskrieg zu führen. Verteidigung bleibt erlaubt. Auch wenn ich und meine Familie damals nichts damit zu tun hatten, übernehme ich als deutscher Staatsbürger diese Verantwortung für die Zukunft."
   },
   "israel": {
     "question": "Was versteht man unter dem Existenzrecht Israels und warum ist es für Deutschland besonders wichtig?",
     "variants": ["Wie stehen Sie zum Existenzrecht Israels?", "Warum hat Deutschland eine besondere Beziehung zu Israel?", "Darf man die Politik der israelischen Regierung kritisieren?"],
+    "followUps": ["Wo liegt für Sie die Grenze zwischen Kritik an Israel und Antisemitismus?","Wie reagieren Sie, wenn jemand Israel in Ihrer Gegenwart das Existenzrecht abspricht?"],
     "shortAnswer": "Israel hat das Recht, als Staat sicher zu existieren. Wegen des Holocaust ist das für Deutschland besonders wichtig. Man darf die Regierung kritisieren, aber nicht Israels Existenz ablehnen.",
     "fullAnswer": "Das Existenzrecht bedeutet, dass der Staat Israel bestehen und in Sicherheit leben darf. Für Deutschland ist das besonders wichtig, weil die Nationalsozialisten sechs Millionen Juden ermordet haben. Diese Geschichte ist der Grund für die besondere Verantwortung. Man darf die Politik einer israelischen Regierung kritisieren, wie die Politik jedes anderen Staates. Wer aber Israel das Existenzrecht abspricht oder Juden für diese Politik verantwortlich macht, überschreitet eine klare Grenze."
   },
   "extremismus-erklaerung": {
     "question": "Was erklären Sie in der Loyalitätserklärung zum Extremismus?",
     "variants": ["Was bestätigen Sie mit Ihrer Unterschrift?", "Was passiert, wenn die Erklärung falsch ist?", "Was tun Sie, wenn Sie früher eine solche Gruppe unterstützt haben?"],
+    "followUps": ["Warum verlangt der Staat diese Erklärung von Ihnen?","Gibt es in Ihrem Umfeld eine Organisation, bei der Sie unsicher sind?"],
     "shortAnswer": "Ich erkläre, dass ich keine extremistischen Ziele verfolge oder unterstütze. Das gilt für heute und früher. Wenn die Erklärung falsch ist, kann ich die Einbürgerung verlieren.",
     "fullAnswer": "Ich erkläre, dass ich keine Bestrebungen gegen die freiheitliche demokratische Grundordnung oder gegen die Sicherheit des Staates verfolge oder unterstütze und das auch früher nicht getan habe. Wenn ich früher etwas unterstützt habe, muss ich das offen sagen und glaubhaft machen, dass ich mich davon abgewandt habe. Eine falsche Erklärung ist gefährlich, denn eine Einbürgerung kann deshalb später zurückgenommen werden."
   },
   "extremismus-gruende": {
     "question": "Welche extremistischen Bestrebungen führen dazu, dass man nicht eingebürgert werden kann?",
     "variants": ["Gegen welche Ziele richtet sich die Loyalitätserklärung?", "Wann lehnt die Behörde eine Einbürgerung wegen Extremismus ab?", "Nennen Sie ein Beispiel für verfassungsfeindliche Bestrebungen."],
+    "followUps": ["Warum lehnt der Staat Menschen mit solchen Zielen ab?","Kann jemand eingebürgert werden, der sich früher davon abgewandt hat?"],
     "shortAnswer": "Man wird nicht eingebürgert, wenn man die Demokratie abschaffen will. Das gilt auch, wenn man Gewalt für politische Ziele benutzt oder unterstützt.",
     "fullAnswer": "Das sind Bestrebungen gegen die freiheitliche demokratische Grundordnung, gegen den Bestand oder die Sicherheit des Bundes oder eines Landes. Dazu gehört auch, Verfassungsorgane wie den Bundestag rechtswidrig unter Druck zu setzen. Außerdem geht es um Gewalt, die von Deutschland aus die auswärtigen Interessen Deutschlands gefährdet. Antisemitische, rassistische oder menschenverachtende Handlungen verstoßen ebenfalls gegen die Grundordnung."
   },
   "extremismus-erkennen": {
     "question": "Woran erkennt man extremistische Bestrebungen?",
     "variants": ["Was ist für Sie Extremismus?", "Welche Formen von Extremismus kennen Sie?", "Ist jede Kritik an der Regierung extremistisch?"],
+    "followUps": ["Woran würden Sie in sozialen Medien merken, dass ein Inhalt extremistisch ist?","Was tun Sie, wenn sich ein Bekannter radikalisiert?"],
     "shortAnswer": "Extremisten wollen die Demokratie abschaffen. Oft wollen sie Gewalt oder hassen bestimmte Menschen. Kritik an der Regierung ist aber kein Extremismus.",
     "fullAnswer": "Extremisten lehnen Grundwerte wie Menschenwürde, Demokratie und Rechtsstaat ab. Oft rechtfertigen sie Gewalt oder hetzen gegen Menschen wegen Herkunft, Religion oder Meinung. Man unterscheidet zum Beispiel Rechtsextremismus, Linksextremismus, Islamismus und auslandsbezogenen Extremismus. Normale Kritik an der Regierung, friedliche Demonstrationen oder eine andere politische Meinung sind dagegen erlaubt und gehören zur Demokratie."
   },
   "extremismus-unterstuetzung": {
     "question": "Welche Handlungen gelten als Unterstützung extremistischer Bestrebungen?",
     "variants": ["Muss man Mitglied sein, um eine Gruppe zu unterstützen?", "Ist eine Spende an eine extremistische Gruppe auch Unterstützung?", "Was tun Sie, wenn Sie nicht sicher sind, ob eine Gruppe extremistisch ist?"],
+    "followUps": ["Kann es Unterstützung sein, extremistische Beiträge im Internet zu teilen?","Was tun Sie, wenn ein Freund Sie um Geld für eine solche Gruppe bittet?"],
     "shortAnswer": "Unterstützung heißt, einer solchen Gruppe zu helfen. Das kann Geld, Werbung oder Organisation sein. Man muss dafür kein Mitglied sein.",
     "fullAnswer": "Unterstützung kann jede Handlung sein, die einer extremistischen Gruppe hilft, auch ohne Mitgliedschaft. Beispiele sind Spenden, Werbung im Internet, die Organisation von Veranstaltungen oder das Sammeln von Geld. Das hängt aber vom Einzelfall ab. Wenn ich unsicher bin, informiere ich mich zum Beispiel beim Verfassungsschutz und spreche vor meiner Unterschrift offen mit der Behörde oder einer Beratungsstelle."
   },
   "zusammenfassung": {
     "question": "Können Sie kurz zusammenfassen, wozu Sie sich bekennen?",
     "variants": ["Was steht im Bekenntnis und in der Loyalitätserklärung?", "Was haben Sie verstanden, bevor Sie unterschrieben haben?", "Erklären Sie mir das Bekenntnis bitte in Ihren eigenen Worten."],
+    "followUps": ["Welcher dieser Punkte ist für Sie am wichtigsten?","Warum sind Sie bereit, das zu unterschreiben?"],
     "shortAnswer": "Ich akzeptiere die Demokratie und das Grundgesetz. Ich unterstütze keinen Extremismus. Ich lehne Antisemitismus und Rassismus ab und trage die historische Verantwortung Deutschlands mit.",
     "fullAnswer": "Ich bekenne mich zur freiheitlichen demokratischen Grundordnung, also zu Menschenwürde, Demokratie und Rechtsstaat. Ich erkläre, dass ich keine Bestrebungen dagegen verfolge oder unterstütze. Ich lehne antisemitische, rassistische und andere menschenverachtende Handlungen ab. Außerdem bekenne ich mich zur besonderen historischen Verantwortung Deutschlands, besonders zum Schutz jüdischen Lebens, und zum friedlichen Zusammenleben der Völker und zum Verbot eines Angriffskrieges."
   },
   "nationalsozialismus": {
     "question": "Was war der Nationalsozialismus?",
     "variants": ["Was geschah in Deutschland zwischen 1933 und 1945?", "Warum war die Zeit des Nationalsozialismus ein Unrechtsstaat?", "Was hat das Grundgesetz aus dieser Zeit gelernt?"],
+    "followUps": ["Wie konnte aus einer Demokratie eine Diktatur werden?","Was sagen Sie jemandem, der den Nationalsozialismus gut findet?"],
     "shortAnswer": "Von 1933 bis 1945 war Deutschland eine Diktatur unter Hitler. Es gab keine Freiheit. Viele Menschen wurden verfolgt und ermordet. Deutschland begann den Zweiten Weltkrieg.",
     "fullAnswer": "Der Nationalsozialismus war die Diktatur unter Adolf Hitler von 1933 bis 1945. Die Nazis schafften die Demokratie, freie Parteien und die Pressefreiheit ab und verfolgten Andersdenkende. Ihre Ideologie war rassistisch und antisemitisch. Deutschland begann 1939 den Zweiten Weltkrieg und beging schwere Verbrechen. Das Grundgesetz wurde auch als Antwort darauf geschrieben, darum steht die Menschenwürde ganz am Anfang."
   },
   "holocaust": {
     "question": "Was war der Holocaust?",
     "variants": ["Was bedeutet der Begriff Shoah?", "Wer wurde im Nationalsozialismus verfolgt und ermordet?", "Warum ist die Erinnerung daran heute noch wichtig?"],
+    "followUps": ["Was bedeutet die Erinnerung an den Holocaust für Sie persönlich?","Wie können wir heute verhindern, dass so etwas wieder geschieht?"],
     "shortAnswer": "Der Holocaust war der Mord an etwa sechs Millionen Juden in Europa. Die Nationalsozialisten haben ihn geplant und durchgeführt. Wir müssen daran erinnern, damit so etwas nie wieder passiert.",
     "fullAnswer": "Der Holocaust, auf Hebräisch Shoah, war die systematische Ermordung von etwa sechs Millionen europäischen Juden durch die Nationalsozialisten. Auch Sinti und Roma, Menschen mit Behinderungen, politische Gegner, Homosexuelle und andere Gruppen wurden verfolgt und ermordet. Die Erinnerung bleibt wichtig, weil sie zeigt, wohin Hass und der Verlust der Demokratie führen können. Darum müssen wir Antisemitismus auch heute entgegentreten."
   },
   "leugnung": {
     "question": "Was bedeutet es, wenn jemand den Holocaust leugnet, und wie reagiert der Staat darauf?",
     "variants": ["Ist die Leugnung des Holocaust in Deutschland erlaubt?", "Gilt die Meinungsfreiheit auch für die Leugnung des Holocaust?", "Was sagen Sie, wenn jemand behauptet, der Holocaust sei erfunden?"],
+    "followUps": ["Warum gibt es in Deutschland dieses besondere Gesetz?","Wo endet für Sie die Meinungsfreiheit?"],
     "shortAnswer": "Das heißt, jemand sagt, der Holocaust ist nicht passiert. Das ist falsch und in Deutschland strafbar. Ich widerspreche, wenn jemand das sagt.",
     "fullAnswer": "Wer den Holocaust leugnet, behauptet gegen alle historischen Beweise, dass die Verbrechen nicht geschehen sind oder verharmlost sie. Das verletzt die Opfer und ihre Familien. In Deutschland ist das nach Paragraph 130 des Strafgesetzbuchs unter bestimmten Bedingungen strafbar, zum Beispiel öffentlich oder in einer Versammlung, wenn es den öffentlichen Frieden stören kann. Die Meinungsfreiheit ist wichtig, aber sie hat Grenzen."
   },
   "gleichberechtigung": {
     "question": "Was bedeutet die Gleichberechtigung von Frauen und Männern?",
     "variants": ["Welche Rechte hat eine Frau in Deutschland?", "Darf ein Mann seiner Frau verbieten zu arbeiten?", "Wer entscheidet in Deutschland, wen man heiratet?"],
+    "followUps": ["Was tun Sie, wenn Ihre Tochter einen Partner wählt, den Sie nicht mögen?","Darf eine Frau in Deutschland selbst entscheiden, sich scheiden zu lassen?"],
     "shortAnswer": "Frauen und Männer haben die gleichen Rechte. Eine Frau entscheidet selbst über ihre Arbeit und ihr Leben. Jeder entscheidet selbst, wen er heiratet.",
     "fullAnswer": "Das Grundgesetz sagt: Männer und Frauen sind gleichberechtigt. Eine Frau entscheidet selbst über Arbeit, Geld, Ausbildung und Partnerschaft, und kein Mann darf ihr das verbieten. Eine Ehe darf nur freiwillig geschlossen werden, Zwangsheirat und Gewalt in der Familie sind strafbar. Die Mehrehe ist in Deutschland nicht erlaubt. Der Staat soll auch dabei helfen, bestehende Nachteile abzubauen."
   },
   "religion": {
     "question": "Was bedeutet Religionsfreiheit, und was gilt, wenn religiöse Regeln und Gesetze sich widersprechen?",
     "variants": ["Darf man in Deutschland die Religion wechseln oder keine Religion haben?", "Was ist wichtiger: religiöse Regeln oder das Gesetz?", "Wie gehen Sie mit Menschen anderer Religionen um?"],
+    "followUps": ["Wie würden Sie reagieren, wenn Ihr Kind die Religion wechseln möchte?","Darf man in Deutschland Religionen kritisieren?"],
     "shortAnswer": "Jeder darf seine Religion frei wählen. Man darf auch keine Religion haben. Wenn es einen Konflikt gibt, gelten die deutschen Gesetze.",
     "fullAnswer": "Religionsfreiheit bedeutet, dass ich meinen Glauben frei leben, wechseln oder auch keinen Glauben haben darf. Der Staat ist neutral und niemand darf wegen seiner Religion benachteiligt werden. Religiöse Regeln stehen aber nicht über dem Gesetz. Wenn sie gegen Gesetze oder die Rechte anderer verstoßen, gelten die Gesetze. Menschen anderer Religionen begegne ich mit Respekt."
   },
   "selbstbestimmung": {
     "question": "Wie stehen Sie dazu, dass Menschen in Deutschland selbst über ihre Partnerschaft und sexuelle Orientierung entscheiden?",
     "variants": ["Was denken Sie über gleichgeschlechtliche Ehen?", "Was sagen Sie, wenn Ihr Nachbar mit einem Mann verheiratet ist?", "Was bedeutet die freie Entfaltung der Persönlichkeit?"],
+    "followUps": ["Wie würden Sie reagieren, wenn Ihr Kind homosexuell wäre?","Was tun Sie, wenn jemand ein homosexuelles Paar auf der Straße beleidigt?"],
     "shortAnswer": "Jeder Mensch darf selbst entscheiden, wen er liebt. Auch Männer können Männer heiraten und Frauen Frauen. Ich respektiere das, auch wenn ich anders lebe.",
     "fullAnswer": "In Deutschland hat jeder Mensch das Recht, sein Leben frei zu gestalten, solange er die Rechte anderer nicht verletzt. Dazu gehört auch die Wahl des Partners. Seit 2017 können auch Paare des gleichen Geschlechts heiraten. Ich muss nicht jede Lebensweise für mich selbst wählen, aber ich respektiere diese Rechte. Beleidigungen oder Gewalt gegen diese Menschen lehne ich ab."
   },
   "motivation": {
     "question": "Warum möchten Sie Deutscher oder Deutsche werden?",
     "variants": ["Warum stellen Sie den Antrag gerade jetzt?", "Was bedeutet Ihnen die deutsche Staatsangehörigkeit?", "Was ändert sich für Sie mit der Einbürgerung?"],
+    "followUps": ["Wofür würden Sie Ihr Wahlrecht nutzen?","Welche Pflichten haben Sie als deutscher Staatsbürger oder deutsche Staatsbürgerin?"],
     "shortAnswer": "Ich lebe seit [Zahl] Jahren in Deutschland. Hier ist mein Zuhause. Ich möchte wählen und mitbestimmen.",
     "fullAnswer": "Ich lebe seit [Zahl] Jahren in [Stadt] und arbeite als [Beruf]. Meine Familie und mein Leben sind hier, deshalb ist Deutschland mein Zuhause. Ich möchte nicht nur hier leben, sondern auch mitbestimmen, zum Beispiel bei Wahlen. Ich schätze besonders [zum Beispiel: die Freiheit und den Rechtsstaat], weil [persönlicher Grund]."
   },
   "integration": {
     "question": "Wie leben Sie in Deutschland, und wie sind Sie hier angekommen?",
     "variants": ["Erzählen Sie etwas über Ihre Arbeit und Ihre Familie.", "Wie haben Sie Deutsch gelernt?", "Welche Kontakte haben Sie in Ihrer Stadt?"],
+    "followUps": ["Was gefällt Ihnen in Deutschland besonders, und was fällt Ihnen schwer?","Wie engagieren Sie sich in Ihrer Stadt oder Nachbarschaft?"],
     "shortAnswer": "Ich arbeite als [Beruf] und lebe mit [Familie] in [Stadt]. Ich habe Deutsch im Kurs und bei der Arbeit gelernt. Ich habe Kontakt zu Kollegen und Nachbarn.",
     "fullAnswer": "Ich bin [Jahr] nach Deutschland gekommen und lebe in [Stadt]. Ich arbeite als [Beruf] und verdiene meinen Lebensunterhalt selbst. Deutsch habe ich [im Kurs, bei der Arbeit] gelernt. Ich habe Kontakt zu [Kollegen, Nachbarn, einem Verein]. Am Anfang war [Beispiel] schwierig, aber heute fühle ich mich hier zu Hause."
   }

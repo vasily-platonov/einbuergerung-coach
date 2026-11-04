@@ -59,10 +59,22 @@ export function QuestionPage({ index, locale, connection, onConnect }: Props) {
       </section>
 
       <div className="answers">
-        <Answer title={text.shortAnswer} german={german.shortAnswer} translation={translated.shortAnswer} show={showTranslation} />
-        <Answer title={text.fullAnswer} german={german.fullAnswer} translation={translated.fullAnswer} show={showTranslation} />
+        <Answer title={text.shortAnswer} german={german.shortAnswer} translation={translated.shortAnswer} />
+        <Answer title={text.fullAnswer} german={german.fullAnswer} translation={translated.fullAnswer} />
       </div>
       {hasPlaceholders && <p className="muted small">{text.placeholders}</p>}
+
+      <section className="card">
+        <h2>{text.followUps}</h2>
+        <ul className="plain-list">
+          {german.followUps.map((followUp, position) => (
+            <li key={followUp}>
+              <span lang="de">{followUp}</span>
+              {showTranslation && <span className="translation">{translated.followUps[position]}</span>}
+            </li>
+          ))}
+        </ul>
+      </section>
 
       <section className="card">
         <h2>{text.mistakes}</h2>
@@ -113,12 +125,12 @@ export function QuestionPage({ index, locale, connection, onConnect }: Props) {
   )
 }
 
-function Answer(props: { title: string; german: string; translation: string; show: boolean }) {
+function Answer(props: { title: string; german: string; translation: string }) {
   return (
     <section className="card answer">
       <h2>{props.title}</h2>
       <p lang="de">{props.german}</p>
-      {props.show && <p className="translation">{props.translation}</p>}
+      <p className="translation">{props.translation}</p>
     </section>
   )
 }

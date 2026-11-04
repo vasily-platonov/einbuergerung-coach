@@ -38,6 +38,18 @@ describe('App', () => {
     expect(screen.getByText('Сначала подключите провайдера:')).toBeTruthy()
   })
 
+  it('always shows answer translations and offers translated follow-up questions', async () => {
+    render(<App />)
+    await go('#/q/fdgo')
+    expect(screen.getByText(/^Это основные правила нашего государства\./)).toBeTruthy()
+    expect(screen.getByText(/^Свободный демократический строй — основа/)).toBeTruthy()
+    expect(screen.getByText('Welcher dieser Grundsätze ist für Sie am wichtigsten, und warum?')).toBeTruthy()
+    expect(screen.queryByText('Какой из этих принципов для вас самый важный и почему?')).toBeNull()
+
+    fireEvent.click(screen.getByRole('button', { name: 'Показать перевод вопросов' }))
+    expect(screen.getByText('Какой из этих принципов для вас самый важный и почему?')).toBeTruthy()
+  })
+
   it('switches the language', async () => {
     render(<App />)
     fireEvent.click(screen.getByRole('button', { name: 'English' }))

@@ -22,6 +22,7 @@ describe('content', () => {
       expect(GERMAN[id], id).toBeDefined()
       expect(GERMAN[id].shortAnswer.length, id).toBeLessThan(GERMAN[id].fullAnswer.length)
       expect(GERMAN[id].variants.length, id).toBeGreaterThanOrEqual(3)
+      expect(GERMAN[id].followUps.length, id).toBe(2)
     }
   })
 
@@ -36,6 +37,7 @@ describe('content', () => {
         const question = locale.questions[id]
         expect(question, id).toBeDefined()
         expect(question.variants.length, id).toBe(GERMAN[id].variants.length)
+        expect(question.followUps.length, id).toBe(2)
         expect(question.keyIdeas.length, id).toBeGreaterThan(0)
         expect(question.mistakes.length, id).toBeGreaterThan(0)
         expect(question.glossary.length, id).toBeGreaterThan(0)
