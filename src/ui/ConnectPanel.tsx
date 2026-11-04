@@ -81,14 +81,17 @@ export function ConnectPanel({ ui, connection, onConnect }: Props) {
           {text.invalidKey}
         </p>
       )}
-      <p className="muted small">
-        {info.basicVoice ? text.basicVoice : text.nativeVoice}{' '}
-        {info.keyUrl && (
-          <a href={info.keyUrl} target="_blank" rel="noreferrer noopener">
-            {text.getKey}
+      <div className="key-links small">
+        <span className="muted">{text.getKey}</span>
+        {PROVIDERS.filter((candidate) => candidate.keyUrl).map((candidate) => (
+          <a key={candidate.id} href={candidate.keyUrl} target="_blank" rel="noreferrer noopener">
+            {candidate.name}
           </a>
-        )}
-      </p>
+        ))}
+      </div>
+      <p className="small">{text.sessionOnly}</p>
+      <p className="muted small">{info.basicVoice ? text.basicVoice : text.nativeVoice}</p>
+      <p className="muted small">{text.cost}</p>
       <p className="muted small">{text.safety}</p>
     </section>
   )

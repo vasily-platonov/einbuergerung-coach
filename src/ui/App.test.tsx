@@ -50,6 +50,15 @@ describe('App', () => {
     expect(screen.getByText('Какой из этих принципов для вас самый важный и почему?')).toBeTruthy()
   })
 
+  it('explains under the key field where to get a key, how it is kept and the cost', () => {
+    render(<App />)
+    expect(screen.getByRole('link', { name: 'OpenAI' }).getAttribute('href')).toBe('https://platform.openai.com/api-keys')
+    expect(screen.getByRole('link', { name: 'Google Gemini' }).getAttribute('href')).toBe('https://aistudio.google.com/apikey')
+    expect(screen.getByRole('link', { name: 'Anthropic Claude' }).getAttribute('href')).toBe('https://platform.claude.com/settings/keys')
+    expect(screen.getByText(/^Ключ хранится только на время сессии/)).toBeTruthy()
+    expect(screen.getByText(/около 15 центов/)).toBeTruthy()
+  })
+
   it('switches the language', async () => {
     render(<App />)
     fireEvent.click(screen.getByRole('button', { name: 'English' }))

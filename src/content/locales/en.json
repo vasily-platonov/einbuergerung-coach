@@ -21,7 +21,7 @@
       "description": "You need your own API key. A regular subscription (Claude, ChatGPT, Gemini) does not work here, and the provider charges for what you use.",
       "provider": "Provider",
       "apiKey": "API key",
-      "getKey": "Create a key",
+      "getKey": "Where to get a key:",
       "submit": "Connect",
       "checking": "Checking the key…",
       "connectedAs": "Connected",
@@ -29,7 +29,9 @@
       "invalidKey": "Could not connect. Please check the key.",
       "basicVoice": "Basic voice: the browser recognizes and speaks the text. It works best in Chrome and Edge.",
       "nativeVoice": "The provider's native voice.",
-      "safety": "The key stays only in this tab's memory and is sent only to the provider you chose. It disappears when you close or reload the tab. Set a spending limit with the provider, and preferably create a separate key for this site."
+      "sessionOnly": "The key is kept only for this session: it stays in this tab's memory, is not saved anywhere, and is sent only to the provider you chose. It disappears when you close or reload the tab.",
+      "cost": "For reference: in a test with OpenAI, an interview on one question cost about 15 cents. The cost depends on the length of the conversation and the provider.",
+      "safety": "Set a spending limit with the provider, and preferably create a separate key for this site."
     },
     "question": {
       "back": "All questions",
