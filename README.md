@@ -2,6 +2,8 @@
 
 Practice the German naturalization conversation (`Bekenntnis` and loyalty declaration) in the browser. Study a question, then talk to an AI examiner in German and get a review. The interface and reviews are in Russian or English.
 
+**Try it:** [vasily-platonov.github.io/einbuergerung-coach](https://vasily-platonov.github.io/einbuergerung-coach/)
+
 This is study material, not an official question list and not legal advice.
 
 ## Run locally
