@@ -1,5 +1,13 @@
 # Release notes
 
+## 1.0.2 (2026-11-06)
+
+Set default language to EN
+
+### Changed
+
+- **Default language:** set to EN.
+
 ## 1.0.1 (2026-11-05)
 
 Security and privacy fixes from a review of the repository.
