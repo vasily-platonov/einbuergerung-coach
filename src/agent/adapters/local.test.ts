@@ -1,6 +1,7 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { createVoiceSession, verifyConnection } from '../providers'
 import type { LocalConnection, SessionPhase, TranscriptTurn } from '../types'
+import { LocalNetworkError } from './local'
 
 /** A streamed chat completions response that the test feeds as raw chunks of server-sent events. */
 function streamedReply(signal?: AbortSignal | null) {
@@ -268,5 +269,15 @@ describe('verifyConnection for a local server', () => {
       await expect(verifyConnection({ ...CONNECTION, baseUrl }), baseUrl).rejects.toThrow()
     }
     expect(fetchMock).not.toHaveBeenCalled()
+  })
+
+  it('tells a network failure apart from an HTTP error', async () => {
+    vi.stubGlobal('fetch', vi.fn(async () => Promise.reject(new TypeError('Failed to fetch'))))
+    await expect(verifyConnection(CONNECTION)).rejects.toBeInstanceOf(LocalNetworkError)
+
+    vi.stubGlobal('fetch', vi.fn(async () => new Response('', { status: 403 })))
+    const failure = await verifyConnection(CONNECTION).catch((error: unknown) => error)
+    expect(failure).not.toBeInstanceOf(LocalNetworkError)
+    expect(failure).toMatchObject({ status: 403 })
   })
 })

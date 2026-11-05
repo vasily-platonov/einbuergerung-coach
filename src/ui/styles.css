@@ -420,6 +420,32 @@ textarea {
   overflow-wrap: anywhere;
 }
 
+.local-help {
+  margin-top: 12px;
+  overflow-wrap: anywhere;
+}
+
+.local-help .error {
+  font-weight: 600;
+}
+
+.local-help ol,
+.local-help ul {
+  margin: 4px 0;
+  padding-left: 20px;
+}
+
+.local-help li {
+  margin-top: 4px;
+}
+
+.local-help code {
+  padding: 1px 4px;
+  border-radius: 4px;
+  background: var(--bg);
+  font-size: 0.875em;
+}
+
 .warning {
   color: var(--accent);
   font-weight: 600;

@@ -1,5 +1,11 @@
-import { useState, type FormEvent } from 'react'
-import { assertLoopback, DEFAULT_LOCAL_BASE_URL, isLoopbackUrl, listLocalModels } from '../agent/adapters/local'
+import { useState, type FormEvent, type ReactNode } from 'react'
+import {
+  assertLoopback,
+  DEFAULT_LOCAL_BASE_URL,
+  isLoopbackUrl,
+  listLocalModels,
+  LocalNetworkError,
+} from '../agent/adapters/local'
 import { PROVIDERS, verifyConnection, type ProviderInfo } from '../agent/providers'
 import { ProviderError, type Connection, type ProviderId } from '../agent/types'
 import type { UiStrings } from '../content'
@@ -10,7 +16,7 @@ interface Props {
   onConnect(connection: Connection | null): void
 }
 
-type ConnectError = 'invalidKey' | 'notLoopback' | 'localFailed'
+type ConnectError = 'invalidKey' | 'notLoopback' | 'localFailed' | 'localKeyRejected' | 'localUnreachable'
 
 /**
  * The second step for `local`: the server's models to pick from, or a free-text name when the
@@ -57,8 +63,11 @@ export function ConnectPanel({ ui, connection, onConnect }: Props) {
         setStep({ kind: 'type' })
       }
     } catch (failure) {
-      // An HTTP status means the server answered, so the visitor can still name the model.
-      if (failure instanceof ProviderError && failure.status !== undefined) setStep({ kind: 'type' })
+      const status = failure instanceof ProviderError ? failure.status : undefined
+      if (failure instanceof LocalNetworkError) setError('localUnreachable')
+      else if (status === 401 || status === 403) setError('localKeyRejected')
+      // Another HTTP status means the server answered, so the visitor can still name the model.
+      else if (status !== undefined) setStep({ kind: 'type' })
       else setError('localFailed')
     } finally {
       setChecking(false)
@@ -201,7 +210,8 @@ export function ConnectPanel({ ui, connection, onConnect }: Props) {
           {submitLabel}
         </button>
       </form>
-      {error && (
+      {error === 'localUnreachable' && <LocalHelp ui={ui} baseUrl={baseUrl.trim().replace(/\/+$/, '')} />}
+      {error && error !== 'localUnreachable' && (
         <p className="error" role="alert">
           {text[error]}
         </p>
@@ -220,5 +230,43 @@ export function ConnectPanel({ ui, connection, onConnect }: Props) {
       <p className="muted small">{text.cost}</p>
       <p className="muted small">{text.safety}</p>
     </section>
+  )
+}
+
+/** Fills `{name}` placeholders and shows the parts between backticks as code. */
+function withCode(template: string, values: Record<string, string>): ReactNode[] {
+  const filled = template.replace(/\{(\w+)\}/g, (match, name: string) => values[name] ?? match)
+  return filled.split('`').map((part, index) => (index % 2 ? <code key={index}>{part}</code> : part))
+}
+
+/** What to check when the browser got no answer from the local server at all. */
+function LocalHelp({ ui, baseUrl }: { ui: UiStrings; baseUrl: string }) {
+  const help = ui.connect.localHelp
+  const values = { baseUrl, origin: window.location.origin }
+  const servers: [string, string][] = [
+    ['Ollama', help.ollama],
+    ['LM Studio', help.lmStudio],
+    ['llama.cpp', help.llamaCpp],
+    ['vLLM', help.vllm],
+  ]
+  return (
+    <div className="local-help small" role="alert">
+      <p className="error">{help.title}</p>
+      <ol>
+        <li>{withCode(help.running, values)}</li>
+        <li>
+          {withCode(help.allow, values)}
+          <ul>
+            {servers.map(([name, template]) => (
+              <li key={name}>
+                <strong>{name}:</strong> {withCode(template, values)}
+              </li>
+            ))}
+          </ul>
+        </li>
+        <li>{help.prompt}</li>
+        <li>{help.safari}</li>
+      </ol>
+    </div>
   )
 }

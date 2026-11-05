@@ -30,10 +30,22 @@ export function headers(apiKey: string): Record<string, string> {
   return apiKey ? { Authorization: `Bearer ${apiKey}` } : {}
 }
 
+/**
+ * The request got no answer: the server is stopped, CORS rejects this site, or the browser blocked
+ * local network access. The browser reports all of these with the same `TypeError`.
+ */
+export class LocalNetworkError extends ProviderError {}
+
 /** The ids of the models the server offers. A successful listing confirms address, CORS and key at once. */
 export async function listLocalModels(connection: Pick<LocalConnection, 'baseUrl' | 'apiKey'>): Promise<string[]> {
   const baseUrl = assertLoopback(connection.baseUrl)
-  const response = await fetch(`${baseUrl}/models`, { headers: headers(connection.apiKey) })
+  let response: Response
+  try {
+    response = await fetch(`${baseUrl}/models`, { headers: headers(connection.apiKey) })
+  } catch (failure) {
+    if (failure instanceof TypeError) throw new LocalNetworkError(failure.message)
+    throw failure
+  }
   if (!response.ok) throw new ProviderError(`HTTP ${response.status}`, response.status)
   const data = (await response.json()) as { data?: { id?: unknown }[] }
   return (data.data ?? []).flatMap((model) => (typeof model.id === 'string' ? [model.id] : []))

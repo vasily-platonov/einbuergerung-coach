@@ -185,13 +185,36 @@ describe('App', () => {
       expect(screen.getByText('Подключено: Локальная модель (OpenAI-совместимая) · qwen-test')).toBeTruthy()
     })
 
-    it('shows an error when the server cannot be reached', async () => {
+    it('shows the connection help with this site origin when the server cannot be reached', async () => {
       vi.stubGlobal('fetch', vi.fn(async () => Promise.reject(new TypeError('Failed to fetch'))))
       render(<App />)
       chooseLocal()
       await listModels()
-      expect(screen.getByRole('alert').textContent).toMatch(/^Не удалось подключиться к локальному серверу/)
+
+      const help = screen.getByRole('alert').textContent ?? ''
+      const origin = window.location.origin
+      expect(help).toMatch(/^Не удалось связаться с локальным сервером/)
+      expect(help).toContain('http://localhost:11434/v1/models')
+      expect(help).toContain(`OLLAMA_ORIGINS=${origin}`)
+      expect(help).toContain(`--allowed-origins '["${origin}"]'`)
+      expect(help).toContain('Enable CORS')
+      expect(help).toMatch(/доступ к локальной сети/)
+      expect(help).toMatch(/Safari не может подключиться/)
+      expect(help).not.toMatch(/Проверьте ключ|не принял ключ/)
       expect(screen.queryByLabelText(/^Название модели/)).toBeNull()
+    })
+
+    it('says the key was rejected on a 401 or 403 instead of asking for a model name', async () => {
+      for (const status of [401, 403]) {
+        vi.stubGlobal('fetch', vi.fn(async () => new Response('', { status })))
+        render(<App />)
+        chooseLocal()
+        await listModels()
+
+        expect(screen.getByRole('alert').textContent, String(status)).toMatch(/^Сервер не принял ключ/)
+        expect(screen.queryByLabelText(/^Название модели/)).toBeNull()
+        cleanup()
+      }
     })
   })
 
