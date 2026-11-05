@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
-import { splitSentences } from './adapters/claude'
+import { splitSentences } from './adapters/speech'
 import { base64ToBytes, bytesToBase64, parseSampleRate, pcm16ToFloat32 } from './adapters/gemini'
 import { buildReviewPrompt, formatTranscript } from './prompt'
 import { generateReview, parseReview } from './review'

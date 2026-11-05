@@ -16,7 +16,7 @@ it('releases a microphone granted after the session was stopped', async () => {
   vi.stubGlobal('fetch', fetchStub)
 
   const session = new OpenAIVoiceSession({
-    apiKey: 'test',
+    connection: { provider: 'openai', apiKey: 'test' },
     instructions: '',
     events: { onPhase: vi.fn(), onTurn: vi.fn(), onError: vi.fn() },
   })

@@ -31,7 +31,7 @@ function setup() {
     'Russian',
     (state) => states.push(state),
     {
-      createSession: (_provider, sessionConfig) => {
+      createSession: (sessionConfig) => {
         config = sessionConfig
         return session
       },

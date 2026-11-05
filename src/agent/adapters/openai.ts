@@ -1,4 +1,4 @@
-import { ProviderError, type VoiceSession, type VoiceSessionConfig } from '../types'
+import { ProviderError, type ConnectionFor, type VoiceSession, type VoiceSessionConfig } from '../types'
 
 const API = 'https://api.openai.com/v1'
 const REALTIME_MODEL = 'gpt-realtime-2.1'
@@ -25,7 +25,7 @@ export class OpenAIVoiceSession implements VoiceSession {
   /** Turn ids waiting for a transcript, because transcription finishes after the answer. */
   private readonly pendingAnswers: string[] = []
 
-  constructor(private readonly config: VoiceSessionConfig) {}
+  constructor(private readonly config: VoiceSessionConfig<ConnectionFor<'openai'>>) {}
 
   canRecord(): boolean {
     return this.microphone !== null
@@ -111,7 +111,7 @@ export class OpenAIVoiceSession implements VoiceSession {
     // The long-lived key is used once, from this tab, to get a token that expires with the session.
     const response = await fetch(`${API}/realtime/client_secrets`, {
       method: 'POST',
-      headers: { Authorization: `Bearer ${this.config.apiKey}`, 'Content-Type': 'application/json' },
+      headers: { Authorization: `Bearer ${this.config.connection.apiKey}`, 'Content-Type': 'application/json' },
       body: JSON.stringify({
         expires_after: { anchor: 'created_at', seconds: 900 },
         session: {

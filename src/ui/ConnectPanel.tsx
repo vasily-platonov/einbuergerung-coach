@@ -1,5 +1,5 @@
 import { useState, type FormEvent } from 'react'
-import { PROVIDERS, verifyKey } from '../agent/providers'
+import { PROVIDERS, verifyConnection } from '../agent/providers'
 import type { Connection, ProviderId } from '../agent/types'
 import type { UiStrings } from '../content'
 
@@ -22,8 +22,9 @@ export function ConnectPanel({ ui, connection, onConnect }: Props) {
     setChecking(true)
     setError(false)
     try {
-      await verifyKey(provider, apiKey.trim())
-      onConnect({ provider, apiKey: apiKey.trim() })
+      const candidate: Connection = { provider, apiKey: apiKey.trim() }
+      await verifyConnection(candidate)
+      onConnect(candidate)
       setApiKey('')
     } catch {
       setError(true)

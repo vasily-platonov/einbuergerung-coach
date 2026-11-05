@@ -1,6 +1,6 @@
 import { createClaudeClient, CLAUDE_MODEL, CLAUDE_FALLBACK_BETA, claudeText } from './adapters/claude'
 import { formatTranscript, buildReviewPrompt } from './prompt'
-import { ProviderError, type Connection, type TranscriptTurn } from './types'
+import { ProviderError, type Connection, type ConnectionFor, type ProviderId, type TranscriptTurn } from './types'
 
 export interface Review {
   readiness: 'ready' | 'almost' | 'repeat'
@@ -49,20 +49,22 @@ export async function generateReview(
 ): Promise<Review> {
   const system = buildReviewPrompt(question, language)
   const transcript = formatTranscript(turns)
-  const raw = await REVIEWERS[connection.provider](connection.apiKey, system, transcript, signal, onRetry)
+  // TypeScript cannot pair a union key with its own member, but REVIEWERS guarantees the pairing.
+  const reviewer = REVIEWERS[connection.provider] as Reviewer<Connection>
+  const raw = await reviewer(connection, system, transcript, signal, onRetry)
   return parseReview(raw)
 }
 
-type Reviewer = (
-  apiKey: string,
+type Reviewer<C extends Connection> = (
+  connection: C,
   system: string,
   transcript: string,
   signal: AbortSignal,
   onRetry: () => void,
 ) => Promise<string>
 
-const REVIEWERS: Record<Connection['provider'], Reviewer> = {
-  async claude(apiKey, system, transcript, signal) {
+const REVIEWERS: { [P in ProviderId]: Reviewer<ConnectionFor<P>> } = {
+  async claude({ apiKey }, system, transcript, signal) {
     const stream = createClaudeClient(apiKey).beta.messages.stream(
       {
         model: CLAUDE_MODEL,
@@ -78,7 +80,7 @@ const REVIEWERS: Record<Connection['provider'], Reviewer> = {
     return claudeText(await stream.finalMessage())
   },
 
-  async openai(apiKey, system, transcript, signal, onRetry) {
+  async openai({ apiKey }, system, transcript, signal, onRetry) {
     const data = await postJsonWithRetries<OpenAIResponse>(
       'https://api.openai.com/v1/responses',
       { Authorization: `Bearer ${apiKey}` },
@@ -98,7 +100,7 @@ const REVIEWERS: Record<Connection['provider'], Reviewer> = {
       .join('')
   },
 
-  async gemini(apiKey, system, transcript, signal, onRetry) {
+  async gemini({ apiKey }, system, transcript, signal, onRetry) {
     const body = {
       systemInstruction: { parts: [{ text: system }] },
       contents: [{ role: 'user', parts: [{ text: transcript }] }],
