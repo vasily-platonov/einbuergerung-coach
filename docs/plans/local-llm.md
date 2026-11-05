@@ -56,7 +56,7 @@ Done when: each point has an answer with a link, and the help text in task 4 and
 
 Move the speech logic out of `ClaudeVoiceSession` into `browserSpeech.ts` without changing behaviour. Claude keeps its model, effort, fallback beta and refusal handling.
 
-Done when: Claude works exactly as before (manual check in `npm run dev`, and the owner with a key), and the existing tests pass. Add tests for the shared module: sentence splitting, the phase sequence when the stream ends before or after the last utterance, and `stop()` releasing everything.
+Done when: Claude works exactly as before (manual check in `npm run dev`, and the owner with a key), and the existing tests pass. Test the shared module only through the `VoiceSession` contract (see `local-llm-spec.md`): the phase sequence when the stream ends before or after the last utterance, and `stop()` releasing everything.
 
 ### 3. Local adapter and reviewer
 
