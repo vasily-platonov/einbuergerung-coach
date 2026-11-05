@@ -1,6 +1,7 @@
 import { createClaudeClient, CLAUDE_MODEL, CLAUDE_FALLBACK_BETA, claudeText } from './adapters/claude'
+import { assertLoopback, headers as localHeaders, stripThinking } from './adapters/local'
 import { formatTranscript, buildReviewPrompt } from './prompt'
-import { ProviderError, type Connection, type TranscriptTurn } from './types'
+import { ProviderError, type Connection, type ConnectionFor, type ProviderId, type TranscriptTurn } from './types'
 
 export interface Review {
   readiness: 'ready' | 'almost' | 'repeat'
@@ -24,7 +25,7 @@ export function parseReview(raw: string): Review {
   const start = raw.indexOf('{')
   const end = raw.lastIndexOf('}')
   if (start === -1 || end <= start) throw new ProviderError('The review was not valid JSON.')
-  const value = JSON.parse(raw.slice(start, end + 1)) as Partial<Review>
+  const value = parseLenientJson(raw.slice(start, end + 1)) as Partial<Review>
   return {
     readiness: value.readiness === 'ready' || value.readiness === 'almost' ? value.readiness : 'repeat',
     summary: String(value.summary ?? ''),
@@ -32,6 +33,22 @@ export function parseReview(raw: string): Review {
     toFix: toStrings(value.toFix),
     languageNotes: toStrings(value.languageNotes),
     improvedAnswer: String(value.improvedAnswer ?? ''),
+  }
+}
+
+/**
+ * Small local models often leave a trailing comma before `}` or `]`. Valid JSON is parsed as it is;
+ * only when that fails are such commas dropped, so a comma inside a valid string is never touched.
+ */
+function parseLenientJson(text: string): unknown {
+  try {
+    return JSON.parse(text)
+  } catch (error) {
+    try {
+      return JSON.parse(text.replace(/,(\s*[}\]])/g, '$1'))
+    } catch {
+      throw error
+    }
   }
 }
 
@@ -49,20 +66,22 @@ export async function generateReview(
 ): Promise<Review> {
   const system = buildReviewPrompt(question, language)
   const transcript = formatTranscript(turns)
-  const raw = await REVIEWERS[connection.provider](connection.apiKey, system, transcript, signal, onRetry)
+  // TypeScript cannot pair a union key with its own member, but REVIEWERS guarantees the pairing.
+  const reviewer = REVIEWERS[connection.provider] as Reviewer<Connection>
+  const raw = await reviewer(connection, system, transcript, signal, onRetry)
   return parseReview(raw)
 }
 
-type Reviewer = (
-  apiKey: string,
+type Reviewer<C extends Connection> = (
+  connection: C,
   system: string,
   transcript: string,
   signal: AbortSignal,
   onRetry: () => void,
 ) => Promise<string>
 
-const REVIEWERS: Record<Connection['provider'], Reviewer> = {
-  async claude(apiKey, system, transcript, signal) {
+const REVIEWERS: { [P in ProviderId]: Reviewer<ConnectionFor<P>> } = {
+  async claude({ apiKey }, system, transcript, signal) {
     const stream = createClaudeClient(apiKey).beta.messages.stream(
       {
         model: CLAUDE_MODEL,
@@ -78,7 +97,7 @@ const REVIEWERS: Record<Connection['provider'], Reviewer> = {
     return claudeText(await stream.finalMessage())
   },
 
-  async openai(apiKey, system, transcript, signal, onRetry) {
+  async openai({ apiKey }, system, transcript, signal, onRetry) {
     const data = await postJsonWithRetries<OpenAIResponse>(
       'https://api.openai.com/v1/responses',
       { Authorization: `Bearer ${apiKey}` },
@@ -98,7 +117,7 @@ const REVIEWERS: Record<Connection['provider'], Reviewer> = {
       .join('')
   },
 
-  async gemini(apiKey, system, transcript, signal, onRetry) {
+  async gemini({ apiKey }, system, transcript, signal, onRetry) {
     const body = {
       systemInstruction: { parts: [{ text: system }] },
       contents: [{ role: 'user', parts: [{ text: transcript }] }],
@@ -121,6 +140,32 @@ const REVIEWERS: Record<Connection['provider'], Reviewer> = {
     throw new ProviderError('No review model is available.')
   },
 
+  async local({ baseUrl, model, apiKey }, system, transcript, signal, onRetry) {
+    const url = `${assertLoopback(baseUrl)}/chat/completions`
+    const body = {
+      model,
+      messages: [
+        { role: 'system', content: system },
+        // Some servers want the word "json" in the messages before they accept JSON mode.
+        { role: 'user', content: `Transcript to review. Reply with the JSON object described in your instructions.\n\n${transcript}` },
+      ],
+      stream: false,
+    }
+    let data: LocalResponse
+    try {
+      data = await postJson<LocalResponse>(url, localHeaders(apiKey), { ...body, response_format: { type: 'json_object' } }, signal)
+    } catch (error) {
+      // A client error usually means the server has no JSON mode (LM Studio answers 400), so ask once
+      // without it and let parseReview cut the object out of the text. 401 and 403 reject the key.
+      const status = error instanceof ProviderError ? (error.status ?? 0) : 0
+      if (signal.aborted || status < 400 || status >= 500 || status === 401 || status === 403) throw error
+      onRetry()
+      data = await postJson<LocalResponse>(url, localHeaders(apiKey), body, signal)
+    }
+    // A separate reasoning field (`reasoning_content`, `reasoning`) is ignored on purpose.
+    return stripThinking(data.choices?.[0]?.message?.content ?? '')
+  },
+
   async demo() {
     return JSON.stringify({
       readiness: 'almost',
@@ -135,6 +180,10 @@ const REVIEWERS: Record<Connection['provider'], Reviewer> = {
 
 interface OpenAIResponse {
   output?: { content?: { text?: string }[] }[]
+}
+
+interface LocalResponse {
+  choices?: { message?: { content?: string | null } }[]
 }
 
 interface GeminiResponse {

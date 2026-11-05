@@ -30,7 +30,7 @@ export const INITIAL_STATE: InterviewState = {
 }
 
 export interface InterviewDependencies {
-  createSession(provider: Connection['provider'], config: VoiceSessionConfig): VoiceSession
+  createSession(config: VoiceSessionConfig): VoiceSession
   review: typeof generateReview
 }
 
@@ -60,8 +60,8 @@ export class Interview {
       setTimeout(() => this.update({ timeWarning: true }), SESSION_LIMIT_MS - WARNING_BEFORE_END_MS),
       setTimeout(() => void this.finish(), SESSION_LIMIT_MS),
     )
-    const session = this.dependencies.createSession(this.connection.provider, {
-      apiKey: this.connection.apiKey,
+    const session = this.dependencies.createSession({
+      connection: this.connection,
       instructions: buildInterviewPrompt(this.question),
       events: {
         onPhase: (phase) => this.handlePhase(phase),

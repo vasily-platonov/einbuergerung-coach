@@ -1,9 +1,33 @@
-export type ProviderId = 'openai' | 'gemini' | 'claude' | 'demo'
+export type ProviderId = 'openai' | 'gemini' | 'claude' | 'demo' | 'local'
 
-export interface Connection {
-  provider: ProviderId
+/** A cloud provider reached with the visitor's own key. */
+interface KeyConnection<P extends ProviderId> {
+  provider: P
   apiKey: string
 }
+
+/** An OpenAI-compatible server on the visitor's own computer. */
+export interface LocalConnection {
+  provider: 'local'
+  /** Loopback only, without a trailing slash, for example `http://localhost:11434/v1`. */
+  baseUrl: string
+  model: string
+  /** Empty when the server needs no key. */
+  apiKey: string
+}
+
+/**
+ * Everything a session or reviewer needs to reach one provider, told apart by `provider`.
+ * A provider with more settings than a key adds its own member here.
+ */
+export type Connection =
+  | KeyConnection<'openai'>
+  | KeyConnection<'gemini'>
+  | KeyConnection<'claude'>
+  | KeyConnection<'demo'>
+  | LocalConnection
+
+export type ConnectionFor<P extends ProviderId> = Extract<Connection, { provider: P }>
 
 export type SessionPhase = 'connecting' | 'examiner-speaking' | 'your-turn' | 'recording' | 'thinking'
 
@@ -20,8 +44,8 @@ export interface VoiceSessionEvents {
   onError(error: Error): void
 }
 
-export interface VoiceSessionConfig {
-  apiKey: string
+export interface VoiceSessionConfig<C extends Connection = Connection> {
+  connection: C
   instructions: string
   events: VoiceSessionEvents
 }

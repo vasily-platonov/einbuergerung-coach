@@ -365,6 +365,23 @@ textarea:focus-visible {
   gap: 12px;
 }
 
+/* The local provider has more fields, so they wrap into two columns with the button below. */
+.connect-form.local {
+  grid-template-columns: 1fr 1fr;
+  align-items: start;
+}
+
+.connect-form.local .button {
+  justify-self: start;
+}
+
+.field-hint {
+  display: block;
+  margin-top: 4px;
+  font-size: 0.8125rem;
+  overflow-wrap: anywhere;
+}
+
 .actions {
   display: flex;
   flex-wrap: wrap;
@@ -401,6 +418,32 @@ textarea {
 .error {
   color: var(--danger);
   overflow-wrap: anywhere;
+}
+
+.local-help {
+  margin-top: 12px;
+  overflow-wrap: anywhere;
+}
+
+.local-help .error {
+  font-weight: 600;
+}
+
+.local-help ol,
+.local-help ul {
+  margin: 4px 0;
+  padding-left: 20px;
+}
+
+.local-help li {
+  margin-top: 4px;
+}
+
+.local-help code {
+  padding: 1px 4px;
+  border-radius: 4px;
+  background: var(--bg);
+  font-size: 0.875em;
 }
 
 .warning {
@@ -485,6 +528,7 @@ summary {
 
 @media (max-width: 600px) {
   .connect-form,
+  .connect-form.local,
   .typed {
     grid-template-columns: 1fr;
   }

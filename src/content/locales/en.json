@@ -31,7 +31,34 @@
       "nativeVoice": "The provider's native voice.",
       "sessionOnly": "The key is kept only for this session: it stays in this tab's memory, is not saved anywhere, and is sent only to the provider you chose. It disappears when you close or reload the tab. If your browser or password manager offers to save it, decline.",
       "cost": "For reference: in a test with OpenAI, an interview on one question cost about 15 cents. The cost depends on the length of the conversation and the provider. Providers sometimes offer free tiers, so if you just want to evaluate the site, try them all before buying anything.",
-      "safety": "Set a spending limit with the provider, and preferably create a separate key for this site."
+      "safety": "Set a spending limit with the provider, and preferably create a separate key for this site.",
+      "providerNames": {
+        "local": "Local model (OpenAI-compatible)"
+      },
+      "baseUrl": "Server address",
+      "baseUrlHint": "Ollama: http://localhost:11434/v1, LM Studio: http://localhost:1234/v1",
+      "apiKeyOptional": "API key (optional)",
+      "model": "Model name",
+      "notLoopback": "Only a server on your own computer can be used: the address must start with http://localhost or http://127.0.0.1.",
+      "localFailed": "Could not connect to the local server. Check the address and make sure the server is running.",
+      "descriptionLocal": "The model runs on your own computer, for example in Ollama or LM Studio. A key is needed only if your server asks for one.",
+      "listModels": "Show models",
+      "listing": "Looking for models…",
+      "modelChoice": "Model",
+      "modelsMissing": "The server did not list its models. Type the model name instead.",
+      "localQuality": "Quality depends on the model. Small models struggle with German and with the review format.",
+      "localKeyRejected": "The server rejected the key. Check the key, or leave the field empty if your server does not need one.",
+      "localHelp": {
+        "title": "Couldn't reach your local server.",
+        "running": "Is the server running? Open `{baseUrl}/models` in a new tab. You should see a list of models.",
+        "allow": "Allow this site in your server. The server must accept requests from `{origin}`:",
+        "ollama": "set `OLLAMA_ORIGINS={origin}`, then quit and restart Ollama.",
+        "lmStudio": "Developer → Server Settings → turn on Enable CORS, or run `lms server start --cors`.",
+        "llamaCpp": "allowed by default. If you set `--cors-origins`, add `{origin}`.",
+        "vllm": "start it with `--allowed-origins '[\"{origin}\"]'`.",
+        "prompt": "Did your browser ask about local network access? Chrome, Edge and Firefox ask before a website can talk to apps on your computer. Choose Allow. If you blocked it, open the site settings (the icon left of the address), allow \"Loopback network\" or \"Local network access\", and try again.",
+        "safari": "Safari can't connect to a server on your computer from this site. Please use Chrome, Edge or Firefox."
+      }
     },
     "question": {
       "back": "All questions",

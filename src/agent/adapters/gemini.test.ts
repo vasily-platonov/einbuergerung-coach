@@ -30,7 +30,7 @@ describe('GeminiVoiceSession', () => {
     vi.stubGlobal('WebSocket', FakeWebSocket)
     vi.stubGlobal('AudioContext', class { close = async () => undefined })
     const session = new GeminiVoiceSession({
-      apiKey: 'key',
+      connection: { provider: 'gemini', apiKey: 'key' },
       instructions: 'Prompt',
       events: { onPhase: vi.fn(), onTurn: vi.fn(), onError: vi.fn() },
     })

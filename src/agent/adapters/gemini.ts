@@ -1,4 +1,4 @@
-import { ProviderError, type VoiceSession, type VoiceSessionConfig } from '../types'
+import { ProviderError, type ConnectionFor, type VoiceSession, type VoiceSessionConfig } from '../types'
 
 const ENDPOINT =
   'wss://generativelanguage.googleapis.com/ws/google.ai.generativelanguage.v1beta.GenerativeService.BidiGenerateContent'
@@ -31,7 +31,7 @@ export class GeminiVoiceSession implements VoiceSession {
   private answerId: string | null = null
   private answerText = ''
 
-  constructor(private readonly config: VoiceSessionConfig) {}
+  constructor(private readonly config: VoiceSessionConfig<ConnectionFor<'gemini'>>) {}
 
   canRecord(): boolean {
     return this.microphone !== null
@@ -46,7 +46,7 @@ export class GeminiVoiceSession implements VoiceSession {
 
     await new Promise<void>((resolve, reject) => {
       // The Live API takes the key as a URL parameter. The connection is encrypted and goes only to Google.
-      const socket = new WebSocket(`${ENDPOINT}?key=${encodeURIComponent(this.config.apiKey)}`)
+      const socket = new WebSocket(`${ENDPOINT}?key=${encodeURIComponent(this.config.connection.apiKey)}`)
       this.socket = socket
       socket.onopen = () => {
         socket.send(
