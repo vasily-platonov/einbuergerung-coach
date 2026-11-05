@@ -229,6 +229,17 @@ describe('parseReview', () => {
     expect(parseReview('{"readiness":"perfect"}').readiness).toBe('repeat')
   })
 
+  it('accepts the trailing commas small local models leave before a closing bracket', () => {
+    const review = parseReview('```json\n{\n  "readiness": "ready",\n  "correct": ["a", "b",],\n  "improvedAnswer": "Die Macht liegt beim Volk.",\n}')
+    expect(review.readiness).toBe('ready')
+    expect(review.correct).toEqual(['a', 'b'])
+    expect(review.improvedAnswer).toBe('Die Macht liegt beim Volk.')
+  })
+
+  it('leaves commas inside valid strings alone', () => {
+    expect(parseReview('{"summary":"a, }","readiness":"ready"}').summary).toBe('a, }')
+  })
+
   it('rejects text with no JSON', () => {
     expect(() => parseReview('sorry')).toThrow()
   })

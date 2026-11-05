@@ -25,7 +25,7 @@ export function parseReview(raw: string): Review {
   const start = raw.indexOf('{')
   const end = raw.lastIndexOf('}')
   if (start === -1 || end <= start) throw new ProviderError('The review was not valid JSON.')
-  const value = JSON.parse(raw.slice(start, end + 1)) as Partial<Review>
+  const value = parseLenientJson(raw.slice(start, end + 1)) as Partial<Review>
   return {
     readiness: value.readiness === 'ready' || value.readiness === 'almost' ? value.readiness : 'repeat',
     summary: String(value.summary ?? ''),
@@ -33,6 +33,22 @@ export function parseReview(raw: string): Review {
     toFix: toStrings(value.toFix),
     languageNotes: toStrings(value.languageNotes),
     improvedAnswer: String(value.improvedAnswer ?? ''),
+  }
+}
+
+/**
+ * Small local models often leave a trailing comma before `}` or `]`. Valid JSON is parsed as it is;
+ * only when that fails are such commas dropped, so a comma inside a valid string is never touched.
+ */
+function parseLenientJson(text: string): unknown {
+  try {
+    return JSON.parse(text)
+  } catch (error) {
+    try {
+      return JSON.parse(text.replace(/,(\s*[}\]])/g, '$1'))
+    } catch {
+      throw error
+    }
   }
 }
 

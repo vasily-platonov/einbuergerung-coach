@@ -9,7 +9,7 @@ Practise with a model running on your own computer, with no API key.
 - **Local model:** a new provider, "Local model (OpenAI-compatible)", connects to Ollama, LM Studio, llama.cpp server, vLLM or another OpenAI-compatible server on `localhost` or `127.0.0.1`. The same model runs the interview and the review, and the browser handles speech, as with Claude.
 - **Model choice:** the site lists the models installed on the server. If the server lists none, you can type the model name. The connected status shows the model.
 - **Reasoning models:** `<think>` blocks are left out of what the examiner says, the transcript and the review.
-- **Review without JSON mode:** if the server rejects JSON mode, the review is requested again without it.
+- **Review without JSON mode:** if the server rejects JSON mode, the review is requested again without it. A review with trailing commas, which small models often write, is still read.
 - **Connection help:** when the browser cannot reach the server, the page explains how to allow the site's origin for each common server, the browser's local network prompt, and that Safari blocks such requests. A rejected key gets its own message.
 
 ### Changed
