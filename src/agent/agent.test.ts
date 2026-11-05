@@ -104,6 +104,114 @@ describe('generateReview with OpenAI', () => {
   })
 })
 
+describe('generateReview with a local model', () => {
+  const turns = [{ id: '1', role: 'applicant' as const, text: 'Darum.' }]
+  const connection = { provider: 'local' as const, baseUrl: 'http://localhost:11434/v1/', model: 'qwen3', apiKey: '' }
+  const reply = (content: string, extra: Record<string, unknown> = {}) =>
+    Response.json({ choices: [{ message: { content, ...extra } }] })
+  const review = (conn: typeof connection = connection, onRetry?: () => void) =>
+    generateReview(conn, 'Frage?', 'Russian', turns, new AbortController().signal, onRetry)
+  const bodyOf = (init: RequestInit) => JSON.parse(init.body as string) as Record<string, unknown>
+  const headersOf = (init: RequestInit) => init.headers as Record<string, string>
+
+  afterEach(() => vi.unstubAllGlobals())
+
+  it('sends one non-streaming JSON-mode request with the review prompt and transcript', async () => {
+    const fetchMock = vi.fn(async (_url: string, _init: RequestInit) => reply('{"readiness":"ready","summary":"gut"}'))
+    vi.stubGlobal('fetch', fetchMock)
+
+    const result = await review()
+
+    expect(result).toMatchObject({ readiness: 'ready', summary: 'gut' })
+    expect(fetchMock).toHaveBeenCalledOnce()
+    const [url, init] = fetchMock.mock.calls[0]
+    expect(url).toBe('http://localhost:11434/v1/chat/completions')
+    expect(init.method).toBe('POST')
+    const body = bodyOf(init) as { model: string; stream: boolean; response_format: unknown; messages: { role: string; content: string }[] }
+    expect(body.model).toBe('qwen3')
+    expect(body.stream).toBe(false)
+    expect(body.response_format).toEqual({ type: 'json_object' })
+    expect(body.messages[0]).toEqual({ role: 'system', content: buildReviewPrompt('Frage?', 'Russian') })
+    expect(body.messages[1].role).toBe('user')
+    expect(body.messages[1].content).toMatch(/json/i)
+    expect(body.messages[1].content).toContain(formatTranscript(turns))
+  })
+
+  it('repeats a rejected request once without the JSON format and cuts the object out of the text', async () => {
+    const fetchMock = vi.fn(async (_url: string, init: RequestInit) =>
+      'response_format' in bodyOf(init)
+        ? new Response('response_format.type must be json_schema or text', { status: 400 })
+        : reply('Hier ist der Bericht:\n{"readiness":"almost"}\nViel Erfolg!'),
+    )
+    vi.stubGlobal('fetch', fetchMock)
+    const onRetry = vi.fn()
+
+    const result = await review(connection, onRetry)
+
+    expect(result.readiness).toBe('almost')
+    expect(fetchMock).toHaveBeenCalledTimes(2)
+    expect(bodyOf(fetchMock.mock.calls[1][1])).not.toHaveProperty('response_format')
+    expect(onRetry).toHaveBeenCalledOnce()
+  })
+
+  it('repeats at most once after client errors', async () => {
+    const fetchMock = vi.fn(async () => new Response('bad request', { status: 422 }))
+    vi.stubGlobal('fetch', fetchMock)
+
+    await expect(review()).rejects.toThrow('HTTP 422')
+    expect(fetchMock).toHaveBeenCalledTimes(2)
+  })
+
+  it.each([401, 403, 500, 503])('does not repeat after HTTP %i', async (status) => {
+    const fetchMock = vi.fn(async () => new Response('no', { status }))
+    vi.stubGlobal('fetch', fetchMock)
+
+    await expect(review()).rejects.toThrow(`HTTP ${status}`)
+    expect(fetchMock).toHaveBeenCalledOnce()
+  })
+
+  it('does not repeat after a network error', async () => {
+    const fetchMock = vi.fn(async () => {
+      throw new TypeError('Failed to fetch')
+    })
+    vi.stubGlobal('fetch', fetchMock)
+
+    await expect(review()).rejects.toThrow('Failed to fetch')
+    expect(fetchMock).toHaveBeenCalledOnce()
+  })
+
+  it('removes think blocks and ignores a separate reasoning field', async () => {
+    const fetchMock = vi.fn(async () =>
+      reply('<think>Maybe {"readiness":"repeat"}?</think>\n\n{"readiness":"ready"}', {
+        reasoning_content: '{"readiness":"repeat"}',
+        reasoning: '{"readiness":"repeat"}',
+      }),
+    )
+    vi.stubGlobal('fetch', fetchMock)
+
+    expect((await review()).readiness).toBe('ready')
+  })
+
+  it('sends the key as a bearer token only when there is one', async () => {
+    const fetchMock = vi.fn(async (_url: string, _init: RequestInit) => reply('{"readiness":"ready"}'))
+    vi.stubGlobal('fetch', fetchMock)
+
+    await review()
+    await review({ ...connection, apiKey: 'secret' })
+
+    expect(headersOf(fetchMock.mock.calls[0][1])).not.toHaveProperty('Authorization')
+    expect(headersOf(fetchMock.mock.calls[1][1]).Authorization).toBe('Bearer secret')
+  })
+
+  it('refuses an address outside this computer before sending anything', async () => {
+    const fetchMock = vi.fn()
+    vi.stubGlobal('fetch', fetchMock)
+
+    await expect(review({ ...connection, baseUrl: 'http://192.168.1.5:11434/v1' })).rejects.toThrow('localhost')
+    expect(fetchMock).not.toHaveBeenCalled()
+  })
+})
+
 describe('parseReview', () => {
   it('reads JSON wrapped in other text and normalizes missing fields', () => {
     const review = parseReview('Here it is:\n```json\n{"readiness":"almost","summary":"s","correct":["a"]}\n```')

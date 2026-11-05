@@ -1,7 +1,7 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { Interview, SESSION_LIMIT_MS, WARNING_BEFORE_END_MS, type InterviewDependencies, type InterviewState } from './interview'
 import { END_PHRASE } from './prompt'
-import type { Review } from './review'
+import { generateReview, type Review } from './review'
 import type { VoiceSession, VoiceSessionConfig } from './types'
 
 const REVIEW: Review = {
@@ -142,6 +142,43 @@ describe('Interview', () => {
 
     await interview.retryReview()
     expect(latest().reviewAttempt).toBe(1)
+  })
+
+  it('can retry a failed review from a local model', async () => {
+    const fetchMock = vi
+      .fn()
+      .mockResolvedValueOnce(new Response('busy', { status: 503 }))
+      .mockResolvedValueOnce(Response.json({ choices: [{ message: { content: '{"readiness":"ready"}' } }] }))
+    vi.stubGlobal('fetch', fetchMock)
+    try {
+      let events!: VoiceSessionConfig['events']
+      const states: InterviewState[] = []
+      const interview = new Interview(
+        { provider: 'local', baseUrl: 'http://localhost:11434/v1', model: 'qwen3', apiKey: '' },
+        'Was ist Demokratie?',
+        'Russian',
+        (state) => states.push(state),
+        {
+          createSession: (config) => {
+            events = config.events
+            return { start: async () => undefined, startAnswer() {}, finishAnswer() {}, sendText() {}, canRecord: () => true, stop() {} }
+          },
+          review: generateReview,
+        },
+      )
+      await interview.start()
+      events.onTurn({ id: '1', role: 'applicant', text: 'Das Volk wählt.' })
+
+      await interview.finish()
+      expect(states[states.length - 1].status).toBe('review-failed')
+
+      await interview.retryReview()
+      expect(states[states.length - 1].status).toBe('reviewed')
+      expect(states[states.length - 1].review?.readiness).toBe('ready')
+      expect(fetchMock).toHaveBeenCalledTimes(2)
+    } finally {
+      vi.unstubAllGlobals()
+    }
   })
 
   it('reports a failed start', async () => {

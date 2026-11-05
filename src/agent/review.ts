@@ -1,4 +1,5 @@
 import { createClaudeClient, CLAUDE_MODEL, CLAUDE_FALLBACK_BETA, claudeText } from './adapters/claude'
+import { assertLoopback, headers as localHeaders, stripThinking } from './adapters/local'
 import { formatTranscript, buildReviewPrompt } from './prompt'
 import { ProviderError, type Connection, type ConnectionFor, type ProviderId, type TranscriptTurn } from './types'
 
@@ -123,9 +124,30 @@ const REVIEWERS: { [P in ProviderId]: Reviewer<ConnectionFor<P>> } = {
     throw new ProviderError('No review model is available.')
   },
 
-  async local() {
-    // The interview works with a local model already; its review is the next step of this feature.
-    throw new ProviderError('The review with a local model arrives in a later version.')
+  async local({ baseUrl, model, apiKey }, system, transcript, signal, onRetry) {
+    const url = `${assertLoopback(baseUrl)}/chat/completions`
+    const body = {
+      model,
+      messages: [
+        { role: 'system', content: system },
+        // Some servers want the word "json" in the messages before they accept JSON mode.
+        { role: 'user', content: `Transcript to review. Reply with the JSON object described in your instructions.\n\n${transcript}` },
+      ],
+      stream: false,
+    }
+    let data: LocalResponse
+    try {
+      data = await postJson<LocalResponse>(url, localHeaders(apiKey), { ...body, response_format: { type: 'json_object' } }, signal)
+    } catch (error) {
+      // A client error usually means the server has no JSON mode (LM Studio answers 400), so ask once
+      // without it and let parseReview cut the object out of the text. 401 and 403 reject the key.
+      const status = error instanceof ProviderError ? (error.status ?? 0) : 0
+      if (signal.aborted || status < 400 || status >= 500 || status === 401 || status === 403) throw error
+      onRetry()
+      data = await postJson<LocalResponse>(url, localHeaders(apiKey), body, signal)
+    }
+    // A separate reasoning field (`reasoning_content`, `reasoning`) is ignored on purpose.
+    return stripThinking(data.choices?.[0]?.message?.content ?? '')
   },
 
   async demo() {
@@ -142,6 +164,10 @@ const REVIEWERS: { [P in ProviderId]: Reviewer<ConnectionFor<P>> } = {
 
 interface OpenAIResponse {
   output?: { content?: { text?: string }[] }[]
+}
+
+interface LocalResponse {
+  choices?: { message?: { content?: string | null } }[]
 }
 
 interface GeminiResponse {

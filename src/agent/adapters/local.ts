@@ -25,7 +25,8 @@ export function assertLoopback(baseUrl: string): string {
   return baseUrl.trim().replace(/\/+$/, '')
 }
 
-function headers(apiKey: string): Record<string, string> {
+/** The bearer header, only when the visitor entered a key. */
+export function headers(apiKey: string): Record<string, string> {
   return apiKey ? { Authorization: `Bearer ${apiKey}` } : {}
 }
 
@@ -173,6 +174,12 @@ export class ThinkFilter {
     this.buffer = ''
     return rest
   }
+}
+
+/** Removes `<think>…</think>` blocks from a complete reply. */
+export function stripThinking(text: string): string {
+  const filter = new ThinkFilter()
+  return (filter.push(text) + filter.flush()).trim()
 }
 
 function partialTagLength(text: string, tag: string): number {

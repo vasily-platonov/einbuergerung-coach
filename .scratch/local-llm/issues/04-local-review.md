@@ -4,12 +4,12 @@
 
 **Blocked by:** 03
 
-**Status:** ready-for-agent
+**Status:** done
 
-- [ ] The `local` reviewer sends one non-streaming chat completion on the connected model with the review prompt and transcript, asking for a JSON object response.
-- [ ] On a client error (4xx) it repeats the request once without the JSON format and relies on the existing review parsing to cut the object out of the text. No retry after a network error or a server error.
-- [ ] Think-tag reasoning is removed before parsing. A separate reasoning field is ignored.
-- [ ] The key is sent as a bearer token only when present.
-- [ ] A failed review leaves the existing "retry review" option working.
-- [ ] Tests through `generateReview` with a `local` connection and stubbed `fetch` cover each point above.
-- [ ] `npm test` and `npm run build` pass.
+- [x] The `local` reviewer sends one non-streaming chat completion on the connected model with the review prompt and transcript, asking for a JSON object response.
+- [x] On a client error (4xx) it repeats the request once without the JSON format and relies on the existing review parsing to cut the object out of the text. No retry after a network error or a server error.
+- [x] Think-tag reasoning is removed before parsing. A separate reasoning field is ignored.
+- [x] The key is sent as a bearer token only when present.
+- [x] A failed review leaves the existing "retry review" option working.
+- [x] Tests through `generateReview` with a `local` connection and stubbed `fetch` cover each point above.
+- [x] `npm test` and `npm run build` pass.
