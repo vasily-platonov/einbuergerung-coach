@@ -77,7 +77,13 @@ describe('App', () => {
       fireEvent.change(screen.getByLabelText('Провайдер'), { target: { value: 'local' } })
     }
 
-    it('asks for the server address, an optional key and the model name, without a key link', () => {
+    async function listModels() {
+      await act(async () => {
+        fireEvent.click(screen.getByRole('button', { name: 'Показать модели' }))
+      })
+    }
+
+    it('asks for the server address and an optional key, without a key link', () => {
       render(<App />)
       const option = screen.getByRole('option', { name: 'Локальная модель (OpenAI-совместимая)' }) as HTMLOptionElement
       expect(option.value).toBe('local')
@@ -88,9 +94,12 @@ describe('App', () => {
       expect(baseUrl.getAttribute('aria-describedby')).toBeTruthy()
       expect(screen.getByText(/LM Studio: http:\/\/localhost:1234\/v1/)).toBeTruthy()
       expect((screen.getByLabelText('API-ключ (необязательно)') as HTMLInputElement).required).toBe(false)
-      expect((screen.getByLabelText('Название модели') as HTMLInputElement).required).toBe(true)
+      expect(screen.queryByLabelText(/^Название модели/)).toBeNull()
       expect(screen.queryByRole('link', { name: /Локальная модель/ })).toBeNull()
       expect(screen.getByText(/^Базовый голос/)).toBeTruthy()
+      expect(screen.getByText(/^Модель работает на вашем компьютере/)).toBeTruthy()
+      expect(screen.queryByText(/^Нужен свой API-ключ/)).toBeNull()
+      expect(screen.getByText(/^Качество зависит от модели/)).toBeTruthy()
     })
 
     it('rejects a server that is not on this computer without contacting it', async () => {
@@ -99,41 +108,90 @@ describe('App', () => {
       render(<App />)
       chooseLocal()
       fireEvent.change(screen.getByLabelText(/^Адрес сервера/), { target: { value: 'http://192.168.1.10:11434/v1' } })
-      fireEvent.change(screen.getByLabelText('Название модели'), { target: { value: 'qwen-test' } })
-      await act(async () => {
-        fireEvent.click(screen.getByRole('button', { name: 'Подключить' }))
-      })
+      await listModels()
 
       expect(screen.getByRole('alert').textContent).toMatch(/только сервер на вашем компьютере/)
       expect(fetchMock).not.toHaveBeenCalled()
       expect(screen.queryByText(/^Подключено/)).toBeNull()
     })
 
-    it('connects with a typed model after the server lists its models', async () => {
-      const fetchMock = vi.fn(async () => Response.json({ object: 'list', data: [{ id: 'qwen-test' }] }))
+    it('lists the models in a dropdown and connects with the one picked', async () => {
+      const fetchMock = vi.fn(async () =>
+        Response.json({ object: 'list', data: [{ id: 'llama-test' }, { id: 'qwen3:14b' }] }),
+      )
       vi.stubGlobal('fetch', fetchMock)
       render(<App />)
       chooseLocal()
-      fireEvent.change(screen.getByLabelText('Название модели'), { target: { value: ' qwen-test ' } })
-      await act(async () => {
-        fireEvent.click(screen.getByRole('button', { name: 'Подключить' }))
-      })
+      await listModels()
 
       const [url, init] = fetchMock.mock.calls[0] as unknown as [string, RequestInit]
       expect(url).toBe('http://localhost:11434/v1/models')
       expect(init.headers).toEqual({})
-      expect(screen.getByText(/Подключено: Локальная модель \(OpenAI-совместимая\)/)).toBeTruthy()
-    })
-
-    it('shows an error when the server does not answer', async () => {
-      vi.stubGlobal('fetch', vi.fn(async () => new Response('', { status: 500 })))
-      render(<App />)
-      chooseLocal()
-      fireEvent.change(screen.getByLabelText('Название модели'), { target: { value: 'qwen-test' } })
+      const choice = screen.getByLabelText('Модель') as HTMLSelectElement
+      expect(Array.from(choice.options, (option) => option.value)).toEqual(['llama-test', 'qwen3:14b'])
+      fireEvent.change(choice, { target: { value: 'qwen3:14b' } })
       await act(async () => {
         fireEvent.click(screen.getByRole('button', { name: 'Подключить' }))
       })
+
+      expect(fetchMock).toHaveBeenCalledTimes(1)
+      expect(screen.getByText('Подключено: Локальная модель (OpenAI-совместимая) · qwen3:14b')).toBeTruthy()
+      await act(async () => {
+        fireEvent.click(screen.getByRole('button', { name: 'Отключить' }))
+      })
+      expect(screen.queryByText(/^Подключено/)).toBeNull()
+      expect(screen.getByLabelText('Провайдер')).toBeTruthy()
+    })
+
+    it('starts over when the address changes after listing', async () => {
+      vi.stubGlobal('fetch', vi.fn(async () => Response.json({ data: [{ id: 'qwen-test' }] })))
+      render(<App />)
+      chooseLocal()
+      await listModels()
+      expect(screen.getByLabelText('Модель')).toBeTruthy()
+
+      fireEvent.change(screen.getByLabelText(/^Адрес сервера/), { target: { value: 'http://localhost:1234/v1' } })
+      expect(screen.queryByLabelText('Модель')).toBeNull()
+      expect(screen.getByRole('button', { name: 'Показать модели' })).toBeTruthy()
+    })
+
+    it('falls back to a typed model name when the server lists no models', async () => {
+      vi.stubGlobal('fetch', vi.fn(async () => Response.json({ object: 'list', data: [] })))
+      render(<App />)
+      chooseLocal()
+      await listModels()
+
+      expect(screen.getByText(/^Сервер не показал список моделей/)).toBeTruthy()
+      fireEvent.change(screen.getByLabelText(/^Название модели/), { target: { value: ' qwen-test ' } })
+      await act(async () => {
+        fireEvent.click(screen.getByRole('button', { name: 'Подключить' }))
+      })
+      expect(screen.getByText('Подключено: Локальная модель (OpenAI-совместимая) · qwen-test')).toBeTruthy()
+    })
+
+    it('falls back to a typed model name when the listing fails with an HTTP error', async () => {
+      vi.stubGlobal('fetch', vi.fn(async () => new Response('', { status: 404 })))
+      render(<App />)
+      chooseLocal()
+      await listModels()
+
+      expect(screen.queryByRole('alert')).toBeNull()
+      const name = screen.getByLabelText(/^Название модели/) as HTMLInputElement
+      expect(name.required).toBe(true)
+      fireEvent.change(name, { target: { value: 'qwen-test' } })
+      await act(async () => {
+        fireEvent.click(screen.getByRole('button', { name: 'Подключить' }))
+      })
+      expect(screen.getByText('Подключено: Локальная модель (OpenAI-совместимая) · qwen-test')).toBeTruthy()
+    })
+
+    it('shows an error when the server cannot be reached', async () => {
+      vi.stubGlobal('fetch', vi.fn(async () => Promise.reject(new TypeError('Failed to fetch'))))
+      render(<App />)
+      chooseLocal()
+      await listModels()
       expect(screen.getByRole('alert').textContent).toMatch(/^Не удалось подключиться к локальному серверу/)
+      expect(screen.queryByLabelText(/^Название модели/)).toBeNull()
     })
   })
 

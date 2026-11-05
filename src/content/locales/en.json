@@ -40,7 +40,13 @@
       "apiKeyOptional": "API key (optional)",
       "model": "Model name",
       "notLoopback": "Only a server on your own computer can be used: the address must start with http://localhost or http://127.0.0.1.",
-      "localFailed": "Could not connect to the local server. Check the address and make sure the server is running."
+      "localFailed": "Could not connect to the local server. Check the address and make sure the server is running.",
+      "descriptionLocal": "The model runs on your own computer, for example in Ollama or LM Studio. A key is needed only if your server asks for one.",
+      "listModels": "Show models",
+      "listing": "Looking for models…",
+      "modelChoice": "Model",
+      "modelsMissing": "The server did not list its models. Type the model name instead.",
+      "localQuality": "Quality depends on the model. Small models struggle with German and with the review format."
     },
     "question": {
       "back": "All questions",
