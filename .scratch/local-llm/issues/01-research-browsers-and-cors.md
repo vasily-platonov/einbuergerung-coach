@@ -4,7 +4,7 @@
 
 **Blocked by:** None (can start immediately)
 
-**Status:** ready-for-agent
+**Status:** done
 
 Answer each question from primary sources (browser docs, specs, release notes, the server projects' own docs) and record the answers, each with a link, in a "Research findings" section of the plan:
 
