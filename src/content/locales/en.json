@@ -31,7 +31,16 @@
       "nativeVoice": "The provider's native voice.",
       "sessionOnly": "The key is kept only for this session: it stays in this tab's memory, is not saved anywhere, and is sent only to the provider you chose. It disappears when you close or reload the tab. If your browser or password manager offers to save it, decline.",
       "cost": "For reference: in a test with OpenAI, an interview on one question cost about 15 cents. The cost depends on the length of the conversation and the provider. Providers sometimes offer free tiers, so if you just want to evaluate the site, try them all before buying anything.",
-      "safety": "Set a spending limit with the provider, and preferably create a separate key for this site."
+      "safety": "Set a spending limit with the provider, and preferably create a separate key for this site.",
+      "providerNames": {
+        "local": "Local model (OpenAI-compatible)"
+      },
+      "baseUrl": "Server address",
+      "baseUrlHint": "Ollama: http://localhost:11434/v1, LM Studio: http://localhost:1234/v1",
+      "apiKeyOptional": "API key (optional)",
+      "model": "Model name",
+      "notLoopback": "Only a server on your own computer can be used: the address must start with http://localhost or http://127.0.0.1.",
+      "localFailed": "Could not connect to the local server. Check the address and make sure the server is running."
     },
     "question": {
       "back": "All questions",

@@ -365,6 +365,23 @@ textarea:focus-visible {
   gap: 12px;
 }
 
+/* The local provider has more fields, so they wrap into two columns with the button below. */
+.connect-form.local {
+  grid-template-columns: 1fr 1fr;
+  align-items: start;
+}
+
+.connect-form.local .button {
+  justify-self: start;
+}
+
+.field-hint {
+  display: block;
+  margin-top: 4px;
+  font-size: 0.8125rem;
+  overflow-wrap: anywhere;
+}
+
 .actions {
   display: flex;
   flex-wrap: wrap;
@@ -485,6 +502,7 @@ summary {
 
 @media (max-width: 600px) {
   .connect-form,
+  .connect-form.local,
   .typed {
     grid-template-columns: 1fr;
   }

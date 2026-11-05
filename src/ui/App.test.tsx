@@ -70,6 +70,73 @@ describe('App', () => {
     expect(screen.getByText(/около 15 центов.*бесплатные тарифы/)).toBeTruthy()
   })
 
+  describe('with a local model', () => {
+    afterEach(() => vi.unstubAllGlobals())
+
+    function chooseLocal() {
+      fireEvent.change(screen.getByLabelText('Провайдер'), { target: { value: 'local' } })
+    }
+
+    it('asks for the server address, an optional key and the model name, without a key link', () => {
+      render(<App />)
+      const option = screen.getByRole('option', { name: 'Локальная модель (OpenAI-совместимая)' }) as HTMLOptionElement
+      expect(option.value).toBe('local')
+      chooseLocal()
+
+      const baseUrl = screen.getByLabelText(/^Адрес сервера/) as HTMLInputElement
+      expect(baseUrl.value).toBe('http://localhost:11434/v1')
+      expect(baseUrl.getAttribute('aria-describedby')).toBeTruthy()
+      expect(screen.getByText(/LM Studio: http:\/\/localhost:1234\/v1/)).toBeTruthy()
+      expect((screen.getByLabelText('API-ключ (необязательно)') as HTMLInputElement).required).toBe(false)
+      expect((screen.getByLabelText('Название модели') as HTMLInputElement).required).toBe(true)
+      expect(screen.queryByRole('link', { name: /Локальная модель/ })).toBeNull()
+      expect(screen.getByText(/^Базовый голос/)).toBeTruthy()
+    })
+
+    it('rejects a server that is not on this computer without contacting it', async () => {
+      const fetchMock = vi.fn()
+      vi.stubGlobal('fetch', fetchMock)
+      render(<App />)
+      chooseLocal()
+      fireEvent.change(screen.getByLabelText(/^Адрес сервера/), { target: { value: 'http://192.168.1.10:11434/v1' } })
+      fireEvent.change(screen.getByLabelText('Название модели'), { target: { value: 'qwen-test' } })
+      await act(async () => {
+        fireEvent.click(screen.getByRole('button', { name: 'Подключить' }))
+      })
+
+      expect(screen.getByRole('alert').textContent).toMatch(/только сервер на вашем компьютере/)
+      expect(fetchMock).not.toHaveBeenCalled()
+      expect(screen.queryByText(/^Подключено/)).toBeNull()
+    })
+
+    it('connects with a typed model after the server lists its models', async () => {
+      const fetchMock = vi.fn(async () => Response.json({ object: 'list', data: [{ id: 'qwen-test' }] }))
+      vi.stubGlobal('fetch', fetchMock)
+      render(<App />)
+      chooseLocal()
+      fireEvent.change(screen.getByLabelText('Название модели'), { target: { value: ' qwen-test ' } })
+      await act(async () => {
+        fireEvent.click(screen.getByRole('button', { name: 'Подключить' }))
+      })
+
+      const [url, init] = fetchMock.mock.calls[0] as unknown as [string, RequestInit]
+      expect(url).toBe('http://localhost:11434/v1/models')
+      expect(init.headers).toEqual({})
+      expect(screen.getByText(/Подключено: Локальная модель \(OpenAI-совместимая\)/)).toBeTruthy()
+    })
+
+    it('shows an error when the server does not answer', async () => {
+      vi.stubGlobal('fetch', vi.fn(async () => new Response('', { status: 500 })))
+      render(<App />)
+      chooseLocal()
+      fireEvent.change(screen.getByLabelText('Название модели'), { target: { value: 'qwen-test' } })
+      await act(async () => {
+        fireEvent.click(screen.getByRole('button', { name: 'Подключить' }))
+      })
+      expect(screen.getByRole('alert').textContent).toMatch(/^Не удалось подключиться к локальному серверу/)
+    })
+  })
+
   it('warns on the start page that a language model runs the interview and can be wrong', () => {
     render(<App />)
     expect(screen.getByText(/языковая модель \(LLM\): она может ошибаться/)).toBeTruthy()

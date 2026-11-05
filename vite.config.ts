@@ -1,7 +1,9 @@
 import react from '@vitejs/plugin-react'
 import { defineConfig, type Plugin } from 'vitest/config'
 
-// Keeps out third-party and injected scripts, and limits fetch and WebSocket traffic to the provider APIs.
+// Keeps out third-party and injected scripts, and limits fetch and WebSocket traffic to the provider APIs
+// and to a local model server on this computer (loopback only, any port; the code also rejects other hosts).
+// Both loopback hosts are listed, because browsers compare hosts as plain strings.
 // It does not cover WebRTC, which OpenAI voice needs, or navigation, so a script already running could still use those.
 const CONTENT_SECURITY_POLICY = [
   "default-src 'none'",
@@ -10,7 +12,7 @@ const CONTENT_SECURITY_POLICY = [
   "img-src 'self' data:",
   "font-src 'self'",
   "media-src 'self' blob:",
-  "connect-src https://api.anthropic.com https://api.openai.com https://generativelanguage.googleapis.com wss://generativelanguage.googleapis.com",
+  "connect-src https://api.anthropic.com https://api.openai.com https://generativelanguage.googleapis.com wss://generativelanguage.googleapis.com http://localhost:* http://127.0.0.1:*",
   "base-uri 'none'",
   "form-action 'none'",
 ].join('; ')

@@ -123,6 +123,11 @@ const REVIEWERS: { [P in ProviderId]: Reviewer<ConnectionFor<P>> } = {
     throw new ProviderError('No review model is available.')
   },
 
+  async local() {
+    // The interview works with a local model already; its review is the next step of this feature.
+    throw new ProviderError('The review with a local model arrives in a later version.')
+  },
+
   async demo() {
     return JSON.stringify({
       readiness: 'almost',

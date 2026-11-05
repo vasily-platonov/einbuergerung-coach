@@ -1,12 +1,15 @@
 import { ClaudeVoiceSession, createClaudeClient } from './adapters/claude'
 import { DemoVoiceSession } from './adapters/demo'
 import { GeminiVoiceSession } from './adapters/gemini'
+import { listLocalModels, LocalVoiceSession } from './adapters/local'
 import { OpenAIVoiceSession } from './adapters/openai'
 import { ProviderError, type Connection, type ProviderId, type VoiceSession, type VoiceSessionConfig } from './types'
 
 export interface ProviderInfo {
   id: ProviderId
-  name: string
+  /** A brand name. Without one, the locale names the provider in `connect.providerNames`. */
+  name?: string
+  /** Empty when the provider needs no key from a website. */
   keyUrl: string
   /** Browser speech instead of the provider's own voice. */
   basicVoice: boolean
@@ -16,6 +19,7 @@ export const PROVIDERS: ProviderInfo[] = [
   { id: 'openai', name: 'OpenAI', keyUrl: 'https://platform.openai.com/api-keys', basicVoice: false },
   { id: 'gemini', name: 'Google Gemini', keyUrl: 'https://aistudio.google.com/apikey', basicVoice: false },
   { id: 'claude', name: 'Anthropic Claude', keyUrl: 'https://platform.claude.com/settings/keys', basicVoice: true },
+  { id: 'local', keyUrl: '', basicVoice: true },
   ...(import.meta.env.DEV
     ? [{ id: 'demo' as const, name: 'Demo (dev only)', keyUrl: '', basicVoice: false }]
     : []),
@@ -32,6 +36,8 @@ export function createVoiceSession(config: VoiceSessionConfig): VoiceSession {
       return new ClaudeVoiceSession({ ...config, connection })
     case 'demo':
       return new DemoVoiceSession({ ...config, connection })
+    case 'local':
+      return new LocalVoiceSession({ ...config, connection })
   }
 }
 
@@ -52,6 +58,9 @@ export async function verifyConnection(connection: Connection): Promise<void> {
       await createClaudeClient(connection.apiKey).models.list({ limit: 1 })
       return
     case 'demo':
+      return
+    case 'local':
+      await listLocalModels(connection)
       return
   }
 }
