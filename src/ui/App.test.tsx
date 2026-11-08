@@ -223,6 +223,23 @@ describe('App', () => {
     expect(screen.getByText(/языковая модель \(LLM\): она может ошибаться/)).toBeTruthy()
   })
 
+  it('links from the key notice to a guide for each cloud provider', async () => {
+    render(<App />)
+    const link = screen.getByRole('link', { name: 'как его получить' })
+    expect(link.getAttribute('href')).toBe('#/howto')
+    await go('#/howto')
+    expect(screen.getByRole('heading', { level: 1, name: 'Как получить API-ключ' })).toBeTruthy()
+    for (const name of ['OpenAI', 'Google Gemini', 'Anthropic Claude']) {
+      expect(screen.getByRole('heading', { level: 2, name })).toBeTruthy()
+    }
+    const keyPages = screen.getAllByRole('link', { name: 'Страница ключей' }).map((link) => link.getAttribute('href'))
+    expect(keyPages).toHaveLength(3)
+    const signIns = ['платформу OpenAI', 'Google AI Studio', 'Claude Console'].map((name) =>
+      screen.getByRole('link', { name }).getAttribute('href'),
+    )
+    expect(signIns).toEqual(keyPages)
+  })
+
   it('switches the language', async () => {
     render(<App />)
     fireEvent.click(screen.getByRole('button', { name: 'English' }))
