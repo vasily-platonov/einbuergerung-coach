@@ -1,5 +1,18 @@
 # Release notes
 
+## 1.2.0 (2026-11-09)
+
+A guide to getting an API key.
+
+### Added
+
+- **How-to page:** the connect panel says "You need your own API key (how to get one)", and the link opens a new page, `#/howto`. For OpenAI, Google Gemini and Anthropic Claude it explains which voice you get, how billing works and how to create a key and set a spend limit, with links to the key page and to billing and limits. The steps follow each provider's own help.
+- **Claude keys:** the guide says to scope the key to a workspace, because this site does not send a workspace ID.
+
+### Documentation
+
+- `AGENTS.md`: every pull request raises the version once and adds a CHANGELOG entry.
+
 ## 1.1.0 (2026-11-06)
 
 Practise with a model running on your own computer, with no API key.

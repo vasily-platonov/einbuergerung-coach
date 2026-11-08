@@ -11,17 +11,37 @@ export interface ProviderInfo {
   name?: string
   /** Empty when the provider needs no key from a website. */
   keyUrl: string
+  /** Where to pay and set a spending limit. Empty when the provider has no billing. */
+  billingUrl: string
   /** Browser speech instead of the provider's own voice. */
   basicVoice: boolean
 }
 
 export const PROVIDERS: ProviderInfo[] = [
-  { id: 'openai', name: 'OpenAI', keyUrl: 'https://platform.openai.com/api-keys', basicVoice: false },
-  { id: 'gemini', name: 'Google Gemini', keyUrl: 'https://aistudio.google.com/apikey', basicVoice: false },
-  { id: 'claude', name: 'Anthropic Claude', keyUrl: 'https://platform.claude.com/settings/keys', basicVoice: true },
-  { id: 'local', keyUrl: '', basicVoice: true },
+  {
+    id: 'openai',
+    name: 'OpenAI',
+    keyUrl: 'https://platform.openai.com/api-keys',
+    billingUrl: 'https://platform.openai.com/settings/organization/billing/overview',
+    basicVoice: false,
+  },
+  {
+    id: 'gemini',
+    name: 'Google Gemini',
+    keyUrl: 'https://aistudio.google.com/apikey',
+    billingUrl: 'https://aistudio.google.com/billing',
+    basicVoice: false,
+  },
+  {
+    id: 'claude',
+    name: 'Anthropic Claude',
+    keyUrl: 'https://platform.claude.com/settings/keys',
+    billingUrl: 'https://platform.claude.com/settings/billing',
+    basicVoice: true,
+  },
+  { id: 'local', keyUrl: '', billingUrl: '', basicVoice: true },
   ...(import.meta.env.DEV
-    ? [{ id: 'demo' as const, name: 'Demo (dev only)', keyUrl: '', basicVoice: false }]
+    ? [{ id: 'demo' as const, name: 'Demo (dev only)', keyUrl: '', billingUrl: '', basicVoice: false }]
     : []),
 ]
 

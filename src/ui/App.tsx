@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import type { Connection } from '../agent/types'
 import { LOCALES, QUESTIONS, pickLocale } from '../content'
 import { HomePage } from './HomePage'
+import { HowToPage } from './HowToPage'
 import { QuestionPage } from './QuestionPage'
 
 function currentRoute(): string {
@@ -51,7 +52,9 @@ export function App() {
         </div>
       </header>
       <main>
-        {index >= 0 ? (
+        {route === 'howto' ? (
+          <HowToPage ui={locale.ui} />
+        ) : index >= 0 ? (
           // The key makes each page a new mount, which ends any interview from the previous page.
           <QuestionPage
             key={QUESTIONS[index].id}

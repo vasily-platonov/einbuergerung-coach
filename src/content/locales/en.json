@@ -18,7 +18,9 @@
     },
     "connect": {
       "title": "Connect an AI",
-      "description": "You need your own API key. A regular subscription (Claude, ChatGPT, Gemini) does not work here, and the provider charges for what you use.",
+      "needKey": "You need your own API key",
+      "howToLink": "how to get one",
+      "description": "A regular subscription (Claude, ChatGPT, Gemini) does not work here, and the provider charges for what you use.",
       "provider": "Provider",
       "apiKey": "API key",
       "getKey": "Where to get a key:",
@@ -59,6 +61,28 @@
         "prompt": "Did your browser ask about local network access? Chrome, Edge and Firefox ask before a website can talk to apps on your computer. Choose Allow. If you blocked it, open the site settings (the icon left of the address), allow \"Loopback network\" or \"Local network access\", and try again.",
         "safari": "Safari can't connect to a server on your computer from this site. Please use Chrome, Edge or Firefox."
       }
+    },
+    "howTo": {
+      "title": "How to get an API key",
+      "back": "Back to the start",
+      "intro": "An API key lets this site talk to a provider on your behalf. It is not a chat subscription: the provider bills you separately for what you use. Pick one of the three options. Menus on the provider sites change from time to time, so the steps may look slightly different.",
+      "openKeys": "Key page",
+      "openBilling": "Billing and limits",
+      "providers": {
+        "openai": {
+          "summary": "The provider's native voice. You pay in advance by topping up your balance.",
+          "steps": ["Sign in to the [OpenAI platform] or create an account.", "In Billing, add a payment method and buy credits (at least $5). Auto recharge is on by default: turn it off if you only want to pay manually.", "Open API keys, choose \"Create new secret key\", give it a name such as \"Einbürgerung Coach\" and copy the key. It is shown only once.", "In the project's Limits, set a monthly spend limit and turn on \"Enforce a hard limit\". Without it, the limit only sends alerts."]
+        },
+        "gemini": {
+          "summary": "The provider's native voice. Google AI Studio has a free tier with limits, so you can try the site without paying.",
+          "steps": ["Open [Google AI Studio], sign in with your Google account and accept the terms. New users get a project and a key automatically.", "Open the API Keys page. If there is no key yet, choose \"Create API key\".", "Copy the key.", "On the free tier, Google may use your data to improve its products. To go beyond the free limits, choose \"Set up billing\" next to the project in AI Studio, then set a monthly spend cap on the Spend page."]
+        },
+        "claude": {
+          "summary": "Basic voice: the browser recognizes and speaks the text. You pay in advance by topping up your balance.",
+          "steps": ["Sign in to the [Claude Console] or create an account.", "On the Billing page, choose \"Buy credits\" and buy a small amount.", "Open API keys and choose \"Create key\". Give it a name, pick an expiration and choose a workspace, for example the Default Workspace: this site does not send a workspace ID, so a key without a workspace does not work here. Copy the key. It is shown only once.", "On the Billing page, in Spend limits, choose \"Set limit\" and enter a monthly limit."]
+        }
+      },
+      "afterwards": "Then go back to the start page, choose the provider, paste the key and press Connect. Keep the key secret: anyone who has it can spend your balance."
     },
     "question": {
       "back": "All questions",

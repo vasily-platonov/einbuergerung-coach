@@ -15,7 +15,7 @@ A browser-only trainer for the German naturalization conversation. `README.md` c
 - A new voice provider implements `VoiceSession` in `src/agent/adapters/` and registers in `src/agent/providers.ts`.
 - A new API host also goes into `connect-src` in `vite.config.ts`, or the production build blocks it. The policy applies only to the build, so check new hosts with `npm run build` and `npm run preview`.
 - Styles go in `src/ui/styles.css` as classes, because the policy has `style-src 'self'`.
-- A new release updates both `VERSION` and `package.json`, and adds an entry to `CHANGELOG.md`. A test keeps the two versions equal.
+- Every pull request is one change: it raises the version once and adds one entry to `CHANGELOG.md`. A new feature raises the minor number, a fix or small change the patch number. Later commits in the same pull request keep that version and update its entry instead of adding a new one. Update `VERSION`, `package.json` and the two `version` fields at the top of `package-lock.json`. A test keeps `VERSION` and `package.json` equal.
 
 ## Content
 

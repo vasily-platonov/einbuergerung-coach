@@ -136,7 +136,15 @@ export function ConnectPanel({ ui, connection, onConnect }: Props) {
   return (
     <section className="card">
       <h2>{text.title}</h2>
-      <p className="muted">{local ? text.descriptionLocal : text.description}</p>
+      <p className="muted">
+        {local ? (
+          text.descriptionLocal
+        ) : (
+          <>
+            {text.needKey} (<a href="#/howto">{text.howToLink}</a>). {text.description}
+          </>
+        )}
+      </p>
       <form className={local ? 'connect-form local' : 'connect-form'} onSubmit={submit}>
         <label>
           {text.provider}
