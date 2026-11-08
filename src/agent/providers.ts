@@ -29,7 +29,7 @@ export const PROVIDERS: ProviderInfo[] = [
     id: 'gemini',
     name: 'Google Gemini',
     keyUrl: 'https://aistudio.google.com/apikey',
-    billingUrl: 'https://ai.google.dev/gemini-api/docs/billing',
+    billingUrl: 'https://aistudio.google.com/billing',
     basicVoice: false,
   },
   {

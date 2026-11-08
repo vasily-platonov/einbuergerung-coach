@@ -71,15 +71,15 @@
       "providers": {
         "openai": {
           "summary": "The provider's native voice. You pay in advance by topping up your balance.",
-          "steps": ["Sign in to the [OpenAI platform] or create an account.", "In Billing, add a payment method and top up a small amount.", "Open API keys, choose \"Create new secret key\", give it a name such as \"Einbürgerung Coach\" and copy the key.", "In Limits, set a monthly budget."]
+          "steps": ["Sign in to the [OpenAI platform] or create an account.", "In Billing, add a payment method and buy credits (at least $5). Auto recharge is on by default: turn it off if you only want to pay manually.", "Open API keys, choose \"Create new secret key\", give it a name such as \"Einbürgerung Coach\" and copy the key. It is shown only once.", "In the project's Limits, set a monthly spend limit and turn on \"Enforce a hard limit\". Without it, the limit only sends alerts."]
         },
         "gemini": {
           "summary": "The provider's native voice. Google AI Studio has a free tier with limits, so you can try the site without paying.",
-          "steps": ["Open [Google AI Studio] and sign in with your Google account.", "Open \"Get API key\" and choose \"Create API key\".", "Copy the key.", "To go beyond the free limits, set up billing for the project in Google Cloud and set a budget there. On the free tier, Google may use your data to improve its products."]
+          "steps": ["Open [Google AI Studio], sign in with your Google account and accept the terms. New users get a project and a key automatically.", "Open the API Keys page. If there is no key yet, choose \"Create API key\".", "Copy the key.", "On the free tier, Google may use your data to improve its products. To go beyond the free limits, choose \"Set up billing\" next to the project in AI Studio, then set a monthly spend cap on the Spend page."]
         },
         "claude": {
           "summary": "Basic voice: the browser recognizes and speaks the text. You pay in advance by topping up your balance.",
-          "steps": ["Sign in to the [Claude Console] or create an account.", "In Billing, top up a small amount.", "Open API keys, choose \"Create key\", give it a name and copy the key.", "In Limits, set a monthly spend limit."]
+          "steps": ["Sign in to the [Claude Console] or create an account.", "On the Billing page, choose \"Buy credits\" and buy a small amount.", "Open API keys and choose \"Create key\". Give it a name, pick an expiration and choose a workspace, for example the Default Workspace: this site does not send a workspace ID, so a key without a workspace does not work here. Copy the key. It is shown only once.", "On the Billing page, in Spend limits, choose \"Set limit\" and enter a monthly limit."]
         }
       },
       "afterwards": "Then go back to the start page, choose the provider, paste the key and press Connect. Keep the key secret: anyone who has it can spend your balance."

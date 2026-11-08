@@ -1,5 +1,15 @@
 # Release notes
 
+## 1.2.1 (2026-11-08)
+
+The How-to steps match the providers' own help.
+
+### Fixed
+
+- **OpenAI:** the spend limit needs "Enforce a hard limit" to stop requests, and auto recharge is on by default.
+- **Google Gemini:** billing and the monthly spend cap are set in AI Studio, not in Google Cloud. "Billing and limits" opens the AI Studio billing page.
+- **Anthropic Claude:** the spend limit is on the Billing page under Spend limits. The key must be scoped to a workspace, because this site does not send a workspace ID.
+
 ## 1.2.0 (2026-11-08)
 
 A guide to getting an API key.
